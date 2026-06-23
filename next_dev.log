@@ -6,29 +6,21 @@
    - Local:        http://localhost:3000
 
  ✓ Starting...
- ✓ Ready in 3.1s
+ ✓ Ready in 1844ms
  ○ Compiling / ...
- ✓ Compiled / in 22.5s (1580 modules)
- GET / 200 in 25374ms
- ✓ Compiled in 2.8s (757 modules)
- GET / 200 in 152ms
- ✓ Compiled in 1126ms (1553 modules)
- GET / 200 in 769ms
- GET / 200 in 84ms
- GET / 200 in 169ms
- GET / 200 in 87ms
- ✓ Compiled in 7.8s (1553 modules)
- GET / 200 in 510ms
- ○ Compiling /services ...
- ✓ Compiled /services in 5.9s (1620 modules)
- ✓ Compiled in 2.1s (1585 modules)
- ✓ Compiled in 1323ms (1585 modules)
- ✓ Compiled in 140ms (752 modules)
- ⚠ Your page app/page.tsx did not have a root layout. We created app/layout.tsx for you.
- ✓ Compiled in 492ms (1515 modules)
- ✓ Compiled in 698ms (1585 modules)
- ✓ Compiled in 307ms (789 modules)
- ⚠ Your page app/page.tsx did not have a root layout. We created app/layout.tsx for you.
- ✓ Compiled in 446ms (1515 modules)
- ✓ Compiled in 729ms (1585 modules)
- ✓ Compiled in 452ms (789 modules)
+ ✓ Compiled / in 22.1s (1620 modules)
+ GET / 200 in 24552ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 13.8s (1582 modules)
+ GET /images/logo.png 404 in 12042ms
+ ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
+ GET /images/logo.png 404 in 11822ms
+ ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
+ GET / 200 in 428ms
+ GET /images/logo.png 404 in 66ms
+ ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
+ GET /images/logo.png 404 in 43ms
+ ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
+ GET /images/logo.png 404 in 41ms
+ ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1524178232457-3bb2449b382a?q=80&w=2070&auto=format&fit=crop 404
