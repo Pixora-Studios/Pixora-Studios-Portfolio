@@ -7,6 +7,31 @@ import { MagneticButton } from "@/components/shared/MagneticButton";
 import { cn } from "@/lib/utils";
 
 export function HeroSection() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.215, 0.61, 0.355, 1],
+      },
+    },
+  };
+
+  const line1 = "Your Business,";
+  const line2 = "But Make It";
+
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-background-light dark:bg-background-dark">
       {/* Ambient background effects */}
@@ -16,10 +41,14 @@ export function HeroSection() {
       </div>
 
       <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-        <div className="flex flex-col items-start">
+        <motion.div
+          className="flex flex-col items-start"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
+            variants={itemVariants}
             className="flex items-center space-x-2 text-primary-light dark:text-primary-dark font-mono text-xs uppercase tracking-widest mb-8"
           >
             <span>✦ Bhubaneswar → Internet</span>
@@ -27,45 +56,53 @@ export function HeroSection() {
           </motion.div>
 
           <h1 className="text-6xl md:text-8xl font-display font-bold leading-[0.9] mb-8 tracking-tighter">
-            <motion.span
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
-              className="block"
-            >
-              We Build Websites
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
-              className="block"
-            >
-              That Bring{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 bg-[length:200%_auto] animate-gradient-flow">
-                Customers.
-              </span>
-            </motion.span>
+            <span className="block overflow-hidden">
+              {line1.split(" ").map((word, i) => (
+                <motion.span
+                  key={i}
+                  variants={itemVariants}
+                  className="inline-block mr-[0.2em]"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </span>
+            <span className="block overflow-hidden">
+              {line2.split(" ").map((word, i) => (
+                <motion.span
+                  key={i}
+                  variants={itemVariants}
+                  className="inline-block mr-[0.2em]"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </span>
+            <span className="block overflow-hidden">
+              <motion.span
+                variants={itemVariants}
+                className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 bg-[length:200%_auto] animate-gradient-flow"
+              >
+                Unforgettable.
+              </motion.span>
+            </span>
           </h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
+            variants={itemVariants}
             className="text-lg md:text-xl text-text-muted-light dark:text-text-muted-dark max-w-[480px] mb-12 leading-relaxed"
           >
             We turn local businesses into brands people actually look up.
             No templates. No fluff. Just something that works.
           </motion.p>
 
-          <div className="flex flex-wrap items-center gap-10 mb-16">
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-10 mb-16">
             <MagneticButton>
               <Link
                 href="/contact"
                 className="px-10 py-5 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-lg hover:scale-105 transition-transform flex items-center group"
               >
-                <span>Let&apos;s Build</span>
-                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                <span>Let&apos;s Build →</span>
               </Link>
             </MagneticButton>
 
@@ -76,19 +113,19 @@ export function HeroSection() {
               <span>See the work</span>
               <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary-light dark:bg-primary-dark transition-all duration-300 group-hover:w-full" />
             </Link>
-          </div>
+          </motion.div>
 
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            className="flex flex-wrap gap-x-8 gap-y-4 text-xs font-mono text-text-muted-light dark:text-text-muted-dark uppercase tracking-widest"
+            variants={itemVariants}
+            className="flex flex-wrap gap-x-3 text-xs font-mono text-text-muted-light dark:text-text-muted-dark uppercase tracking-widest items-center"
           >
-            <span className="flex items-center">✦ 15+ brands live</span>
-            <span className="flex items-center">✦ MERN + Next.js</span>
-            <span className="flex items-center">✦ Ships in 2–4 weeks</span>
+            <span>✦ 15+ brands live</span>
+            <span className="opacity-40">·</span>
+            <span>✦ MERN + Next.js</span>
+            <span className="opacity-40">·</span>
+            <span>✦ Ships in 2–4 weeks</span>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Mock Browser UI */}
         <motion.div

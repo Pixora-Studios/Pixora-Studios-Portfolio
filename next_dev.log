@@ -1,0 +1,19 @@
+
+> pixora-studios@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.0.3
+   - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 22.5s (1580 modules)
+ GET / 200 in 25374ms
+ ✓ Compiled in 2.8s (757 modules)
+ GET / 200 in 152ms
+ ✓ Compiled in 1126ms (1553 modules)
+ GET / 200 in 769ms
+ GET / 200 in 84ms
+ GET / 200 in 169ms
+ GET / 200 in 87ms
