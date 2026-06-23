@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -40,14 +41,14 @@ export function Navbar() {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2 group">
-          <span className="text-2xl font-display font-bold">
-            <span className="text-transparent bg-clip-text bg-gradient-light dark:bg-gradient-primary">
-              Pixora
-            </span>
-            <span className="text-text-muted-light dark:text-text-muted-dark">
-              Studios
-            </span>
-          </span>
+          <Image
+            src="/images/logo.png"
+            alt="Pixora Studios"
+            width={160}
+            height={40}
+            className="object-contain dark:invert"
+            priority
+          />
         </Link>
 
         {/* Desktop Menu */}

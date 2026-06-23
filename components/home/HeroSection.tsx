@@ -3,125 +3,45 @@
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
 import { MagneticButton } from "@/components/shared/MagneticButton";
 import { cn } from "@/lib/utils";
 
 export function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let particles: any[] = [];
-    const particleCount = 100;
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    class Particle {
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-
-      constructor() {
-        this.x = Math.random() * canvas!.width;
-        this.y = Math.random() * canvas!.height;
-        this.size = Math.random() * 2;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x > canvas!.width) this.x = 0;
-        if (this.x < 0) this.x = canvas!.width;
-        if (this.y > canvas!.height) this.y = 0;
-        if (this.y < 0) this.y = canvas!.height;
-      }
-
-      draw() {
-        ctx!.fillStyle = "rgba(108, 99, 255, 0.2)";
-        ctx!.beginPath();
-        ctx!.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx!.fill();
-      }
-    }
-
-    const init = () => {
-      particles = [];
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
-    };
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animate);
-    };
-
-    resize();
-    init();
-    animate();
-
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
-  }, []);
-
-  const headline = "We Build Websites That Bring Customers.";
-  const words = headline.split(" ");
+  const headlineWords = ["Your", "Business,", "But", "Make", "It", "Unforgettable."];
 
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen flex items-center pt-20 overflow-hidden"
-    >
-      <canvas
-        ref={canvasRef}
-        className="absolute top-0 left-0 w-full h-full pointer-events-none"
-      />
-
-      {/* Mesh Gradient Background */}
-      <div className="absolute inset-0 -z-10 opacity-30">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-dark/40 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-dark/40 rounded-full blur-[120px] animate-pulse delay-700" />
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-background-light dark:bg-background-dark">
+      {/* Ambient background effects */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-dark/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-dark/10 rounded-full blur-[120px] animate-pulse delay-700" />
       </div>
 
-      <div className="container mx-auto px-6 grid md:grid-cols-5 gap-12 items-center">
-        <div className="md:col-span-3">
+      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+        <div className="flex flex-col items-start">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center space-x-2 text-primary-light dark:text-primary-dark font-mono text-sm mb-6"
+            className="flex items-center space-x-2 text-primary-light dark:text-primary-dark font-mono text-xs uppercase tracking-widest mb-8"
           >
-            <span className="w-2 h-2 rounded-full bg-current animate-pulse" />
-            <span>Bhubaneswar&apos;s Trusted Web Agency</span>
+            <span>✦ Bhubaneswar → Internet</span>
+            <span className="w-[1px] h-4 bg-primary-light dark:bg-primary-dark animate-blink" />
           </motion.div>
 
-          <h1 className="text-5xl md:text-8xl font-display font-bold leading-tight mb-8">
-            {words.map((word, i) => (
+          <h1 className="text-6xl md:text-8xl font-display font-bold leading-[0.9] mb-8 tracking-tighter">
+            {headlineWords.map((word, i) => (
               <motion.span
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
+                transition={{
+                  delay: i * 0.1,
+                  duration: 0.8,
+                  ease: [0.215, 0.61, 0.355, 1]
+                }}
                 className={cn(
                   "inline-block mr-[0.2em]",
-                  word === "Customers." && "text-transparent bg-clip-text bg-gradient-light dark:bg-gradient-primary"
+                  word === "Unforgettable." && "text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 bg-[length:200%_auto] animate-gradient-flow"
                 )}
               >
                 {word}
@@ -130,61 +50,79 @@ export function HeroSection() {
           </h1>
 
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="text-lg md:text-xl text-text-muted-light dark:text-text-muted-dark max-w-2xl mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+            className="text-lg md:text-xl text-text-muted-light dark:text-text-muted-dark max-w-[480px] mb-12 leading-relaxed"
           >
-            Helping Clinics, Cafes, Restaurants, Gyms, Salons & Local Brands Build
-            a Professional Online Presence That Actually Converts.
+            We turn local businesses into brands people actually look up.
+            No templates. No fluff. Just something that works.
           </motion.p>
 
-          <div className="flex flex-wrap gap-6 items-center">
+          <div className="flex flex-wrap items-center gap-10 mb-16">
             <MagneticButton>
               <Link
                 href="/contact"
-                className="px-8 py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-lg hover:scale-105 transition-transform inline-block cta-button"
+                className="px-10 py-5 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-lg hover:scale-105 transition-transform flex items-center group"
               >
-                Book Free Consultation
+                <span>Let&apos;s Build</span>
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </MagneticButton>
+
             <Link
               href="/portfolio"
-              className="group flex items-center space-x-2 text-lg font-bold hover:text-primary-light dark:hover:text-primary-dark transition-colors"
+              className="relative py-2 text-lg font-bold group"
             >
-              <span>View Our Work</span>
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <span>See the work</span>
+              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary-light dark:bg-primary-dark transition-all duration-300 group-hover:w-full" />
             </Link>
           </div>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
-            className="mt-8 text-sm text-text-muted-light dark:text-text-muted-dark flex items-center space-x-2"
+            className="flex flex-wrap gap-x-8 gap-y-4 text-xs font-mono text-text-muted-light dark:text-text-muted-dark uppercase tracking-widest"
           >
-            <span>🔒 No contracts. No hidden fees. Real results.</span>
-          </motion.p>
+            <span className="flex items-center">✦ 15+ brands live</span>
+            <span className="flex items-center">✦ MERN + Next.js</span>
+            <span className="flex items-center">✦ Ships in 2–4 weeks</span>
+          </motion.div>
         </div>
 
-        <div className="md:col-span-2 relative">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotateY: 20 }}
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="relative z-10 perspective-1000"
-          >
-            <div className="bg-surface-light dark:bg-surface-dark p-2 rounded-2xl border border-border-light dark:border-border-dark shadow-2xl shadow-primary-dark/20 animate-float">
-              <div className="aspect-video bg-black rounded-xl overflow-hidden relative">
-                {/* Mockup Screen Content */}
-                <div className="absolute inset-0 flex items-center justify-center text-text-muted-dark italic">
-                  Project Showcases Loading...
-                </div>
+        {/* Mock Browser UI */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="relative lg:block hidden"
+        >
+          <div className="rounded-2xl bg-[#0D0D14] border border-white/10 overflow-hidden shadow-2xl shadow-primary-dark/20">
+            {/* Browser Top Bar */}
+            <div className="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
+              <div className="flex space-x-1.5">
+                <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
+                <div className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
+                <div className="w-3 h-3 rounded-full bg-[#28C840]" />
+              </div>
+              <div className="flex-1 mx-8 px-3 py-1 rounded bg-black/20 border border-white/5 text-[10px] text-white/40 font-mono text-center">
+                pixorastudios.in/work
               </div>
             </div>
-          </motion.div>
-          <div className="absolute -inset-4 bg-primary-dark/20 rounded-full blur-3xl -z-10" />
-        </div>
+            {/* Browser Content */}
+            <div className="aspect-[16/10] relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/40 via-violet-900/40 to-rose-900/40 animate-gradient-bg" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                 <div className="w-1/2 h-1/2 rounded-xl bg-white/5 backdrop-blur-3xl border border-white/10 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full border-2 border-white/20 border-t-white/80 animate-spin" />
+                 </div>
+              </div>
+            </div>
+          </div>
+          {/* Decorative Glow */}
+          <div className="absolute -inset-10 bg-primary-dark/20 rounded-full blur-[100px] -z-10" />
+        </motion.div>
       </div>
 
       <motion.div
@@ -192,7 +130,7 @@ export function HeroSection() {
         transition={{ repeat: Infinity, duration: 2 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
-        <ChevronDown className="w-8 h-8 text-text-muted-dark" />
+        <ChevronDown className="w-6 h-6 text-text-muted-dark opacity-50" />
       </motion.div>
     </section>
   );
