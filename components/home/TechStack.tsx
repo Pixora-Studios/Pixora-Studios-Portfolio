@@ -41,11 +41,16 @@ export function TechStack() {
 
     const rings = orbitRef.current.querySelectorAll(".orbit-ring");
     rings.forEach((ring, index) => {
-      const duration = 20 + index * 10;
+      const duration = 25 + index * 15;
+      const direction = index % 2 === 0 ? 1 : -1;
+      const startRotation = index * 40; // Avoid symmetry
+
+      // Initial position
+      gsap.set(ring, { rotation: startRotation });
 
       // Rotate the ring
       gsap.to(ring, {
-        rotate: 360,
+        rotation: startRotation + (360 * direction),
         duration: duration,
         repeat: -1,
         ease: "none",
@@ -53,11 +58,18 @@ export function TechStack() {
 
       // Counter-rotate the items to keep them upright
       const items = ring.querySelectorAll(".tech-item");
-      gsap.to(items, {
-        rotate: -360,
-        duration: duration,
-        repeat: -1,
-        ease: "none",
+      items.forEach((item, j) => {
+        const inner = item.querySelector(".tech-icon-inner");
+        const initialItemRotation = -(j * 90) - startRotation;
+
+        gsap.set(inner, { rotation: initialItemRotation });
+
+        gsap.to(inner, {
+          rotation: initialItemRotation - (360 * direction),
+          duration: duration,
+          repeat: -1,
+          ease: "none",
+        });
       });
     });
   }, []);
@@ -110,16 +122,14 @@ export function TechStack() {
               {techStack.slice(i * 4, (i + 1) * 4).map((tech, j) => (
                 <div
                   key={tech.name}
-                  className="absolute p-4 rounded-full glass border border-primary-light/20 dark:border-primary-dark/20 text-xs font-bold tech-item"
+                  className="absolute tech-item"
                   style={{
                     top: "50%",
                     left: "50%",
-                    transform: `translate(-50%, -50%) rotate(${j * 90}deg) translate(${
-                      (300 + i * 240) / 2
-                    }px) rotate(${-j * 90}deg)`,
+                    transform: `translate(-50%, -50%) rotate(${j * 90}deg) translate(${(300 + i * 240) / 2}px)`,
                   }}
                 >
-                  <div className="flex flex-col items-center justify-center space-y-1.5 w-12 h-12 md:w-16 md:h-16">
+                  <div className="flex flex-col items-center justify-center space-y-1.5 w-12 h-12 md:w-16 md:h-16 p-4 rounded-full glass border border-primary-light/20 dark:border-primary-dark/20 text-xs font-bold tech-icon-inner">
                     <span className="text-primary-light dark:text-primary-dark">{tech.icon}</span>
                     <span className="text-[10px] md:text-xs font-mono">{tech.name}</span>
                   </div>
