@@ -3,20 +3,34 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
+import {
+  Code2,
+  Layers,
+  Database,
+  Wind,
+  Zap,
+  Cloud,
+  Globe,
+  Terminal,
+  Box,
+  Cpu,
+  Smartphone,
+  Layout
+} from "lucide-react";
 
 const techStack = [
-  { name: "React", icon: "⚛️" },
-  { name: "Next.js", icon: "▲" },
-  { name: "TypeScript", icon: "TS" },
-  { name: "Node.js", icon: "JS" },
-  { name: "Express", icon: "EX" },
-  { name: "MongoDB", icon: "🍃" },
-  { name: "Tailwind", icon: "🌊" },
-  { name: "Framer", icon: "FM" },
-  { name: "GSAP", icon: "G" },
-  { name: "Cloudinary", icon: "☁️" },
-  { name: "AWS", icon: "A" },
-  { name: "Vercel", icon: "V" },
+  { name: "React", icon: <Code2 className="w-5 h-5" /> },
+  { name: "Next.js", icon: <Layers className="w-5 h-5" /> },
+  { name: "TypeScript", icon: <Smartphone className="w-5 h-5" /> },
+  { name: "Node.js", icon: <Cpu className="w-5 h-5" /> },
+  { name: "Express", icon: <Terminal className="w-5 h-5" /> },
+  { name: "MongoDB", icon: <Database className="w-5 h-5" /> },
+  { name: "Tailwind", icon: <Wind className="w-5 h-5" /> },
+  { name: "Framer", icon: <Layout className="w-5 h-5" /> },
+  { name: "GSAP", icon: <Zap className="w-5 h-5" /> },
+  { name: "Cloudinary", icon: <Cloud className="w-5 h-5" /> },
+  { name: "AWS", icon: <Globe className="w-5 h-5" /> },
+  { name: "Vercel", icon: <Box className="w-5 h-5" /> },
 ];
 
 export function TechStack() {
@@ -27,9 +41,21 @@ export function TechStack() {
 
     const rings = orbitRef.current.querySelectorAll(".orbit-ring");
     rings.forEach((ring, index) => {
+      const duration = 20 + index * 10;
+
+      // Rotate the ring
       gsap.to(ring, {
         rotate: 360,
-        duration: 20 + index * 10,
+        duration: duration,
+        repeat: -1,
+        ease: "none",
+      });
+
+      // Counter-rotate the items to keep them upright
+      const items = ring.querySelectorAll(".tech-item");
+      gsap.to(items, {
+        rotate: -360,
+        duration: duration,
         repeat: -1,
         ease: "none",
       });
@@ -84,18 +110,18 @@ export function TechStack() {
               {techStack.slice(i * 4, (i + 1) * 4).map((tech, j) => (
                 <div
                   key={tech.name}
-                  className="absolute p-3 rounded-full glass border border-primary-light/20 dark:border-primary-dark/20 text-xs font-bold"
+                  className="absolute p-4 rounded-full glass border border-primary-light/20 dark:border-primary-dark/20 text-xs font-bold tech-item"
                   style={{
                     top: "50%",
                     left: "50%",
                     transform: `translate(-50%, -50%) rotate(${j * 90}deg) translate(${
                       (250 + i * 150) / 2
-                    }px) rotate(-${j * 90}deg)`,
+                    }px) rotate(${-j * 90}deg)`,
                   }}
                 >
-                  <div className="flex flex-col items-center space-y-1">
-                    <span>{tech.icon}</span>
-                    <span className="hidden md:inline">{tech.name}</span>
+                  <div className="flex flex-col items-center justify-center space-y-1.5 w-12 h-12 md:w-16 md:h-16">
+                    <span className="text-primary-light dark:text-primary-dark">{tech.icon}</span>
+                    <span className="text-[10px] md:text-xs font-mono">{tech.name}</span>
                   </div>
                 </div>
               ))}
