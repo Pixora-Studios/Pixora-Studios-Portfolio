@@ -47,14 +47,14 @@ export function SEOSection() {
   }, []);
 
   return (
-    <section className="py-24 bg-surface-light dark:bg-surface-dark overflow-hidden">
+    <section className="py-10 md:py-14 bg-surface-light dark:bg-surface-dark overflow-hidden flex items-center">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-6 md:mb-10">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-4"
+            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-2 md:mb-4"
           >
             SEO & Performance
           </motion.span>
@@ -62,24 +62,24 @@ export function SEOSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-display font-bold"
+            className="text-3xl md:text-5xl lg:text-6xl font-display font-bold"
           >
             We Build Websites Google Loves
           </motion.h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div className="relative">
-            <div className="aspect-square rounded-full border-8 border-primary-light/10 dark:border-primary-dark/10 flex items-center justify-center relative">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-5xl mx-auto">
+          <div className="relative flex justify-center">
+            <div className="w-full max-w-[280px] md:max-w-[340px] aspect-square rounded-full border-8 border-primary-light/10 dark:border-primary-dark/10 flex items-center justify-center relative">
               <motion.div
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
-                className="text-8xl md:text-9xl font-display font-bold text-emerald-500"
+                className="text-6xl md:text-7xl lg:text-8xl font-display font-bold text-emerald-500"
               >
                 {score}
               </motion.div>
-              <div className="absolute bottom-1/4 text-xl font-bold uppercase tracking-widest text-text-muted-dark">
+              <div className="absolute bottom-1/4 text-sm md:text-xl font-bold uppercase tracking-widest text-text-muted-light dark:text-text-muted-dark">
                 Performance
               </div>
               {/* Circular progress SVG could go here */}
