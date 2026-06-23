@@ -1,0 +1,17 @@
+export const industries = [
+  { name: "Dental Clinics", emoji: "🦷" },
+  { name: "Cafes", emoji: "☕" },
+  { name: "Restaurants", emoji: "🍽" },
+  { name: "Gyms", emoji: "💪" },
+  { name: "Salons", emoji: "💇" },
+  { name: "Coaching Centers", emoji: "🎓" },
+  { name: "Real Estate", emoji: "🏠" },
+  { name: "Event Organizers", emoji: "🎪" },
+  { name: "Hotels", emoji: "🏨" },
+  { name: "Clubs", emoji: "🎶" },
+  { name: "Travel Agencies", emoji: "✈️" },
+  { name: "Pharmacies", emoji: "💊" },
+  { name: "Interior Designers", emoji: "🖼" },
+  { name: "Personal Brands", emoji: "✨" },
+  { name: "General Clinics", emoji: "🏥" },
+];

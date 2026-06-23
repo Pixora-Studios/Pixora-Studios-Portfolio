@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #F8F8FF;
+  --foreground: #0D0D1A;
+  --surface: #FFFFFF;
+  --border: #E2E2F0;
+  --primary: #5B52E8;
+  --secondary: #8B5CF6;
+  --text-muted: #6B6B8A;
+  --shadow: rgba(91, 82, 232, 0.12);
+  --accent-gradient: linear-gradient(to right, #5B52E8, #8B5CF6, #D946EF);
+}
+
+.dark {
+  --background: #0A0A0F;
+  --foreground: #F0F0FF;
+  --surface: #111118;
+  --border: #1E1E2E;
+  --primary: #6C63FF;
+  --secondary: #A78BFA;
+  --text-muted: #8B8BA8;
+  --shadow: rgba(108, 99, 255, 0.3);
+  --accent-gradient: linear-gradient(to right, #6C63FF, #A78BFA, #EC4899);
+}
+
+@layer base {
+  body {
+    @apply bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark font-body antialiased transition-colors duration-300;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-md bg-white/70 dark:bg-white/5 border border-primary-light/10 dark:border-white/10;
+  }
+}
+
+/* Lenis smooth scroll */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
