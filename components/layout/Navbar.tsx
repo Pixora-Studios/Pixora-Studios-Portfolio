@@ -40,15 +40,13 @@ export function Navbar() {
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center space-x-2 group">
-          <Image
-            src="/images/logo.png"
-            alt="Pixora Studios"
-            width={160}
-            height={40}
-            className="object-contain dark:invert"
-            priority
-          />
+        <Link href="/" className="flex items-center space-x-1 group">
+          <span className="text-2xl font-display font-bold bg-gradient-light dark:bg-gradient-primary bg-clip-text text-transparent">
+            Pixora
+          </span>
+          <span className="text-2xl font-display font-bold text-text-muted-light dark:text-text-muted-dark">
+            Studios
+          </span>
         </Link>
 
         {/* Desktop Menu */}

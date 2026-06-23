@@ -27,8 +27,11 @@
 }
 
 @layer base {
+  html, body {
+    @apply overflow-x-hidden;
+  }
   body {
-    @apply bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark font-body antialiased transition-colors duration-300;
+    @apply bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark font-body antialiased transition-colors duration-300 w-full relative;
   }
 }
 

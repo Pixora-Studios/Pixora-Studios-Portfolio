@@ -85,10 +85,13 @@ export default function AboutPage() {
         <section className="container mx-auto px-6 mb-32">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative" ref={photoRef}>
-              <motion.div style={{ y: photoY }} className="relative z-10 aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl">
-                <div className="absolute inset-0 bg-surface-dark flex items-center justify-center text-text-muted-dark italic">
-                  [Founder Photo - Debidutta Acharya]
-                </div>
+              <motion.div style={{ y: photoY }} className="relative z-10 aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl bg-surface-dark">
+                <Image
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop"
+                  alt="Debidutta Acharya - Founder of Pixora Studios"
+                  fill
+                  className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                />
               </motion.div>
               <div className="absolute -inset-10 bg-primary-light/10 dark:bg-primary-dark/10 rounded-full blur-[100px] -z-10" />
             </div>

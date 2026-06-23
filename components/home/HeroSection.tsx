@@ -7,8 +7,6 @@ import { MagneticButton } from "@/components/shared/MagneticButton";
 import { cn } from "@/lib/utils";
 
 export function HeroSection() {
-  const headlineWords = ["Your", "Business,", "But", "Make", "It", "Unforgettable."];
-
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-background-light dark:bg-background-dark">
       {/* Ambient background effects */}
@@ -29,24 +27,25 @@ export function HeroSection() {
           </motion.div>
 
           <h1 className="text-6xl md:text-8xl font-display font-bold leading-[0.9] mb-8 tracking-tighter">
-            {headlineWords.map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: i * 0.1,
-                  duration: 0.8,
-                  ease: [0.215, 0.61, 0.355, 1]
-                }}
-                className={cn(
-                  "inline-block mr-[0.2em]",
-                  word === "Unforgettable." && "text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 bg-[length:200%_auto] animate-gradient-flow"
-                )}
-              >
-                {word}
-              </motion.span>
-            ))}
+            <motion.span
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
+              className="block"
+            >
+              We Build Websites
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
+              className="block"
+            >
+              That Bring{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 bg-[length:200%_auto] animate-gradient-flow">
+                Customers.
+              </span>
+            </motion.span>
           </h1>
 
           <motion.p
