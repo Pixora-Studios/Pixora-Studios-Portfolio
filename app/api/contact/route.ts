@@ -13,16 +13,6 @@ export async function POST(req: Request) {
       );
     }
 
-    console.log('New Contact Form Submission:', {
-      name,
-      businessName,
-      phone,
-      email,
-      businessType,
-      budget,
-      message,
-    });
-
     const resendApiKey = process.env.RESEND_API_KEY;
 
     if (resendApiKey) {

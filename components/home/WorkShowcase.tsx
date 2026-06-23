@@ -5,39 +5,8 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { gsap } from "gsap";
-
-const projects = [
-  {
-    name: "Prachi's Dental Hub",
-    industry: "Dental Clinic",
-    video: "/videos/project-1.mp4",
-  },
-  {
-    name: "Pearl 32 Dental",
-    industry: "Dental Clinic",
-    video: "/videos/project-2.mp4",
-  },
-  {
-    name: "Aroma Cafe",
-    industry: "Cafe",
-    video: "/videos/project-3.mp4",
-  },
-  {
-    name: "FitLife Gym",
-    industry: "Gym",
-    video: "/videos/project-4.mp4",
-  },
-  {
-    name: "Spice Garden",
-    industry: "Restaurant",
-    video: "/videos/project-5.mp4",
-  },
-  {
-    name: "NextGen Coaching",
-    industry: "Institute",
-    video: "/videos/project-6.mp4",
-  },
-];
+import { projects } from "@/lib/data/projects";
+import Image from "next/image";
 
 export function WorkShowcase() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -52,17 +21,19 @@ export function WorkShowcase() {
     // Width of one set of cards (half the total track since cards are duplicated)
     const totalWidth = track.scrollWidth / 2;
 
-    const ticker = gsap.ticker.add(() => {
+    const onTick = () => {
       if (isPaused.current) return;
       xOffset.current += speed;
       if (xOffset.current >= totalWidth) {
         xOffset.current = 0; // seamless reset
       }
       gsap.set(track, { x: -xOffset.current });
-    });
+    };
+
+    gsap.ticker.add(onTick);
 
     return () => {
-      gsap.ticker.remove(ticker);
+      gsap.ticker.remove(onTick);
     };
   }, []);
 
@@ -118,11 +89,30 @@ export function WorkShowcase() {
               key={index}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              className="relative flex-shrink-0 w-[380px] h-[260px] rounded-2xl overflow-hidden group/card transition-transform duration-300 hover:scale-[1.06]"
+              className="relative flex-shrink-0 w-[380px] h-[260px] rounded-2xl overflow-hidden group/card transition-transform duration-300 hover:scale-[1.06] bg-surface-dark"
             >
-              <div className="absolute inset-0 bg-surface-dark flex items-center justify-center text-text-muted-dark italic text-sm">
-                [Project Preview]
-              </div>
+              {project.video ? (
+                <video
+                  src={project.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  poster={project.image}
+                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover/card:opacity-80 transition-opacity duration-300"
+                />
+              ) : project.image ? (
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  fill
+                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover/card:opacity-80 transition-opacity duration-300"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center text-text-muted-dark italic text-sm">
+                  [Project Preview]
+                </div>
+              )}
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
 
@@ -134,7 +124,7 @@ export function WorkShowcase() {
                   {project.name}
                 </h3>
                 <Link
-                  href="/portfolio"
+                  href={`/portfolio/${project.slug}`}
                   className="inline-flex items-center space-x-2 text-white text-sm font-bold opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
                 >
                   <span>View Project</span>

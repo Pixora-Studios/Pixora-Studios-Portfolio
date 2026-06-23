@@ -90,6 +90,8 @@ export default function AboutPage() {
                   src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop"
                   alt="Debidutta Acharya - Founder of Pixora Studios"
                   fill
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/+pVPQAIXAM6XFoy9wAAAABJRU5ErkJggg=="
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
                 />
               </motion.div>
