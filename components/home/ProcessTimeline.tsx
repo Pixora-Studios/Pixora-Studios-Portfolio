@@ -85,9 +85,10 @@ export function ProcessTimeline() {
           <div className="space-y-16 md:space-y-24">
             {steps.map((step, index) => {
               const Icon = step.icon;
+              const isEven = index % 2 === 0;
               return (
                 <div key={step.title} className="relative">
-                  <div className={`flex flex-col md:flex-row items-center ${index % 2 === 0 ? "md:flex-row-reverse" : ""}`}>
+                  <div className={`flex flex-col md:flex-row items-center ${isEven ? "" : "md:flex-row-reverse"}`}>
                     {/* Circle Indicator with Icon */}
                     <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-background-light dark:bg-background-dark border-2 border-primary-light dark:border-primary-dark flex items-center justify-center z-20 shadow-[0_0_20px_rgba(108,99,255,0.2)]">
                       <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary-light dark:text-primary-dark" />
@@ -95,13 +96,13 @@ export function ProcessTimeline() {
 
                     {/* Content Block */}
                     <motion.div
-                      initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
+                      initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: "-100px" }}
                       className={`flex-1 md:w-1/2 ml-16 md:ml-0 ${
-                        index % 2 === 0
-                          ? "md:pl-32 lg:pl-48 md:text-left"
-                          : "md:pr-32 lg:pr-48 md:text-right"
+                        isEven
+                          ? "md:pr-32 lg:pr-48 md:text-right"
+                          : "md:pl-32 lg:pl-48 md:text-left"
                       }`}
                     >
                       <div className="group relative glass p-8 rounded-3xl border border-white/10 hover:border-primary-light/50 dark:hover:border-primary-dark/50 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_20px_40px_rgba(108,99,255,0.05)]">

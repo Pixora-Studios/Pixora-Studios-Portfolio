@@ -94,8 +94,8 @@ export function TrustBar() {
             {[...technologies, ...technologies].map((item, i) => (
               <div key={i} className="flex items-center gap-3 mx-10">
                 <item.icon
-                  className="w-5 h-5 flex-shrink-0"
-                  style={{ color: item.color === "theme" ? (theme === 'dark' ? '#F0F0FF' : '#0D0D1A') : item.color }}
+                  className={`w-5 h-5 flex-shrink-0 ${item.color === "theme" ? "text-text-primary-light dark:text-text-primary-dark" : ""}`}
+                  style={{ color: item.color !== "theme" ? item.color : undefined }}
                 />
                 <span className="text-sm font-mono font-medium text-text-primary-light dark:text-text-primary-dark whitespace-nowrap uppercase tracking-widest">
                   {item.name}

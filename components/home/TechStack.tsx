@@ -84,7 +84,7 @@ export function TechStack() {
           </motion.h2>
         </div>
 
-        <div className="relative h-[600px] flex items-center justify-center" ref={orbitRef}>
+        <div className="relative h-[800px] flex items-center justify-center" ref={orbitRef}>
           {/* Center Badge */}
           <motion.div
             initial={{ scale: 0 }}
@@ -103,8 +103,8 @@ export function TechStack() {
               key={ring}
               className={`absolute border border-primary-light/10 dark:border-primary-dark/10 rounded-full orbit-ring`}
               style={{
-                width: `${250 + i * 150}px`,
-                height: `${250 + i * 150}px`,
+                width: `${300 + i * 240}px`,
+                height: `${300 + i * 240}px`,
               }}
             >
               {techStack.slice(i * 4, (i + 1) * 4).map((tech, j) => (
@@ -115,7 +115,7 @@ export function TechStack() {
                     top: "50%",
                     left: "50%",
                     transform: `translate(-50%, -50%) rotate(${j * 90}deg) translate(${
-                      (250 + i * 150) / 2
+                      (300 + i * 240) / 2
                     }px) rotate(${-j * 90}deg)`,
                   }}
                 >
