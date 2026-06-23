@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
+import { gsap } from "gsap";
 
 const projects = [
   {
@@ -39,7 +40,39 @@ const projects = [
 ];
 
 export function WorkShowcase() {
-  const [isPaused, setIsPaused] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const isPaused = useRef(false);
+  const xOffset = useRef(0);
+  const speed = 0.5; // px per frame
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    // Width of one set of cards (half the total track since cards are duplicated)
+    const totalWidth = track.scrollWidth / 2;
+
+    const ticker = gsap.ticker.add(() => {
+      if (isPaused.current) return;
+      xOffset.current += speed;
+      if (xOffset.current >= totalWidth) {
+        xOffset.current = 0; // seamless reset
+      }
+      gsap.set(track, { x: -xOffset.current });
+    });
+
+    return () => {
+      gsap.ticker.remove(ticker);
+    };
+  }, []);
+
+  const handleMouseEnter = () => {
+    isPaused.current = true;
+  };
+
+  const handleMouseLeave = () => {
+    isPaused.current = false;
+  };
 
   return (
     <section className="py-24 bg-background-light dark:bg-background-dark overflow-hidden">
@@ -75,20 +108,17 @@ export function WorkShowcase() {
         </div>
       </div>
 
-      <div
-        className="relative flex overflow-x-hidden group"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        <motion.div
-          animate={{ x: isPaused ? undefined : ["0%", "-50%"] }}
-          transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-          className="flex space-x-8 px-4"
+      <div className="relative overflow-hidden">
+        <div
+          ref={trackRef}
+          className="flex space-x-8 px-4 w-max"
         >
           {[...projects, ...projects].map((project, index) => (
             <div
               key={index}
-              className="relative flex-shrink-0 w-[380px] h-[260px] rounded-2xl overflow-hidden group/card"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="relative flex-shrink-0 w-[380px] h-[260px] rounded-2xl overflow-hidden group/card transition-transform duration-300 hover:scale-[1.06]"
             >
               <div className="absolute inset-0 bg-surface-dark flex items-center justify-center text-text-muted-dark italic text-sm">
                 [Project Preview]
@@ -113,7 +143,7 @@ export function WorkShowcase() {
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       <div className="mt-16 text-center">

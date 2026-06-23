@@ -6,39 +6,20 @@
    - Local:        http://localhost:3000
 
  ✓ Starting...
- ✓ Ready in 2000ms
+ ✓ Ready in 4.9s
  ○ Compiling / ...
- ✓ Compiled / in 8.5s (1535 modules)
- ✓ Compiled in 1048ms (735 modules)
- GET / 200 in 9614ms
+ ✓ Compiled / in 11.6s (1536 modules)
+ ✓ Compiled in 1901ms (735 modules)
+ GET / 200 in 13641ms
  ○ Compiling /portfolio ...
- ✓ Compiled /portfolio in 4.1s (1537 modules)
- GET /portfolio 200 in 4516ms
+ ✓ Compiled /portfolio in 4.1s (1536 modules)
+ GET /portfolio 200 in 4560ms
  ⨯ upstream image response failed for https://images.unsplash.com/photo-1524178232457-3bb2449b382a?q=80&w=2070&auto=format&fit=crop 404
- ✓ Compiled /services in 421ms (1547 modules)
- GET /services 200 in 676ms
- ✓ Compiled /about in 415ms (1555 modules)
- GET /about 200 in 660ms
+ ✓ Compiled /services in 431ms (1546 modules)
+ GET /services 200 in 697ms
+ ✓ Compiled /about in 387ms (1554 modules)
+ GET /about 200 in 594ms
  ○ Compiling /contact ...
- ✓ Compiled /contact in 1133ms (1577 modules)
- GET /contact 200 in 1350ms
- ✓ Compiled in 2.7s (768 modules)
- ○ Compiling /api/contact ...
- ✓ Compiled /api/contact in 1334ms (1535 modules)
- POST /api/contact 200 in 1507ms
- ✓ Compiled in 334ms (769 modules)
- ✓ Compiled in 2.2s (1533 modules)
- ✓ Compiled in 1200ms (1533 modules)
- ✓ Compiled in 785ms (769 modules)
- ⨯ ./components/shared/CustomCursor.tsx
-Module parse failed: Identifier 'AnimatePresence' has already been declared (129:9)
-| });
-| _c = CustomCursor;
-> import { AnimatePresence } from "framer-motion";
-| var _c;
-| $RefreshReg$(_c, "CustomCursor");
-
-Import trace for requested module:
-./components/shared/CustomCursor.tsx
- ✓ Compiled in 1542ms (1533 modules)
- ✓ Compiled in 1171ms (1531 modules)
+ ✓ Compiled /contact in 1126ms (1576 modules)
+ GET /contact 200 in 1313ms
+ GET / 200 in 153ms
