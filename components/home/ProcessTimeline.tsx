@@ -98,7 +98,11 @@ export function ProcessTimeline() {
                       initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: "-100px" }}
-                      className={`flex-1 md:w-1/2 ml-16 md:ml-0 md:px-12 lg:px-20 ${index % 2 === 0 ? "md:text-left" : "md:text-right"}`}
+                      className={`flex-1 md:w-1/2 ml-16 md:ml-0 ${
+                        index % 2 === 0
+                          ? "md:pl-32 lg:pl-48 md:text-left"
+                          : "md:pr-32 lg:pr-48 md:text-right"
+                      }`}
                     >
                       <div className="group relative glass p-8 rounded-3xl border border-white/10 hover:border-primary-light/50 dark:hover:border-primary-dark/50 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_20px_40px_rgba(108,99,255,0.05)]">
                         <span className="text-primary-light dark:text-primary-dark font-mono text-sm font-bold mb-3 block">Step 0{index + 1}</span>
