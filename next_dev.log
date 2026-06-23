@@ -17,3 +17,18 @@
  GET / 200 in 84ms
  GET / 200 in 169ms
  GET / 200 in 87ms
+ ✓ Compiled in 7.8s (1553 modules)
+ GET / 200 in 510ms
+ ○ Compiling /services ...
+ ✓ Compiled /services in 5.9s (1620 modules)
+ ✓ Compiled in 2.1s (1585 modules)
+ ✓ Compiled in 1323ms (1585 modules)
+ ✓ Compiled in 140ms (752 modules)
+ ⚠ Your page app/page.tsx did not have a root layout. We created app/layout.tsx for you.
+ ✓ Compiled in 492ms (1515 modules)
+ ✓ Compiled in 698ms (1585 modules)
+ ✓ Compiled in 307ms (789 modules)
+ ⚠ Your page app/page.tsx did not have a root layout. We created app/layout.tsx for you.
+ ✓ Compiled in 446ms (1515 modules)
+ ✓ Compiled in 729ms (1585 modules)
+ ✓ Compiled in 452ms (789 modules)
