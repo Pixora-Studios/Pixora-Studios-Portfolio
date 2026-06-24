@@ -5,7 +5,6 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { name, businessName, phone, email, businessType, budget, message } = body;
 
-    // Validate required fields
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Name, email, and message are required.' },
@@ -14,42 +13,48 @@ export async function POST(req: Request) {
     }
 
     const resendApiKey = process.env.RESEND_API_KEY;
+    const toEmail = process.env.CONTACT_TO_EMAIL || 'hello@pixorastudios.in';
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'Pixora Studios <hello@pixorastudios.in>';
 
-    if (resendApiKey) {
-      try {
-        const res = await fetch('https://api.resend.com/emails', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${resendApiKey}`,
-          },
-          body: JSON.stringify({
-            from: 'Pixora Studios <onboarding@resend.dev>',
-            to: ['debidutta@example.com'], // Replace with real destination
-            subject: `New Lead: ${name} from ${businessName || 'Unknown'}`,
-            html: `
-              <h1>New Lead from Pixora Studios</h1>
-              <p><strong>Name:</strong> ${name}</p>
-              <p><strong>Email:</strong> ${email}</p>
-              <p><strong>Phone:</strong> ${phone}</p>
-              <p><strong>Business:</strong> ${businessName} (${businessType})</p>
-              <p><strong>Budget:</strong> ${budget}</p>
-              <p><strong>Message:</strong></p>
-              <p>${message}</p>
-            `,
-          }),
-        });
+    if (!resendApiKey) {
+      console.error('RESEND_API_KEY is not configured.');
+      return NextResponse.json(
+        { error: 'Email service is not configured. Please set RESEND_API_KEY.' },
+        { status: 500 }
+      );
+    }
 
-        if (!res.ok) {
-          const error = await res.json();
-          console.error('Resend API Error:', error);
-          // Still return success to user since we logged it
-        }
-      } catch (err) {
-        console.error('Failed to send email via Resend:', err);
-      }
-    } else {
-      console.warn('RESEND_API_KEY is not set. Email not sent.');
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${resendApiKey}`,
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [toEmail],
+        subject: `New Lead: ${name} from ${businessName || 'Unknown'}`,
+        html: `
+          <h1>New Lead from Pixora Studios</h1>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
+          <p><strong>Business:</strong> ${businessName} (${businessType})</p>
+          <p><strong>Budget:</strong> ${budget}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        `,
+      }),
+    });
+
+    const responseData = await res.json().catch(() => null);
+
+    if (!res.ok) {
+      console.error('Resend API Error:', responseData);
+      return NextResponse.json(
+        { error: 'Email could not be sent.', details: responseData },
+        { status: 502 }
+      );
     }
 
     return NextResponse.json({ success: true, message: 'Message sent successfully!' });

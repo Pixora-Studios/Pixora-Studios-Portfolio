@@ -27,6 +27,7 @@ const budgetRanges = [
 export default function ContactClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     businessName: "",
@@ -62,18 +63,25 @@ export default function ContactClient() {
     }
 
     setIsSubmitting(true);
-    // Simulate API call
+    setSubmitError(null);
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+
+      const data = await response.json().catch(() => null);
+
       if (response.ok) {
         setIsSuccess(true);
+        setSubmitError(null);
+      } else {
+        setSubmitError(data?.error || "Unable to send your message right now.");
       }
     } catch (error) {
       console.error("Submission failed", error);
+      setSubmitError("Unable to send your message right now.");
     } finally {
       setIsSubmitting(false);
     }
@@ -111,7 +119,7 @@ export default function ContactClient() {
             <div className="lg:col-span-2 space-y-12">
               <div className="space-y-6">
                 <a
-                  href="https://wa.me/91XXXXXXXXXX"
+                  href={`https://wa.me/+91${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`}
                   className="group flex items-center space-x-4 p-6 rounded-3xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all relative overflow-hidden"
                 >
                   <div className="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center text-white relative z-10">
@@ -234,6 +242,12 @@ export default function ContactClient() {
                           onBlur={() => handleBlur("email")}
                         />
                       </div>
+                      {submitError && (
+                        <div className="rounded-2xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-600 dark:text-red-300">
+                          {submitError}
+                        </div>
+                      )}
+
                       <div className="grid md:grid-cols-2 gap-8">
                          <div className="space-y-2">
                             <label className="text-xs font-bold uppercase tracking-widest text-text-muted-dark">Business Type</label>

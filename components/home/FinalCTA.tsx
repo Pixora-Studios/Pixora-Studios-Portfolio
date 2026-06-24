@@ -44,7 +44,7 @@ export function FinalCTA() {
             </Link>
           </MagneticButton>
           <Link
-            href="https://wa.me/91XXXXXXXXXX"
+            href={`https://wa.me/+91${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`}
             className="px-10 py-5 rounded-full bg-emerald-600 text-white font-bold text-xl hover:scale-105 transition-transform flex items-center space-x-3"
           >
             <WhatsApp className="w-6 h-6" />

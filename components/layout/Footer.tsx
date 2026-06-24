@@ -41,7 +41,7 @@ export function Footer() {
               Book Consultation
             </Link>
             <Link
-              href="https://wa.me/91XXXXXXXXXX"
+              href={`https://wa.me/+91${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`}
               className="px-8 py-4 rounded-full bg-emerald-600 text-white font-bold hover:scale-105 transition-transform flex items-center space-x-2"
             >
               <WhatsApp className="w-5 h-5" />
