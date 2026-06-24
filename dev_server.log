@@ -6,58 +6,15 @@
    - Local:        http://localhost:3000
 
  ✓ Starting...
- ✓ Ready in 2.4s
- ○ Compiling / ...
- ✓ Compiled / in 12.9s (1640 modules)
- GET / 200 in 15966ms
+ ✓ Ready in 3.8s
+ ○ Compiling /about ...
+ ✓ Compiled /about in 16.7s (1438 modules)
+ GET /about 200 in 18643ms
  ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 4.1s (1602 modules)
- GET /images/logo.png 404 in 1609ms
+ ✓ Compiled /_not-found in 11.5s (1427 modules)
+ GET /images/logo.png 404 in 10194ms
  ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- GET /images/logo.png 404 in 1317ms
+ GET /images/logo.png 404 in 9940ms
  ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- ○ Compiling /portfolio ...
- ✓ Compiled /portfolio in 3.5s (1610 modules)
- GET /portfolio 200 in 3751ms
- GET /images/logo.png 404 in 59ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- GET /images/logo.png 404 in 52ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- ⨯ upstream image response failed for https://images.unsplash.com/photo-1524178232457-3bb2449b382a?q=80&w=2070&auto=format&fit=crop 404
- GET /images/logo.png 404 in 27ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- ○ Compiling /services ...
- ✓ Compiled /services in 625ms (1624 modules)
- GET /services 200 in 841ms
- GET /images/logo.png 404 in 54ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- GET /images/logo.png 404 in 42ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- GET /images/logo.png 404 in 23ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- ✓ Compiled /about in 457ms (1632 modules)
- GET /about 200 in 666ms
- GET /images/logo.png 404 in 38ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- GET /images/logo.png 404 in 52ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- GET /images/logo.png 404 in 21ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- ○ Compiling /contact ...
- ✓ Compiled /contact in 5.2s (1654 modules)
- GET /contact 200 in 5542ms
- GET /images/logo.png 404 in 40ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- GET /images/logo.png 404 in 37ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- GET /images/logo.png 404 in 20ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- GET / 200 in 1022ms
- GET /images/logo.png 404 in 31ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- GET /images/logo.png 404 in 41ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- GET /images/logo.png 404 in 23ms
- ⨯ The requested resource isn't a valid image for /images/logo.png received text/html; charset=utf-8
- ⨯ upstream image response failed for https://images.unsplash.com/photo-1524178232457-3bb2449b382a?q=80&w=2070&auto=format&fit=crop 404
+ GET /about 200 in 384ms
 [?25h

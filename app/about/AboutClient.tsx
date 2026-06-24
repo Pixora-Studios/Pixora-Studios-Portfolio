@@ -145,17 +145,17 @@ export default function AboutPage() {
         </section>
 
         {/* Timeline (Horizontal GSAP) */}
-        <section ref={horizontalTriggerRef} className="bg-surface-light dark:bg-surface-dark py-32 overflow-hidden mb-32 min-h-screen flex flex-col justify-center">
-          <div className="container mx-auto px-6 mb-16">
+        <section ref={horizontalTriggerRef} className="bg-surface-light dark:bg-surface-dark py-20 overflow-hidden mb-32 min-h-screen flex flex-col justify-center">
+          <div className="container mx-auto px-6 mb-12">
             <h2 className="text-4xl md:text-7xl font-display font-bold">The Journey So Far</h2>
           </div>
 
-          <div ref={horizontalTimelineRef} className="flex items-center space-x-0 relative min-w-max px-[10vw] h-[600px]">
+          <div ref={horizontalTimelineRef} className="flex items-center space-x-0 relative min-w-max px-[10vw] h-[500px]">
              {/* Progress Line */}
              <div className="absolute top-1/2 left-0 w-full h-[2px] bg-border-light dark:bg-border-dark/30 -translate-y-1/2 z-0" />
 
              {timeline.map((item, i) => (
-               <div key={i} className="relative flex flex-col items-center justify-center w-[400px] lg:w-[600px] h-[600px]">
+               <div key={i} className="relative flex flex-col items-center justify-center w-[400px] lg:w-[600px] h-[500px]">
                   {/* Dot */}
                   <div className="w-6 h-6 rounded-full bg-primary-light dark:bg-primary-dark shadow-[0_0_20px_rgba(108,99,255,0.8)] border-4 border-background-light dark:border-background-dark z-10" />
 
@@ -163,14 +163,14 @@ export default function AboutPage() {
                     initial={{ opacity: 0, y: i % 2 === 0 ? -50 : 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className={`absolute ${i % 2 === 0 ? 'bottom-[calc(50%+40px)]' : 'top-[calc(50%+40px)]'} w-full text-center px-12`}
+                    className={`absolute ${i % 2 === 0 ? 'bottom-[calc(50%+30px)]' : 'top-[calc(50%+30px)]'} w-full text-center px-12`}
                   >
-                     <span className="text-6xl lg:text-8xl font-display font-bold text-primary-light/10 dark:text-primary-dark/10 block leading-none mb-4">
+                     <span className="text-6xl lg:text-8xl font-display font-bold text-primary-light/10 dark:text-primary-dark/10 block leading-none mb-2">
                         {item.year}
                      </span>
-                     <div className="bg-white dark:bg-white/5 backdrop-blur-xl p-8 rounded-[32px] border border-primary-light/10 dark:border-white/10 shadow-xl inline-block text-left max-w-sm">
-                        <h3 className="text-2xl lg:text-3xl font-bold mb-4">{item.title}</h3>
-                        <p className="text-lg text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+                     <div className="bg-white dark:bg-white/5 backdrop-blur-xl p-6 rounded-[28px] border border-primary-light/10 dark:border-white/10 shadow-xl inline-block text-left max-w-sm">
+                        <h3 className="text-xl lg:text-2xl font-bold mb-3">{item.title}</h3>
+                        <p className="text-base text-text-muted-light dark:text-text-muted-dark leading-relaxed">
                            {item.desc}
                         </p>
                      </div>
