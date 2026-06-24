@@ -96,16 +96,16 @@ export function TechStack() {
           </motion.h2>
         </div>
 
-        <div className="relative h-[800px] flex items-center justify-center" ref={orbitRef}>
+        <div className="relative h-[500px] flex items-center justify-center" ref={orbitRef}>
           {/* Center Badge */}
           <motion.div
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            className="w-32 h-32 rounded-full bg-gradient-light dark:bg-gradient-primary p-[2px] z-20"
+            className="w-20 h-20 rounded-full bg-gradient-light dark:bg-gradient-primary p-[2px] z-20"
           >
-            <div className="w-full h-full rounded-full bg-background-light dark:bg-background-dark flex items-center justify-center text-center p-4">
-              <span className="font-display font-bold text-sm">Pixora Studios</span>
+            <div className="w-full h-full rounded-full bg-background-light dark:bg-background-dark flex items-center justify-center text-center p-2">
+              <span className="font-display font-bold text-[10px]">Pixora Studios</span>
             </div>
           </motion.div>
 
@@ -115,8 +115,8 @@ export function TechStack() {
               key={ring}
               className={`absolute border border-primary-light/10 dark:border-primary-dark/10 rounded-full orbit-ring`}
               style={{
-                width: `${300 + i * 240}px`,
-                height: `${300 + i * 240}px`,
+                width: `${150 + i * 100}px`,
+                height: `${150 + i * 100}px`,
               }}
             >
               {techStack.slice(i * 4, (i + 1) * 4).map((tech, j) => (
@@ -126,7 +126,7 @@ export function TechStack() {
                   style={{
                     top: "50%",
                     left: "50%",
-                    transform: `translate(-50%, -50%) rotate(${j * 90}deg) translate(${(300 + i * 240) / 2}px)`,
+                    transform: `translate(-50%, -50%) rotate(${j * 90}deg) translate(${(150 + i * 100) / 2}px)`,
                   }}
                 >
                   <div className="flex flex-col items-center justify-center space-y-1.5 w-12 h-12 md:w-16 md:h-16 p-4 rounded-full glass border border-primary-light/20 dark:border-primary-dark/20 text-xs font-bold tech-icon-inner">
