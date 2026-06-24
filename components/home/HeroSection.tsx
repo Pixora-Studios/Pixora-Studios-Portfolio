@@ -235,11 +235,17 @@ export function HeroSection() {
             </div>
             {/* Browser Content */}
             <div className="aspect-[16/10] relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/40 via-violet-900/40 to-rose-900/40 animate-gradient-bg" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                 <div className="w-1/2 h-1/2 rounded-xl bg-white/5 backdrop-blur-3xl border border-white/10 flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-full border-2 border-white/20 border-t-white/80 animate-spin" />
-                 </div>
+              <video
+                src="https://www.w3schools.com/html/mov_bbb.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-white/80 backdrop-blur">
+                Featured Reel
               </div>
             </div>
           </div>
