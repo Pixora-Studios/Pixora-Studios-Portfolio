@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pixorastudios.in/sitemap.xml
+Sitemap: https://pixorastudios.com/sitemap.xml
