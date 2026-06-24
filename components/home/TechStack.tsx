@@ -19,59 +19,72 @@ import {
 } from "lucide-react";
 
 const techStack = [
-  { name: "React", icon: <Code2 className="w-5 h-5" /> },
-  { name: "Next.js", icon: <Layers className="w-5 h-5" /> },
-  { name: "TypeScript", icon: <Smartphone className="w-5 h-5" /> },
-  { name: "Node.js", icon: <Cpu className="w-5 h-5" /> },
-  { name: "Express", icon: <Terminal className="w-5 h-5" /> },
-  { name: "MongoDB", icon: <Database className="w-5 h-5" /> },
-  { name: "Tailwind", icon: <Wind className="w-5 h-5" /> },
-  { name: "Framer", icon: <Layout className="w-5 h-5" /> },
-  { name: "GSAP", icon: <Zap className="w-5 h-5" /> },
-  { name: "Cloudinary", icon: <Cloud className="w-5 h-5" /> },
-  { name: "AWS", icon: <Globe className="w-5 h-5" /> },
-  { name: "Vercel", icon: <Box className="w-5 h-5" /> },
+  { name: "React", icon: <Code2 className="w-5 h-5" />, desc: "The library for web and native user interfaces." },
+  { name: "Next.js", icon: <Layers className="w-5 h-5" />, desc: "The React framework for the web." },
+  { name: "TypeScript", icon: <Smartphone className="w-5 h-5" />, desc: "JavaScript with syntax for types." },
+  { name: "Node.js", icon: <Cpu className="w-5 h-5" />, desc: "Cross-platform JavaScript runtime environment." },
+  { name: "Express", icon: <Terminal className="w-5 h-5" />, desc: "Fast, unopinionated, minimalist web framework." },
+  { name: "MongoDB", icon: <Database className="w-5 h-5" />, desc: "The document database for modern applications." },
+  { name: "Tailwind", icon: <Wind className="w-5 h-5" />, desc: "A utility-first CSS framework." },
+  { name: "Framer", icon: <Layout className="w-5 h-5" />, desc: "Motion library for React." },
+  { name: "GSAP", icon: <Zap className="w-5 h-5" />, desc: "Professional-grade JavaScript animation." },
+  { name: "Cloudinary", icon: <Cloud className="w-5 h-5" />, desc: "Image and video management at scale." },
+  { name: "AWS", icon: <Globe className="w-5 h-5" />, desc: "Cloud computing services from Amazon." },
+  { name: "Vercel", icon: <Box className="w-5 h-5" />, desc: "Platform for frontend developers." },
 ];
+
+import { useState } from "react";
 
 export function TechStack() {
   const orbitRef = useRef<HTMLDivElement>(null);
+  const [hoveredTech, setHoveredTech] = useState<{ name: string; desc: string } | null>(null);
 
   useEffect(() => {
     if (!orbitRef.current) return;
 
-    const rings = orbitRef.current.querySelectorAll(".orbit-ring");
-    rings.forEach((ring, index) => {
-      const duration = 25 + index * 15;
-      const direction = index % 2 === 0 ? 1 : -1;
-      const startRotation = index * 40; // Avoid symmetry
+    const ctx = gsap.context(() => {
+      const rings = orbitRef.current!.querySelectorAll(".orbit-ring");
+      const timelines: gsap.core.Timeline[] = [];
 
-      // Initial position
-      gsap.set(ring, { rotation: startRotation });
+      rings.forEach((ring, index) => {
+        const duration = 25 + index * 15;
+        const direction = index % 2 === 0 ? 1 : -1;
+        const startRotation = index * 40;
 
-      // Rotate the ring
-      gsap.to(ring, {
-        rotation: startRotation + (360 * direction),
-        duration: duration,
-        repeat: -1,
-        ease: "none",
-      });
+        const ringTl = gsap.timeline({ repeat: -1, defaults: { ease: "none" } });
+        timelines.push(ringTl);
+        gsap.set(ring, { rotation: startRotation });
 
-      // Counter-rotate the items to keep them upright
-      const items = ring.querySelectorAll(".tech-item");
-      items.forEach((item, j) => {
-        const inner = item.querySelector(".tech-icon-inner");
-        const initialItemRotation = -(j * 90) - startRotation;
-
-        gsap.set(inner, { rotation: initialItemRotation });
-
-        gsap.to(inner, {
-          rotation: initialItemRotation - (360 * direction),
+        ringTl.to(ring, {
+          rotation: startRotation + (360 * direction),
           duration: duration,
-          repeat: -1,
-          ease: "none",
+        });
+
+        const items = ring.querySelectorAll(".tech-item");
+        items.forEach((item, j) => {
+          const inner = item.querySelector(".tech-icon-inner");
+          const initialItemRotation = -(j * 90) - startRotation;
+
+          gsap.set(inner, { rotation: initialItemRotation });
+
+          ringTl.to(inner, {
+            rotation: initialItemRotation - (360 * direction),
+            duration: duration,
+          }, 0);
+
+          // Add hover logic
+          const iconWrapper = item.querySelector(".tech-icon-wrapper");
+          iconWrapper?.addEventListener("mouseenter", () => {
+            timelines.forEach(tl => tl.pause());
+          });
+          iconWrapper?.addEventListener("mouseleave", () => {
+            timelines.forEach(tl => tl.play());
+          });
         });
       });
     });
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -129,9 +142,28 @@ export function TechStack() {
                     transform: `translate(-50%, -50%) rotate(${j * 90}deg) translate(${(250 + i * 200) / 2}px)`,
                   }}
                 >
-                  <div className="flex flex-col items-center justify-center space-y-1.5 w-12 h-12 md:w-16 md:h-16 p-4 rounded-full glass border border-primary-light/20 dark:border-primary-dark/20 text-xs font-bold tech-icon-inner">
-                    <span className="text-primary-light dark:text-primary-dark">{tech.icon}</span>
-                    <span className="text-[10px] md:text-xs font-mono">{tech.name}</span>
+                  <div className="tech-icon-inner relative">
+                    <div
+                      className="tech-icon-wrapper flex flex-col items-center justify-center space-y-1.5 w-14 h-14 md:w-20 md:h-20 p-4 rounded-full glass border border-primary-light/20 dark:border-primary-dark/20 text-xs font-bold cursor-pointer transition-all hover:scale-110 hover:border-primary-light dark:hover:border-primary-dark"
+                      onMouseEnter={() => setHoveredTech({ name: tech.name, desc: tech.desc })}
+                      onMouseLeave={() => setHoveredTech(null)}
+                    >
+                      <span className="text-primary-light dark:text-primary-dark">{tech.icon}</span>
+                      <span className="text-[10px] md:text-xs font-mono">{tech.name}</span>
+                    </div>
+
+                    {/* Tooltip */}
+                    {hoveredTech?.name === tech.name && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-48 p-4 glass rounded-2xl z-50 pointer-events-none"
+                      >
+                        <p className="font-bold text-sm mb-1">{tech.name}</p>
+                        <p className="text-[10px] text-text-muted-light dark:text-text-muted-dark leading-tight">{tech.desc}</p>
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-white/10" />
+                      </motion.div>
+                    )}
                   </div>
                 </div>
               ))}

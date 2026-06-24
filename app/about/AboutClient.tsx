@@ -57,25 +57,39 @@ export default function AboutPage() {
 
   const photoY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
-  const timelineContainerRef = useRef<HTMLDivElement>(null);
-  const timelinePathRef = useRef<SVGPathElement>(null);
+  const horizontalTriggerRef = useRef<HTMLDivElement>(null);
+  const horizontalTimelineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!timelinePathRef.current) return;
-    const path = timelinePathRef.current;
-    const pathLength = path.getTotalLength();
+    if (!horizontalTriggerRef.current || !horizontalTimelineRef.current) return;
 
-    gsap.set(path, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
+    const ctx = gsap.context(() => {
+      const totalWidth = horizontalTimelineRef.current!.scrollWidth;
+      const xMove = -(totalWidth - window.innerWidth + window.innerWidth * 0.2);
 
-    gsap.to(path, {
-      strokeDashoffset: 0,
-      scrollTrigger: {
-        trigger: timelineContainerRef.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1,
-      }
+      gsap.to(horizontalTimelineRef.current, {
+        x: xMove,
+        ease: "none",
+        scrollTrigger: {
+          trigger: horizontalTriggerRef.current,
+          start: "top top",
+          end: () => `+=${totalWidth}`,
+          scrub: 1,
+          pin: true,
+          invalidateOnRefresh: true,
+        },
+      });
     });
+
+    // Refresh scrolltrigger for Lenis
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
+    return () => {
+      ctx.revert();
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
@@ -130,36 +144,42 @@ export default function AboutPage() {
           ))}
         </section>
 
-        {/* Timeline */}
-        <section className="py-24 bg-surface-light dark:bg-surface-dark mb-32" ref={timelineContainerRef}>
-          <div className="container mx-auto px-6 text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-display font-bold">The Journey So Far</h2>
+        {/* Timeline (Horizontal GSAP) */}
+        <section ref={horizontalTriggerRef} className="bg-surface-light dark:bg-surface-dark py-32 overflow-hidden mb-32 min-h-screen flex flex-col justify-center">
+          <div className="container mx-auto px-6 mb-16">
+            <h2 className="text-4xl md:text-7xl font-display font-bold">The Journey So Far</h2>
           </div>
-          <div className="max-w-4xl mx-auto relative px-6">
-            <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-border-light dark:bg-border-dark hidden md:block" />
-            <svg className="absolute left-6 md:left-1/2 top-0 h-full w-1 hidden md:block" style={{ transform: 'translateX(-50%)' }}>
-              <path ref={timelinePathRef} d="M 0 0 L 0 5000" fill="none" stroke="var(--primary)" strokeWidth="4" />
-            </svg>
 
-            <div className="space-y-16">
-              {timeline.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className={`relative flex flex-col md:flex-row ${i % 2 === 0 ? 'md:flex-row-reverse' : ''} gap-8 md:gap-0`}
-                >
-                  <div className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary-light dark:bg-primary-dark -translate-x-1.5 md:-translate-x-2 z-10 top-0 hidden md:block" />
-                  <div className="flex-1 md:w-1/2 md:px-12">
-                     <span className="text-4xl font-display font-bold text-primary-light dark:text-primary-dark mb-2 block">{item.year}</span>
-                     <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
-                     <p className="text-text-muted-light dark:text-text-muted-dark">{item.desc}</p>
-                  </div>
-                  <div className="flex-1" />
-                </motion.div>
-              ))}
-            </div>
+          <div ref={horizontalTimelineRef} className="flex items-center space-x-0 relative min-w-max px-[10vw] h-[600px]">
+             {/* Progress Line */}
+             <div className="absolute top-1/2 left-0 w-full h-[2px] bg-border-light dark:bg-border-dark/30 -translate-y-1/2 z-0" />
+
+             {timeline.map((item, i) => (
+               <div key={i} className="relative flex flex-col items-center justify-center w-[400px] lg:w-[600px] h-[600px]">
+                  {/* Dot */}
+                  <div className="w-6 h-6 rounded-full bg-primary-light dark:bg-primary-dark shadow-[0_0_20px_rgba(108,99,255,0.8)] border-4 border-background-light dark:border-background-dark z-10" />
+
+                  <motion.div
+                    initial={{ opacity: 0, y: i % 2 === 0 ? -50 : 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className={`absolute ${i % 2 === 0 ? 'bottom-[calc(50%+40px)]' : 'top-[calc(50%+40px)]'} w-full text-center px-12`}
+                  >
+                     <span className="text-6xl lg:text-8xl font-display font-bold text-primary-light/10 dark:text-primary-dark/10 block leading-none mb-4">
+                        {item.year}
+                     </span>
+                     <div className="bg-white dark:bg-white/5 backdrop-blur-xl p-8 rounded-[32px] border border-primary-light/10 dark:border-white/10 shadow-xl inline-block text-left max-w-sm">
+                        <h3 className="text-2xl lg:text-3xl font-bold mb-4">{item.title}</h3>
+                        <p className="text-lg text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+                           {item.desc}
+                        </p>
+                     </div>
+                  </motion.div>
+
+                  {/* Vertical Connector Line */}
+                  <div className={`absolute left-1/2 -translate-x-1/2 w-[2px] bg-primary-light/30 dark:bg-primary-dark/30 h-10 ${i % 2 === 0 ? 'bottom-1/2' : 'top-1/2'}`} />
+               </div>
+             ))}
           </div>
         </section>
 

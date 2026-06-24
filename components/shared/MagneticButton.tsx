@@ -43,7 +43,7 @@ export function MagneticButton({
   }, []);
 
   return (
-    <div ref={buttonRef} className={className}>
+    <div ref={buttonRef} className={`${className} cta-button`}>
       {children}
     </div>
   );

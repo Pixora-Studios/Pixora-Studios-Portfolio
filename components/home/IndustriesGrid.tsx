@@ -3,9 +3,21 @@
 import { motion } from "framer-motion";
 
 const industries = [
-  "Dental Clinics", "Cafes", "Restaurants", "Gyms", "Salons",
-  "Coaching Centers", "Real Estate", "Event Organizers", "Hotels", "Clubs",
-  "Travel Agencies", "Pharmacies", "Interior Designers", "Personal Brands", "General Clinics"
+  { name: "Dental Clinics", icon: "🦷" },
+  { name: "Cafes", icon: "☕" },
+  { name: "Restaurants", icon: "🍽" },
+  { name: "Gyms", icon: "💪" },
+  { name: "Salons", icon: "💇" },
+  { name: "Coaching Centers", icon: "🎓" },
+  { name: "Real Estate", icon: "🏠" },
+  { name: "Event Organizers", icon: "🎉" },
+  { name: "Hotels", icon: "🏨" },
+  { name: "Clubs", icon: "🎵" },
+  { name: "Travel Agencies", icon: "✈️" },
+  { name: "Pharmacies", icon: "💊" },
+  { name: "Interior Designers", icon: "🎨" },
+  { name: "Personal Brands", icon: "✨" },
+  { name: "General Clinics", icon: "🏥" }
 ];
 
 export function IndustriesGrid() {
@@ -34,7 +46,7 @@ export function IndustriesGrid() {
         <div className="flex flex-wrap justify-center gap-4">
           {industries.map((industry, index) => (
             <motion.div
-              key={industry}
+              key={industry.name}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -44,9 +56,10 @@ export function IndustriesGrid() {
                 background: "var(--accent-gradient)",
                 color: "white"
               }}
-              className="px-6 py-4 rounded-xl glass cursor-default transition-all duration-300 font-display font-bold text-lg"
+              className="px-6 py-4 rounded-xl glass cursor-default transition-all duration-300 font-display font-bold text-lg flex items-center gap-3"
             >
-              {industry}
+              <span>{industry.icon}</span>
+              <span>{industry.name}</span>
             </motion.div>
           ))}
         </div>
