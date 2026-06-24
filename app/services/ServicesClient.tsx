@@ -85,43 +85,46 @@ export default function ServicesPage() {
             {services.map((service, index) => (
               <div
                 key={service.id}
-                className="w-[100vw] h-full flex items-center justify-center px-6"
+                className="w-[100vw] h-full flex items-center justify-center px-6 pt-20"
               >
-                <div className="container mx-auto grid md:grid-cols-2 gap-16 items-center">
-                  <div className="space-y-8">
-                    <span className="text-6xl">{service.icon}</span>
+                <div className="container mx-auto grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+                  <div className="space-y-6 lg:space-y-8">
+                    <span className="text-5xl lg:text-6xl">{service.icon}</span>
                     <div>
-                      <h3 className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest mb-2">
+                      <h3 className="text-primary-light dark:text-primary-dark font-mono text-xs lg:text-sm uppercase tracking-widest mb-2">
                         {service.problem}
                       </h3>
-                      <h2 className="text-4xl md:text-6xl font-display font-bold">
+                      <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
                         {service.title}
                       </h2>
                     </div>
-                    <p className="text-xl text-text-muted-light dark:text-text-muted-dark">
+                    <p className="text-lg lg:text-xl text-text-muted-light dark:text-text-muted-dark max-w-xl">
                       {service.solution}
                     </p>
                     <div className="space-y-4">
-                      <h4 className="font-bold uppercase text-sm tracking-widest">What&apos;s Included:</h4>
-                      <ul className="grid grid-cols-2 gap-3">
+                      <h4 className="font-bold uppercase text-[10px] lg:text-xs tracking-widest opacity-70">What&apos;s Included:</h4>
+                      <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
                         {service.included.map((item) => (
-                          <li key={item} className="flex items-center space-x-2 text-sm">
-                            <span className="w-1.5 h-1.5 rounded-full bg-primary-light dark:bg-primary-dark" />
-                            <span>{item}</span>
+                          <li key={item} className="flex items-center space-x-2 text-xs lg:text-sm">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary-light dark:bg-primary-dark shrink-0" />
+                            <span className="truncate">{item}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                     <Link
                       href="/contact"
-                      className="inline-flex items-center space-x-3 px-8 py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold"
+                      className="inline-flex items-center space-x-3 px-6 lg:px-8 py-3 lg:py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-sm lg:text-base transition-transform hover:scale-105"
                     >
                       <span>Get Started</span>
-                      <ArrowRight className="w-5 h-5" />
+                      <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5" />
                     </Link>
                   </div>
-                  <div className="hidden md:block relative aspect-square glass rounded-[40px] flex items-center justify-center italic text-text-muted-dark">
-                    [Illustration for {service.title}]
+                  <div className="hidden md:flex relative aspect-square max-h-[60vh] w-full glass rounded-[40px] items-center justify-center italic text-text-muted-dark overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary-light/10 to-transparent dark:from-primary-dark/10" />
+                    <span className="relative z-10 text-center px-8 text-sm lg:text-base">
+                      [Illustration for {service.title}]
+                    </span>
                   </div>
                 </div>
               </div>
