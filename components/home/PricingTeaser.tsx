@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 const teaserPlans = [
-  { name: "Starter", price: "₹8,000" },
-  { name: "Standard", price: "₹15,000" },
-  { name: "Advanced", price: "₹28,000" },
+  { name: "Starter", price: "₹9,999" },
+  { name: "Standard", price: "₹17,999" },
+  { name: "Advanced", price: "₹29,999" },
 ];
 
 export function PricingTeaser() {

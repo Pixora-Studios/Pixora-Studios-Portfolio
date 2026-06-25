@@ -1,39 +1,52 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Globe, Calendar, Utensils, Zap, Search, ShieldCheck } from "lucide-react";
+import { ArrowRight, Globe, Calendar, Utensils, Zap, Search, ShieldCheck, Palette, Mail } from "lucide-react";
 
 const services = [
   {
     title: "Website Design & Development",
-    description: "Custom business websites built for your brand and your customers.",
+    description: "Custom websites built for your brand — fast, mobile-first, and made to convert.",
     icon: Globe,
+    image: "https://images.pexels.com/photos/8128192/pexels-photo-8128192.jpeg",
   },
   {
     title: "Appointment Booking Systems",
-    description: "Let patients, clients, or customers book online. 24/7.",
+    description: "Let your patients or clients book online, 24/7 — no calls, no friction.",
     icon: Calendar,
+    image: "https://images.pexels.com/photos/4266932/pexels-photo-4266932.jpeg",
   },
   {
     title: "Restaurant & Table Booking Systems",
-    description: "Accept reservations directly. No third-party commissions.",
+    description: "Accept reservations directly on your site. Zero third-party commissions.",
     icon: Utensils,
+    image: "https://images.pexels.com/photos/16345589/pexels-photo-16345589.jpeg",
   },
   {
-    title: "WhatsApp Automation & Lead Capture",
-    description: "Turn your website into a lead machine.",
-    icon: Zap,
+    title: "Email Notification & CRM Integration",
+    description: "Instant appointment alerts and client notifications — no manual follow-up needed.",
+    icon: Mail,
+    image: "https://images.pexels.com/photos/8284722/pexels-photo-8284722.jpeg",
   },
   {
-    title: "SEO & Google Ranking",
-    description: "Get found when local customers search for your services.",
+    title: "SEO & Local Google Ranking",
+    description: "Get found when local customers search for your services. Show up. Stand out.",
     icon: Search,
+    image: "https://images.pexels.com/photos/16629436/pexels-photo-16629436.jpeg",
+  },
+  {
+    title: "Brand Identity & UI/UX Design",
+    description: "Logos, color systems, and interfaces that make your business look like it means business.",
+    icon: Palette,
+    image: "https://images.pexels.com/photos/4463588/pexels-photo-4463588.jpeg",
   },
   {
     title: "Hosting, Maintenance & Support",
-    description: "We handle the technical side. You focus on your business.",
+    description: "We handle the technical side so you never have to worry about downtime or updates.",
     icon: ShieldCheck,
+    image: "https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg",
   },
 ];
 
@@ -85,8 +98,27 @@ export function ServicesOverview() {
                       <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
                    </Link>
                 </div>
-                <div className="flex-1 w-full aspect-video glass rounded-3xl flex items-center justify-center text-text-muted-dark italic">
-                   [Service Illustration/Mockup]
+                <div className="flex-1 w-full aspect-video glass rounded-3xl overflow-hidden border border-primary-light/10 dark:border-primary-dark/10">
+                  {service.image ? (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      className="relative w-full h-full"
+                    >
+                      <Image
+                        src={service.image}
+                        alt={`${service.title} preview`}
+                        fill
+                        className="object-cover"
+                        priority={index === 0}
+                      />
+                    </motion.div>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-text-muted-dark italic">
+                      [Service Illustration/Mockup]
+                    </div>
+                  )}
                 </div>
               </motion.div>
             );

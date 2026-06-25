@@ -9,7 +9,7 @@ const plans = [
   {
     name: "Starter",
     description: "A solid foundation for businesses that are just getting online.",
-    price: "₹8,000",
+    price: "₹9,999",
     note: "One-time. No monthly fee.",
     features: [
       "Up to 4 pages (Home, About, Services, Contact)",
@@ -24,7 +24,7 @@ const plans = [
   {
     name: "Standard",
     description: "For businesses that need more room — more pages, more details, more presence.",
-    price: "₹15,000",
+    price: "₹17,999",
     note: "One-time. No monthly fee.",
     features: [
       "Everything in Starter, plus:",
@@ -41,7 +41,7 @@ const plans = [
   {
     name: "Advanced",
     description: "A fully custom build — for businesses that want their website to feel as considered as the rest of their brand.",
-    price: "₹28,000",
+    price: "₹29,999",
     note: "One-time. No monthly fee.",
     features: [
       "Everything in Standard, plus:",
