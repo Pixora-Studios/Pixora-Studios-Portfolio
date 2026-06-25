@@ -7,6 +7,7 @@ export interface Service {
   benefits: string[];
   included: string[];
   icon: string;
+  image?: string;
 }
 
 export const services: Service[] = [
@@ -19,6 +20,7 @@ export const services: Service[] = [
     benefits: ["Unique brand identity", "Ultra-fast load times", "Conversion-optimized layout", "Fully mobile responsive"],
     included: ["Custom UI/UX Design", "Frontend & Backend Development", "Basic SEO Setup", "Contact Form Integration"],
     icon: "🌐",
+    image: "https://images.pexels.com/photos/8128192/pexels-photo-8128192.jpeg",
   },
   {
     id: 2,
@@ -29,6 +31,7 @@ export const services: Service[] = [
     benefits: ["24/7 Availability", "Zero double-bookings", "Automated reminders", "Staff management"],
     included: ["Calendar Integration", "Real-time Slot Checking", "Email/WhatsApp Alerts", "Admin Dashboard"],
     icon: "📅",
+    image: "https://images.pexels.com/photos/4266932/pexels-photo-4266932.jpeg",
   },
   {
     id: 3,
@@ -39,16 +42,18 @@ export const services: Service[] = [
     benefits: ["Save on commission fees", "Direct customer database", "Manage floor capacity", "Digital menu integration"],
     included: ["Table Reservation Engine", "QR Code Menus", "Special Offer Management", "Reservation Tracking"],
     icon: "🍽",
+    image: "https://images.pexels.com/photos/16345589/pexels-photo-16345589.jpeg",
   },
   {
     id: 4,
-    title: "WhatsApp Automation & Lead Capture",
-    problem: "Don't let visitors leave without saying hello.",
-    solution: "Turn your website into a lead machine with seamless WhatsApp integration and automated capture flows.",
-    description: "Turn website visitors into WhatsApp leads instantly with smart capture tools.",
-    benefits: ["Instant communication", "Higher lead conversion", "Automated follow-ups", "Seamless user experience"],
-    included: ["WhatsApp Click-to-Chat", "Lead Magnet Popups", "CRM Integration", "Auto-responder Setup"],
-    icon: "💬",
+    title: "Email Notification & CRM Integration",
+    problem: "Manual follow-ups slow your business down.",
+    solution: "Keep your clients informed instantly with smart email and CRM automations that save time and improve response rates.",
+    description: "Automated notifications and CRM workflows that keep every appointment and lead moving smoothly.",
+    benefits: ["Instant communication", "Fewer missed follow-ups", "Better client retention", "More organized operations"],
+    included: ["Email Automation", "CRM Setup", "Appointment Alerts", "Lead Tracking"],
+    icon: "📧",
+    image: "https://images.pexels.com/photos/8284722/pexels-photo-8284722.jpeg",
   },
   {
     id: 5,
@@ -59,9 +64,21 @@ export const services: Service[] = [
     benefits: ["Rank for local keywords", "Drive organic traffic", "Build local authority", "Long-term growth"],
     included: ["Keyword Research", "On-page Optimization", "GMB Management", "Performance Monitoring"],
     icon: "🔍",
+    image: "https://images.pexels.com/photos/16629436/pexels-photo-16629436.jpeg",
   },
   {
     id: 6,
+    title: "Brand Identity & UI/UX Design",
+    problem: "Your visual identity should work as hard as your business.",
+    solution: "We create thoughtful brand systems and interfaces that make your business feel polished, memorable, and trustworthy.",
+    description: "Clean, modern design systems for logos, visuals, and user experiences that support growth.",
+    benefits: ["Stronger brand presence", "More polished user experience", "Higher trust and credibility", "Consistent visual direction"],
+    included: ["Logo & Brand Direction", "Color & Typography Systems", "UI/UX Design", "Design Mockups"],
+    icon: "🎨",
+    image: "https://images.pexels.com/photos/4463588/pexels-photo-4463588.jpeg",
+  },
+  {
+    id: 7,
     title: "Hosting, Maintenance & Support",
     problem: "Don't let technical debt slow you down.",
     solution: "We handle the technical side—hosting, security, and updates—so you can focus 100% on growing your business.",
@@ -69,5 +86,6 @@ export const services: Service[] = [
     benefits: ["99.9% Uptime guarantee", "Priority support", "Regular security audits", "Monthly content updates"],
     included: ["Fast Managed Hosting", "SSL Certificate", "Daily Backups", "Technical Support"],
     icon: "🛠",
+    image: "https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg",
   },
 ];

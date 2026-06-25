@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -120,11 +121,21 @@ export default function ServicesPage() {
                       <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5" />
                     </Link>
                   </div>
-                  <div className="hidden md:flex relative aspect-square max-h-[60vh] w-full glass rounded-[40px] items-center justify-center italic text-text-muted-dark overflow-hidden">
+                  <div className="hidden md:flex relative aspect-square max-h-[60vh] w-full glass rounded-[40px] overflow-hidden border border-primary-light/10 dark:border-primary-dark/10">
                     <div className="absolute inset-0 bg-gradient-to-br from-primary-light/10 to-transparent dark:from-primary-dark/10" />
-                    <span className="relative z-10 text-center px-8 text-sm lg:text-base">
-                      [Illustration for {service.title}]
-                    </span>
+                    {service.image ? (
+                      <Image
+                        src={service.image}
+                        alt={`${service.title} preview`}
+                        fill
+                        className="object-cover"
+                        priority={index === 0}
+                      />
+                    ) : (
+                      <span className="relative z-10 text-center px-8 text-sm lg:text-base italic text-text-muted-dark">
+                        [Illustration for {service.title}]
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Globe, Calendar, Utensils, Zap, Search, ShieldCheck, Palette, Mail } from "lucide-react";
+import { ArrowRight, Globe, Calendar, Utensils, Search, ShieldCheck, Palette, Mail } from "lucide-react";
 
 const services = [
   {
@@ -31,7 +31,7 @@ const services = [
     image: "https://images.pexels.com/photos/8284722/pexels-photo-8284722.jpeg",
   },
   {
-    title: "SEO & Local Google Ranking",
+    title: "SEO & Google Ranking",
     description: "Get found when local customers search for your services. Show up. Stand out.",
     icon: Search,
     image: "https://images.pexels.com/photos/16629436/pexels-photo-16629436.jpeg",
