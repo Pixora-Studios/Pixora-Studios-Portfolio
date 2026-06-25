@@ -36,7 +36,7 @@ export function constructMetadata({
     icons: {
       icon: "/favicon.ico",
     },
-    metadataBase: new URL("https://pixorastudios.in"),
+    metadataBase: new URL("https://pixorastudios.com"),
     ...(noIndex && {
       robots: {
         index: false,
