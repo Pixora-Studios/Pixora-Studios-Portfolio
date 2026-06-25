@@ -129,7 +129,7 @@ export function HeroSection() {
 
       <div className="container mx-auto px-6 grid xl:grid-cols-2 gap-16 items-center">
         <motion.div
-          className="flex flex-col items-start xl:col-span-1"
+          className="flex flex-col items-start w-full xl:col-span-1"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
