@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { HeroSection } from "@/components/home/HeroSection";
 import { TrustBar } from "@/components/home/TrustBar";
-import { AboutSection } from "@/components/home/AboutSection";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { IndustriesGrid } from "@/components/home/IndustriesGrid";
 import { ServicesOverview } from "@/components/home/ServicesOverview";
@@ -25,7 +24,6 @@ export default function HomeClient() {
     <PageTransition>
       <HeroSection />
       <TrustBar />
-      <AboutSection />
       <WhyChooseUs />
       <WorkShowcase />
       <IndustriesGrid />
