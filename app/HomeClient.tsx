@@ -9,6 +9,7 @@ import { IndustriesGrid } from "@/components/home/IndustriesGrid";
 import { ServicesOverview } from "@/components/home/ServicesOverview";
 import { ComparisonSection } from "@/components/home/ComparisonSection";
 import { FAQSection } from "@/components/home/FAQSection";
+import { PricingTeaser } from "@/components/home/PricingTeaser";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { PageTransition } from "@/components/shared/PageTransition";
 
@@ -35,6 +36,7 @@ export default function HomeClient() {
       <TechStack />
       <SEOSection />
       <FAQSection />
+      <PricingTeaser />
       <FinalCTA />
     </PageTransition>
   );
