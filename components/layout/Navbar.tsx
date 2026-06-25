@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Linkedin, Instagram, Github, Phone as WhatsApp } from "lucide-react";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
@@ -40,8 +40,8 @@ export function Navbar() {
           : "py-6 bg-transparent"
       )}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center space-x-1 group">
+      <div className="container mx-auto px-6 flex items-center justify-between relative z-50">
+        <Link href="/" className="flex items-center space-x-1 group relative z-50">
           <Image
             src="/images/logo.png"
             alt="Pixora Studios Logo"
@@ -86,9 +86,21 @@ export function Navbar() {
           <ThemeToggle />
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-text-primary-light dark:text-text-primary-dark"
+            className="relative z-50 w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus:outline-none"
+            aria-label="Toggle Menu"
           >
-            {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+            <motion.span
+              animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+              className="w-8 h-0.5 bg-text-primary-light dark:bg-white rounded-full transition-colors"
+            />
+            <motion.span
+              animate={isOpen ? { opacity: 0, x: -10 } : { opacity: 1, x: 0 }}
+              className="w-8 h-0.5 bg-text-primary-light dark:bg-white rounded-full transition-colors"
+            />
+            <motion.span
+              animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+              className="w-8 h-0.5 bg-text-primary-light dark:bg-white rounded-full transition-colors"
+            />
           </button>
         </div>
       </div>
@@ -97,40 +109,72 @@ export function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full h-screen bg-background-light dark:bg-background-dark p-6 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 w-full h-screen bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-xl z-40 md:hidden flex flex-col"
           >
-            <div className="flex flex-col space-y-8 mt-12">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="text-4xl font-display font-bold hover:text-primary-light dark:hover:text-primary-dark"
+            <div className="container mx-auto px-6 pt-32 pb-12 flex flex-col h-full">
+              <div className="flex flex-col space-y-6">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + index * 0.1 }}
                   >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="group flex items-end space-x-4"
+                    >
+                      <span className="text-primary-light/40 dark:text-primary-dark/40 font-mono text-sm mb-2">
+                        0{index + 1}
+                      </span>
+                      <span className="text-5xl font-display font-bold hover:translate-x-2 transition-transform duration-300">
+                        {link.name}
+                      </span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: navLinks.length * 0.1 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="mt-auto pt-12 border-t border-border-light dark:border-border-dark flex flex-col space-y-8"
               >
-                <Link
-                  href="/contact"
-                  onClick={() => setIsOpen(false)}
-                  className="inline-block px-8 py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white text-lg font-bold"
-                >
-                  Book a Call
-                </Link>
+                <div>
+                  <p className="text-text-muted-light dark:text-text-muted-dark text-sm uppercase tracking-widest mb-4">
+                    Get in touch
+                  </p>
+                  <a
+                    href="mailto:hello@pixorastudios.in"
+                    className="text-2xl font-display font-bold hover:text-primary-light dark:hover:text-primary-dark transition-colors"
+                  >
+                    hello@pixorastudios.in
+                  </a>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex space-x-6">
+                    {[
+                      { icon: Linkedin, href: "#" },
+                      { icon: Instagram, href: "#" },
+                      { icon: Github, href: "#" },
+                      { icon: WhatsApp, href: "#" },
+                    ].map((social, i) => (
+                      <Link
+                        key={i}
+                        href={social.href}
+                        className="text-text-muted-light dark:text-text-muted-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"
+                      >
+                        <social.icon className="w-6 h-6" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               </motion.div>
             </div>
           </motion.div>
