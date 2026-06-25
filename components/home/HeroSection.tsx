@@ -116,7 +116,7 @@ export function HeroSection() {
   const line2 = "But Make It";
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-background-light dark:bg-background-dark">
+    <section className="relative min-h-screen flex items-center pt-20 overflow-x-hidden bg-background-light dark:bg-background-dark">
       <canvas
         ref={canvasRef}
         className="absolute inset-0 pointer-events-none opacity-50"
@@ -127,9 +127,9 @@ export function HeroSection() {
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-dark/10 rounded-full blur-[120px] animate-pulse delay-700" />
       </div>
 
-      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="container mx-auto px-6 grid xl:grid-cols-2 gap-16 items-center">
         <motion.div
-          className="flex flex-col items-start"
+          className="flex flex-col items-start xl:col-span-1"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -142,7 +142,7 @@ export function HeroSection() {
             <span className="w-[1px] h-4 bg-primary-light dark:bg-primary-dark animate-blink" />
           </motion.div>
 
-          <h1 className="text-6xl md:text-8xl font-display font-bold leading-[0.9] mb-8 tracking-tighter">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.9] mb-8 tracking-tighter">
             <span className="block overflow-hidden">
               {line1.split(" ").map((word, i) => (
                 <motion.span
@@ -177,7 +177,7 @@ export function HeroSection() {
 
           <motion.p
             variants={itemVariants}
-            className="text-lg md:text-xl text-text-muted-light dark:text-text-muted-dark max-w-[480px] mb-12 leading-relaxed"
+            className="text-lg md:text-xl text-text-muted-light dark:text-text-muted-dark max-w-full xl:max-w-[480px] mb-12 leading-relaxed"
           >
             We turn local businesses into brands people actually look up.
             No templates. No fluff. Just something that works.
@@ -204,7 +204,7 @@ export function HeroSection() {
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap gap-x-3 text-xs font-mono text-text-muted-light dark:text-text-muted-dark uppercase tracking-widest items-center"
+            className="flex flex-wrap gap-x-3 gap-y-2 text-xs font-mono text-text-muted-light dark:text-text-muted-dark uppercase tracking-widest items-center"
           >
             <span>✦ 15+ brands live</span>
             <span className="opacity-40">·</span>
@@ -219,7 +219,7 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="relative lg:block hidden"
+          className="relative xl:block hidden"
         >
           <div className="rounded-2xl bg-[#0D0D14] border border-white/10 overflow-hidden shadow-2xl shadow-primary-dark/20">
             {/* Browser Top Bar */}
