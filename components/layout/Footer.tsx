@@ -9,6 +9,7 @@ const footerLinks = {
   ],
   services: [
     { name: "Web Design", href: "/services" },
+    { name: "QR Menu", href: "/services/qr-menu" },
     { name: "Booking Systems", href: "/services" },
     { name: "SEO Optimization", href: "/services" },
   ],

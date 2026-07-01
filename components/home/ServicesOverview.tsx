@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Globe, Calendar, Utensils, Search, ShieldCheck, Palette, Mail } from "lucide-react";
+import { ArrowRight, Globe, Calendar, Utensils, Search, ShieldCheck, Palette, Mail, Smartphone } from "lucide-react";
 
 const services = [
   {
@@ -47,6 +47,13 @@ const services = [
     description: "We handle the technical side so you never have to worry about downtime or updates.",
     icon: ShieldCheck,
     image: "https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg",
+  },
+  {
+    title: "Digital QR Menu",
+    description: "Modern, contactless dining experiences for restaurants. Scan, browse, and order-ready.",
+    icon: Smartphone,
+    image: "https://images.pexels.com/photos/5932727/pexels-photo-5932727.jpeg",
+    link: "/services/qr-menu",
   },
 ];
 
@@ -93,7 +100,7 @@ export function ServicesOverview() {
                    <p className="text-lg text-text-muted-light dark:text-text-muted-dark mb-8 max-w-xl">
                       {service.description}
                    </p>
-                   <Link href="/services" className="group inline-flex items-center space-x-2 font-bold text-primary-light dark:text-primary-dark">
+                   <Link href={service.link || "/services"} className="group inline-flex items-center space-x-2 font-bold text-primary-light dark:text-primary-dark">
                       <span>Learn More</span>
                       <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
                    </Link>

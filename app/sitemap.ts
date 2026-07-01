@@ -23,6 +23,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
+      url: `${baseUrl}/services/qr-menu`,
+      lastModified: new Date(),
+    },
+    {
       url: `${baseUrl}/about`,
       lastModified: new Date(),
     },

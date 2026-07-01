@@ -114,10 +114,10 @@ export default function ServicesPage() {
                       </ul>
                     </div>
                     <Link
-                      href="/contact"
+                      href={service.link || "/contact"}
                       className="inline-flex items-center space-x-3 px-6 lg:px-8 py-3 lg:py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-sm lg:text-base transition-transform hover:scale-105"
                     >
-                      <span>Get Started</span>
+                      <span>{service.link ? "Learn More" : "Get Started"}</span>
                       <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5" />
                     </Link>
                   </div>

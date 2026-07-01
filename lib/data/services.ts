@@ -8,6 +8,7 @@ export interface Service {
   included: string[];
   icon: string;
   image?: string;
+  link?: string;
 }
 
 export const services: Service[] = [
@@ -87,5 +88,17 @@ export const services: Service[] = [
     included: ["Fast Managed Hosting", "SSL Certificate", "Daily Backups", "Technical Support"],
     icon: "🛠",
     image: "https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg",
+  },
+  {
+    id: 8,
+    title: "Digital QR Menu",
+    problem: "Frictionless dining starts with a scan.",
+    solution: "A fast, mobile-optimized digital menu that requires no app download. Perfect for restaurants, cafes, and bars.",
+    description: "Modern digital menus with instant updates and premium physical stands.",
+    benefits: ["No app download required", "Instant menu updates", "Mobile-optimized UI", "Premium physical stands"],
+    included: ["Digital Menu Software", "Custom Design Skin", "QR Code Generation", "Analytics Dashboard"],
+    icon: "📱",
+    image: "https://images.pexels.com/photos/5932727/pexels-photo-5932727.jpeg",
+    link: "/services/qr-menu",
   },
 ];
