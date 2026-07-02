@@ -66,6 +66,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${syne.variable} ${jetbrainsMono.variable} font-body`}
+        suppressHydrationWarning
       >
         <script
           type="application/ld+json"
