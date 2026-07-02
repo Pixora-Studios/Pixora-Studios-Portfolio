@@ -230,7 +230,7 @@ export function HeroSection() {
                 <div className="w-3 h-3 rounded-full bg-[#28C840]" />
               </div>
               <div className="flex-1 mx-8 px-3 py-1 rounded bg-black/20 border border-white/5 text-[10px] text-white/40 font-mono text-center">
-                pixorastudios.com/services
+                pixorastudios.in/services
               </div>
             </div>
             {/* Browser Content */}

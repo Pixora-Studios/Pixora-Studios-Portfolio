@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { Metadata } from "next";
+import { constructMetadata } from "@/lib/seo";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -15,10 +16,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
 
-  return {
+  return constructMetadata({
     title: `${project.name} | Case Study | Pixora Studios`,
     description: project.description,
-  };
+    image: project.image,
+  });
 }
 
 export default async function ProjectPage({ params }: Props) {
