@@ -19,7 +19,7 @@ export function QRMenuClient() {
         <QRHowItWorks />
         <QRPricing />
         <QRDesignShowcase />
-        <QRStandsShowcase />
+        {/* <QRStandsShowcase /> */}
         <QRMenuCTA />
       </div>
     </PageTransition>
