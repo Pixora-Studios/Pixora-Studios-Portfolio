@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { memo, type CSSProperties } from "react";
 import type { FoodKind } from "@/lib/data/qrMenuData";
 
 interface FoodThumbnailProps {
@@ -21,7 +21,7 @@ interface FoodThumbnailProps {
  * floor (width/height/minWidth/minHeight + flexShrink: 0) make that impossible:
  * the box always has adequate size and this color, full stop.
  */
-export function FoodThumbnail({ kind, tone = "a", size = 36, radiusClass = "rounded-xl", className = "" }: FoodThumbnailProps) {
+export const FoodThumbnail = memo(function FoodThumbnail({ kind, tone = "a", size = 36, radiusClass = "rounded-xl", className = "" }: FoodThumbnailProps) {
   const wrapperStyle: CSSProperties = {
     width: size,
     height: size,
@@ -38,7 +38,7 @@ export function FoodThumbnail({ kind, tone = "a", size = 36, radiusClass = "roun
       <FoodArt kind={kind} tone={tone} />
     </div>
   );
-}
+});
 
 function FoodArt({ kind, tone }: { kind: FoodKind; tone: "a" | "b" }) {
   switch (kind) {
@@ -91,8 +91,8 @@ function CoffeeArt({ tone }: { tone: "a" | "b" }) {
     <div style={{ ...full, background: tone === "a" ? "#F4E9DA" : "#FFF3E1" }}>
       <div style={abs({ top: "22%", left: "14%", right: "14%", bottom: "10%", borderRadius: "0 0 45% 45%", background: cup })} />
       <div style={abs({ top: "18%", left: "10%", right: "10%", height: "18%", borderRadius: "50%", background: rim })} />
-      {/* cream swirl */}
-      <div style={abs({ top: "28%", left: "30%", width: "40%", height: "22%", borderRadius: "50%", background: "rgba(255,255,255,0.55)", filter: "blur(1px)" })} />
+      {/* cream swirl — removed blur(1px) to reduce paint cost in large marquees */}
+      <div style={abs({ top: "28%", left: "30%", width: "40%", height: "22%", borderRadius: "50%", background: "rgba(255,255,255,0.55)" })} />
       {/* handle */}
       <div style={abs({ top: "48%", right: "2%", width: "16%", height: "26%", border: `3px solid ${cup}`, borderLeft: "none", borderRadius: "0 40% 40% 0" })} />
     </div>

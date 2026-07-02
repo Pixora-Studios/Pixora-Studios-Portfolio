@@ -19,6 +19,8 @@ interface MarqueeRowProps {
  * never causes a snap back to the start.
  */
 export function MarqueeRow({ children, durationSec = 60, paused = false, className = "" }: MarqueeRowProps) {
+  // Using CSS animationPlayState is more performant than Framer Motion's paused state
+  // for heavy marquee components as it stays on the compositor thread.
   return (
     <div className={`overflow-hidden ${className}`}>
       <div

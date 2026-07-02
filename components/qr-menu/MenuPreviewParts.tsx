@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { Search, Star, SignalHigh, Wifi, BatteryFull } from "lucide-react";
 import type { MenuTheme } from "@/lib/data/menuThemes";
@@ -115,7 +116,7 @@ function VegDot({ theme, veg }: { theme: MenuTheme; veg: boolean }) {
   );
 }
 
-export function MenuCard({
+export const MenuCard = memo(function MenuCard({
   item,
   theme,
   isLast,
@@ -165,7 +166,7 @@ export function MenuCard({
       <p className={`text-[9px] shrink-0 ${theme.priceColor} ${theme.priceFontClass}`}>{item.price}</p>
     </div>
   );
-}
+});
 
 export function MenuPreviewScreen({
   theme,
@@ -179,8 +180,10 @@ export function MenuPreviewScreen({
   /** Full loop duration for the auto-scroll — pass a different number per theme so each phone feels alive. */
   scrollDurationSec?: number;
 }) {
-  // Duplicated so the upward auto-scroll can loop seamlessly from -50% back to 0%.
-  const loopItems = [...items, ...items];
+  // Reduced number of items (from 12 to 6) and then duplicated to significantly lower DOM node count per phone.
+  // In a marquee with ~15 phones, this saves ~180 DOM nodes.
+  const previewItems = items.slice(0, 6);
+  const loopItems = [...previewItems, ...previewItems];
 
   return (
     <div className={`absolute inset-0 flex flex-col gap-2 pt-1 pb-2 ${theme.screenBg}`} style={theme.screenPattern}>
@@ -189,9 +192,7 @@ export function MenuPreviewScreen({
       <SearchBar theme={theme} />
       <CategoryTabs theme={theme} categories={categories} />
       <div className="relative flex-1 overflow-hidden px-3">
-        {/* Fade masks so items don't hard-clip at the viewport edge. Uses a CSS mask
-            (not a manually-built gradient) so it fades correctly whether the theme's
-            screenBg is a solid color, a gradient, or has a pattern layered on top. */}
+        {/* Fade masks */}
         <div
           className={`absolute inset-x-3 top-0 h-4 z-10 pointer-events-none ${theme.screenBg}`}
           style={{ ...theme.screenPattern, WebkitMaskImage: "linear-gradient(to bottom, black, transparent)", maskImage: "linear-gradient(to bottom, black, transparent)" }}
@@ -201,16 +202,29 @@ export function MenuPreviewScreen({
           style={{ ...theme.screenPattern, WebkitMaskImage: "linear-gradient(to top, black, transparent)", maskImage: "linear-gradient(to top, black, transparent)" }}
         />
 
-        <motion.div
-          animate={{ y: ["0%", "-50%"] }}
-          transition={{ duration: scrollDurationSec, ease: "linear", repeat: Infinity }}
+        {/* CSS-based vertical marquee for better performance than motion.div */}
+        <div
           className={`flex flex-col ${theme.cardGap}`}
+          style={{
+            animation: `pixora-menu-vertical-scroll ${scrollDurationSec}s linear infinite`,
+            willChange: "transform",
+          }}
         >
           {loopItems.map((item, i) => (
             <MenuCard key={`${item.id}-${i}`} item={item} theme={theme} isLast={i === loopItems.length - 1} />
           ))}
-        </motion.div>
+        </div>
       </div>
+      <style jsx>{`
+        @keyframes pixora-menu-vertical-scroll {
+          from {
+            transform: translateY(0);
+          }
+          to {
+            transform: translateY(-50%);
+          }
+        }
+      `}</style>
     </div>
   );
 }
