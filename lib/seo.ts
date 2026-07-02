@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export function constructMetadata({
   title = "Pixora Studios | Website Development Company in Bhubaneswar",
   description = "Pixora Studios builds professional, SEO-optimized websites for clinics, cafes, restaurants, gyms, salons and local businesses in Bhubaneswar and Odisha.",
-  image = "/og-default.jpg",
+  image,
   noIndex = false,
 }: {
   title?: string;
@@ -11,6 +11,8 @@ export function constructMetadata({
   image?: string;
   noIndex?: boolean;
 } = {}): Metadata {
+  const ogImage = image || `/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`;
+
   return {
     title,
     description,
@@ -19,7 +21,7 @@ export function constructMetadata({
       description,
       images: [
         {
-          url: image,
+          url: ogImage,
         },
       ],
       type: "website",
@@ -30,7 +32,7 @@ export function constructMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [image],
+      images: [ogImage],
       creator: "@debidutta",
     },
     icons: {

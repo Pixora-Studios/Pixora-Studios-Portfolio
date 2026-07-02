@@ -33,6 +33,29 @@ export const metadata: Metadata = {
   },
   description: "Pixora Studios builds professional, SEO-optimized websites for clinics, cafes, restaurants, gyms, salons and local businesses in Bhubaneswar and across Odisha.",
   metadataBase: new URL("https://pixorastudios.in"),
+  openGraph: {
+    title: "Pixora Studios | Website Development Company in Bhubaneswar, Odisha",
+    description: "Pixora Studios builds professional, SEO-optimized websites for local businesses in Bhubaneswar and Odisha.",
+    url: "https://pixorastudios.in",
+    siteName: "Pixora Studios",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "Pixora Studios - Web Development Bhubaneswar",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pixora Studios | Website Development Company in Bhubaneswar, Odisha",
+    description: "Professional websites for local businesses in Bhubaneswar and Odisha.",
+    creator: "@debidutta",
+    images: ["/api/og"],
+  },
 };
 
 export default function RootLayout({
