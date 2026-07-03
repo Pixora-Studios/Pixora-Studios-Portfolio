@@ -111,7 +111,7 @@ export async function GET(request: Request) {
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
           }}>
-            pixorastudios.in
+            pixorastudios.com
           </div>
         </div>
       ),

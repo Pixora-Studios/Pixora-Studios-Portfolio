@@ -13,8 +13,8 @@ export async function POST(req: Request) {
     }
 
     const resendApiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.CONTACT_TO_EMAIL || 'hello@pixorastudios.in';
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'Pixora Studios <hello@pixorastudios.in>';
+    const toEmail = process.env.CONTACT_TO_EMAIL || 'hello@pixorastudios.com';
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'Pixora Studios <hello@pixorastudios.com>';
 
     if (!resendApiKey) {
       console.error('RESEND_API_KEY is not configured.');

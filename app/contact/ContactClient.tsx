@@ -138,7 +138,7 @@ export default function ContactClient() {
                   </div>
                   <div>
                     <span className="block text-sm text-text-muted-dark font-bold uppercase tracking-widest">Email</span>
-                    <span className="text-lg font-bold">hello@pixorastudios.in</span>
+                    <span className="text-lg font-bold">hello@pixorastudios.com</span>
                   </div>
                 </div>
 

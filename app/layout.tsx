@@ -32,11 +32,11 @@ export const metadata: Metadata = {
     default: "Pixora Studios | Website Development Company in Bhubaneswar, Odisha",
   },
   description: "Pixora Studios builds professional, SEO-optimized websites for clinics, cafes, restaurants, gyms, salons and local businesses in Bhubaneswar and across Odisha.",
-  metadataBase: new URL("https://pixorastudios.in"),
+  metadataBase: new URL("https://pixorastudios.com"),
   openGraph: {
     title: "Pixora Studios | Website Development Company in Bhubaneswar, Odisha",
     description: "Pixora Studios builds professional, SEO-optimized websites for local businesses in Bhubaneswar and Odisha.",
-    url: "https://pixorastudios.in",
+    url: "https://pixorastudios.com",
     siteName: "Pixora Studios",
     locale: "en_IN",
     type: "website",
@@ -78,7 +78,7 @@ export default function RootLayout({
       "@type": "Person",
       "name": "Debidutta Acharya"
     },
-    "url": "https://pixorastudios.in",
+    "url": "https://pixorastudios.com",
     "sameAs": [
       "https://linkedin.com/in/debidutta",
       "https://instagram.com/pixorastudios"

@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { projects } from "@/lib/data/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://pixorastudios.in";
+  const baseUrl = "https://pixorastudios.com";
 
   const projectUrls = projects.map((project) => ({
     url: `${baseUrl}/portfolio/${project.slug}`,
