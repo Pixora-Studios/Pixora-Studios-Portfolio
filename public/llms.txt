@@ -1,0 +1,31 @@
+# Pixora Studios
+
+Pixora Studios is a premier web design and development agency based in Bhubaneswar, Odisha, India. We specialize in building high-performance, SEO-optimized websites and digital solutions for local businesses including clinics, restaurants, cafes, gyms, and salons.
+
+## Core Offerings
+
+- **Custom Web Development**: Tailor-made websites built with modern technologies like Next.js, TypeScript, and Tailwind CSS.
+- **Digital QR Menu**: A contactless, mobile-optimized menu solution for restaurants and cafes with instant update capabilities.
+- **Booking Systems**: Integrated appointment and reservation systems for healthcare and hospitality sectors.
+- **SEO & Speed Optimization**: Every project includes comprehensive on-page SEO and performance tuning.
+
+## Location & Service Area
+
+- **Primary Base**: Bhubaneswar, Odisha, India.
+- **Service Area**: Serving businesses locally in Bhubaneswar and across Odisha, as well as remote clients throughout India.
+
+## Key Information
+
+- **Pricing Model**: Transparent, one-time investment with 6 months of free support. No recurring monthly retainers for website builds.
+- **Turnaround Time**: Standard business websites are typically delivered within 2-4 weeks.
+- **Founder**: Debidutta Acharya.
+
+## Key Links
+
+- [Home](https://pixorastudios.com/)
+- [Services](https://pixorastudios.com/services)
+- [Digital QR Menu](https://pixorastudios.com/services/qr-menu)
+- [Portfolio](https://pixorastudios.com/portfolio)
+- [Pricing](https://pixorastudios.com/pricing)
+- [About](https://pixorastudios.com/about)
+- [Contact](https://pixorastudios.com/contact)

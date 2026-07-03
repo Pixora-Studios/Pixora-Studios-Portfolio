@@ -48,6 +48,13 @@ export default function ServicesPage() {
         {/* Hero Section */}
         <section className="container mx-auto px-6 mb-24 overflow-hidden">
           <div className="max-w-4xl">
+            {/* AEO Direct Answer Block */}
+            <div className="mb-8 p-6 rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-lg leading-relaxed sr-only md:not-sr-only">
+              <p>
+                Pixora Studios provides professional web design and development services in Bhubaneswar, Odisha. We specialize in building high-performance websites for clinics, restaurants, cafes, and local businesses, featuring custom booking systems, Digital QR Menus, and integrated WhatsApp support.
+              </p>
+            </div>
+
             <motion.h1
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

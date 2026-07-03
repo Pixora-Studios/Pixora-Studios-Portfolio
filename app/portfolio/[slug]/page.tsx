@@ -6,6 +6,7 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { Metadata } from "next";
 import { constructMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -20,6 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${project.name} | Case Study | Pixora Studios`,
     description: project.description,
     image: project.image,
+    canonical: `/portfolio/${project.slug}`,
   });
 }
 
@@ -31,8 +33,34 @@ export default async function ProjectPage({ params }: Props) {
     notFound();
   }
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://pixorastudios.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Portfolio",
+        "item": "https://pixorastudios.com/portfolio"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": project.name,
+        "item": `https://pixorastudios.com/portfolio/${project.slug}`
+      }
+    ]
+  };
+
   return (
     <PageTransition>
+      <JsonLd data={breadcrumbSchema} />
       <article className="pt-32 pb-24 min-h-screen">
         <div className="container mx-auto px-6">
           <Link

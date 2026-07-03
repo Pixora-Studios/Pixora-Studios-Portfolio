@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 const faqs = [
   {
@@ -34,8 +35,22 @@ const faqs = [
 export function PricingFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
   return (
     <section className="py-24 bg-surface-light/50 dark:bg-surface-dark/50">
+      <JsonLd data={faqSchema} />
       <div className="container mx-auto px-6">
         <div className="max-w-3xl mx-auto">
           <motion.h2

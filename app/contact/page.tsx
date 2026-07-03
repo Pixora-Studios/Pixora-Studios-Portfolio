@@ -2,8 +2,9 @@ import ContactClient from "./ContactClient";
 import { constructMetadata } from "@/lib/seo";
 
 export const metadata = constructMetadata({
-  title: "Contact Pixora Studios | Get a Free Website Quote",
-  description: "Get in touch with Pixora Studios for a free website consultation. We serve businesses in Bhubaneswar, Odisha and across India.",
+  title: "Contact Us | Get a Free Website Quote | Pixora Studios",
+  description: "Ready to grow your business? Contact Pixora Studios for a free consultation and quote for your next website project in Bhubaneswar.",
+  canonical: "/contact",
 });
 
 export default function ContactPage() {

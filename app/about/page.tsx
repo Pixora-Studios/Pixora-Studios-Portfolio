@@ -2,8 +2,9 @@ import AboutClient from "./AboutClient";
 import { constructMetadata } from "@/lib/seo";
 
 export const metadata = constructMetadata({
-  title: "About Debidutta Acharya | Founder of Pixora Studios",
-  description: "Debidutta Acharya is a full-stack developer and founder of Pixora Studios. He builds websites for local businesses in Bhubaneswar and across Odisha.",
+  title: "About Pixora Studios | Web Agency in Bhubaneswar",
+  description: "Learn about Pixora Studios and our mission to help local businesses in Bhubaneswar and Odisha thrive online with professional, fast websites.",
+  canonical: "/about",
 });
 
 export default function AboutPage() {

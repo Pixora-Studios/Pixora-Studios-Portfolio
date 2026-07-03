@@ -98,6 +98,13 @@ export function QRHero() {
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
+            {/* AEO Direct Answer Block */}
+            <div className="mb-8 p-6 rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-lg leading-relaxed sr-only md:not-sr-only">
+              <p>
+                Pixora Studios offers a Digital QR Menu service for restaurants and cafes in Bhubaneswar and Odisha. Our contactless menu solution is mobile-optimized, requires no app download, and allows for instant price and item updates from any device.
+              </p>
+            </div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

@@ -6,8 +6,9 @@ import { PricingFAQ } from "@/components/pricing/PricingFAQ";
 import { PricingCTA } from "@/components/pricing/PricingCTA";
 
 export const metadata = constructMetadata({
-  title: "Pricing | Straightforward Investment for Your Business",
-  description: "Transparent pricing for custom website development. No monthly fees, just a one-time investment in a website designed to last.",
+  title: "Website Development Pricing | Pixora Studios",
+  description: "Transparent, one-time investment pricing for custom websites. No monthly retainers. Best value for local businesses in Bhubaneswar and Odisha.",
+  canonical: "/pricing",
 });
 
 export default function PricingPage() {

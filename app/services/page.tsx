@@ -2,8 +2,9 @@ import ServicesClient from "./ServicesClient";
 import { constructMetadata } from "@/lib/seo";
 
 export const metadata = constructMetadata({
-  title: "Web Development Services | Booking Systems | SEO | Pixora Studios",
-  description: "Custom website development, appointment booking systems, restaurant booking, WhatsApp integration, and SEO services for local businesses in Bhubaneswar.",
+  title: "Web Design & Development Services | Pixora Studios",
+  description: "Professional web development services in Bhubaneswar: Custom business websites, booking systems, WhatsApp integration, and SEO optimization for Odisha businesses.",
+  canonical: "/services",
 });
 
 export default function ServicesPage() {

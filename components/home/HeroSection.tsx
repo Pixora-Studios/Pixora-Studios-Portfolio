@@ -1,266 +1,90 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Terminal } from "lucide-react";
 import Link from "next/link";
-import { MagneticButton } from "@/components/shared/MagneticButton";
-import { cn } from "@/lib/utils";
 
 export function HeroSection() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (shouldReduceMotion || !canvasRef.current) return;
-
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let particles: Particle[] = [];
-
-    class Particle {
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-      opacity: number;
-
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-        this.opacity = Math.random() * 0.5;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x > canvas.width) this.x = 0;
-        else if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        else if (this.y < 0) this.y = canvas.height;
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.fillStyle = `rgba(108, 99, 255, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    const init = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      particles = [];
-      for (let i = 0; i < 50; i++) {
-        particles.push(new Particle());
-      }
-    };
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
-      }
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    init();
-    animate();
-
-    const handleResize = () => {
-      init();
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [shouldReduceMotion]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.215, 0.61, 0.355, 1],
-      },
-    },
-  };
-
-  const line1 = "Your Business,";
-  const line2 = "But Make It";
+  const words = "Premium Web Design & Development for Local Businesses.".split(" ");
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-x-hidden bg-background-light dark:bg-background-dark">
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 pointer-events-none opacity-50"
-      />
-      {/* Ambient background effects */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-dark/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-dark/10 rounded-full blur-[120px] animate-pulse delay-700" />
-      </div>
+    <section className="relative min-h-screen pt-32 pb-16 overflow-hidden bg-background-light dark:bg-background-dark">
+      {/* Background accents */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-light/20 dark:bg-primary-dark/20 blur-[128px] -z-10 animate-pulse" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary-light/20 dark:bg-secondary-dark/20 blur-[128px] -z-10" />
 
-      <div className="container mx-auto px-6 grid xl:grid-cols-2 gap-16 items-center">
-        <motion.div
-          className="flex flex-col items-start w-full xl:col-span-1"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center space-x-2 text-primary-light dark:text-primary-dark font-mono text-xs uppercase tracking-widest mb-8"
-          >
-            <span>✦ Bhubaneswar → Internet</span>
-            <span className="w-[1px] h-4 bg-primary-light dark:bg-primary-dark animate-blink" />
-          </motion.div>
+      <div className="container mx-auto px-6 h-full flex flex-col justify-center">
+        <div className="grid xl:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="relative z-10">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark mb-8"
+            >
+              <Terminal className="w-4 h-4 text-primary-light dark:text-primary-dark" />
+              <span className="text-xs font-mono font-bold tracking-tight uppercase">Based in Bhubaneswar, Odisha</span>
+            </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.9] mb-8 tracking-tighter">
-            <span className="block overflow-hidden">
-              {line1.split(" ").map((word, i) => (
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[1.05] mb-8 tracking-tight">
+              {words.map((word, i) => (
                 <motion.span
                   key={i}
-                  variants={itemVariants}
-                  className="inline-block mr-[0.2em]"
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="inline-block mr-[0.25em]"
                 >
                   {word}
                 </motion.span>
               ))}
-            </span>
-            <span className="block overflow-hidden">
-              {line2.split(" ").map((word, i) => (
-                <motion.span
-                  key={i}
-                  variants={itemVariants}
-                  className="inline-block mr-[0.2em]"
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </span>
-            <span className="block overflow-hidden">
-              <motion.span
-                variants={itemVariants}
-                className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 bg-[length:200%_auto] animate-gradient-flow"
-              >
-                Unforgettable.
-              </motion.span>
-            </span>
-          </h1>
+            </h1>
 
-          <motion.p
-            variants={itemVariants}
-            className="text-lg md:text-xl text-text-muted-light dark:text-text-muted-dark max-w-full xl:max-w-[480px] mb-12 leading-relaxed"
-          >
-            We turn local businesses into brands people actually look up.
-            No templates. No fluff. Just something that works.
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="text-lg sm:text-xl text-text-muted-light dark:text-text-muted-dark mb-12 max-w-xl leading-relaxed font-medium"
+            >
+              We build custom websites for clinics, cafes, restaurants, gyms and salons in Bhubaneswar that actually grow your business.
+            </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-10 mb-16">
-            <MagneticButton>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 }}
+              className="flex flex-col sm:flex-row items-center gap-4 max-w-full"
+            >
               <Link
                 href="/contact"
-                className="px-10 py-5 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-lg hover:scale-105 transition-transform flex items-center group"
+                className="cta-button group relative w-full sm:w-auto px-10 py-5 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-lg overflow-hidden transition-all hover:scale-105 active:scale-95"
               >
-                <span>Let&apos;s Build →</span>
+                <div className="relative z-10 flex items-center justify-center gap-3">
+                  <span>Start Your Project</span>
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </div>
               </Link>
-            </MagneticButton>
-
-            <Link
-              href="/portfolio"
-              className="relative py-2 text-lg font-bold group"
-            >
-              <span>See the work</span>
-              <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary-light dark:bg-primary-dark transition-all duration-300 group-hover:w-full" />
-            </Link>
-          </motion.div>
+              <Link
+                href="/portfolio"
+                className="w-full sm:w-auto px-10 py-5 rounded-full border border-border-light dark:border-border-dark font-bold text-lg text-center hover:bg-surface-light dark:hover:bg-surface-dark transition-all"
+              >
+                View Our Work
+              </Link>
+            </motion.div>
+          </div>
 
           <motion.div
-            variants={itemVariants}
-            className="flex flex-wrap gap-x-3 gap-y-2 text-xs font-mono text-text-muted-light dark:text-text-muted-dark uppercase tracking-widest items-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+            className="hidden xl:block relative"
           >
-            <span>✦ 15+ brands live</span>
-            <span className="opacity-40">·</span>
-            <span>✦ MERN + Next.js</span>
-            <span className="opacity-40">·</span>
-            <span>✦ Ships in 2–4 weeks</span>
+             {/* 3D Mockup would go here */}
+             <div className="aspect-video w-full glass rounded-3xl border border-border-light dark:border-border-dark flex items-center justify-center italic text-text-muted-dark">
+                [High-Performance Web Experience]
+             </div>
           </motion.div>
-        </motion.div>
-
-        {/* Mock Browser UI */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="relative xl:block hidden"
-        >
-          <div className="rounded-2xl bg-[#0D0D14] border border-white/10 overflow-hidden shadow-2xl shadow-primary-dark/20">
-            {/* Browser Top Bar */}
-            <div className="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
-              <div className="flex space-x-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
-                <div className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
-                <div className="w-3 h-3 rounded-full bg-[#28C840]" />
-              </div>
-              <div className="flex-1 mx-8 px-3 py-1 rounded bg-black/20 border border-white/5 text-[10px] text-white/40 font-mono text-center">
-                pixorastudios.com/services
-              </div>
-            </div>
-            {/* Browser Content */}
-            <div className="aspect-[16/10] relative overflow-hidden group">
-              <video
-                src="https://www.w3schools.com/html/mov_bbb.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-white/80 backdrop-blur">
-                Featured Reel
-              </div>
-            </div>
-          </div>
-          {/* Decorative Glow */}
-          <div className="absolute -inset-10 bg-primary-dark/20 rounded-full blur-[100px] -z-10" />
-        </motion.div>
+        </div>
       </div>
-
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
-        <ChevronDown className="w-6 h-6 text-text-muted-dark opacity-50" />
-      </motion.div>
     </section>
   );
 }

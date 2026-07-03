@@ -5,6 +5,7 @@ import { PageTransition } from "@/components/shared/PageTransition";
 import { QRHero } from "@/components/qr-menu/QRHero";
 import { QRHowItWorks } from "@/components/qr-menu/QRHowItWorks";
 import { QRPricing } from "@/components/qr-menu/QRPricing";
+import { QRMenuFAQ } from "@/components/qr-menu/QRMenuFAQ";
 
 // Dynamically import below-the-fold sections for performance
 const QRDesignShowcase = dynamic(() => import("@/components/qr-menu/QRDesignShowcase").then(mod => mod.QRDesignShowcase), { ssr: false });
@@ -20,6 +21,7 @@ export function QRMenuClient() {
         <QRPricing />
         <QRDesignShowcase />
         {/* <QRStandsShowcase /> */}
+        <QRMenuFAQ />
         <QRMenuCTA />
       </div>
     </PageTransition>

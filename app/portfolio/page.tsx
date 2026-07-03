@@ -2,8 +2,9 @@ import PortfolioClient from "./PortfolioClient";
 import { constructMetadata } from "@/lib/seo";
 
 export const metadata = constructMetadata({
-  title: "Our Work | Website Portfolio | Pixora Studios",
-  description: "See websites we've built for dental clinics, cafes, restaurants, gyms, and local businesses across Odisha.",
+  title: "Our Work | Web Design Portfolio | Pixora Studios",
+  description: "Explore our portfolio of custom websites for clinics, restaurants, and cafes in Bhubaneswar. Real results for real local businesses.",
+  canonical: "/portfolio",
 });
 
 export default function PortfolioPage() {

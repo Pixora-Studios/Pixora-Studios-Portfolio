@@ -28,7 +28,7 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-[#111118] text-white pt-24 pb-12 overflow-hidden border-t border-white/5">
+    <footer className="bg-[#111118] text-white pt-24 pb-12 overflow-hidden border-t border-white/5" role="contentinfo">
       <div className="container mx-auto px-6">
         <div className="mb-20">
           <h2 className="text-4xl md:text-6xl font-display font-bold mb-8 max-w-4xl">
@@ -44,8 +44,9 @@ export function Footer() {
             <Link
               href={`https://wa.me/+91${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`}
               className="px-8 py-4 rounded-full bg-emerald-600 text-white font-bold hover:scale-105 transition-transform flex items-center space-x-2"
+              aria-label="Contact us on WhatsApp"
             >
-              <WhatsApp className="w-5 h-5" />
+              <WhatsApp className="w-5 h-5" aria-hidden="true" />
               <span>WhatsApp Now</span>
             </Link>
           </div>
@@ -107,8 +108,9 @@ export function Footer() {
                     key={link.name}
                     href={link.href}
                     className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                    aria-label={`Visit our ${link.name} profile`}
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-5 h-5" aria-hidden="true" />
                   </Link>
                 );
               })}

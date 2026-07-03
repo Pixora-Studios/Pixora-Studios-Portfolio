@@ -7,32 +7,28 @@ import { JsonLd } from "@/components/seo/JsonLd";
 
 const faqs = [
   {
-    q: "What does Pixora Studios do?",
-    a: "Pixora Studios is a web development agency that builds custom, high-performance websites for local businesses like clinics, cafes, and restaurants. We also offer specialized services like Digital QR Menus and booking systems.",
+    q: "What is a Digital QR Menu and how does it work?",
+    a: "A Digital QR Menu is a mobile-optimized version of your restaurant or cafe menu accessible by scanning a QR code. It requires no app download and allows customers to browse items, see photos, and view prices instantly on their own smartphones.",
   },
   {
-    q: "How much does a website cost from Pixora Studios?",
-    a: "Every project is custom-scoped. Basic business websites start at an affordable range, while booking systems and custom builds are priced based on features. We focus on one-time investment with no recurring monthly fees.",
+    q: "How do I update the prices or items on my QR menu?",
+    a: "Updates are instant. You can change prices, add new items, or mark dishes as 'sold out' through a simple dashboard, and the changes reflect immediately for anyone scanning the code.",
   },
   {
-    q: "How long does development take?",
-    a: "Most websites are delivered in 2–4 weeks. Complex systems with booking and dashboards may take 4–6 weeks.",
+    q: "Do my customers need to download an app?",
+    a: "No. The menu opens directly in the smartphone's web browser (Safari, Chrome, etc.), ensuring a frictionless experience for your guests.",
   },
   {
-    q: "Do you provide hosting and domain setup?",
-    a: "Yes. We handle domain registration, hosting setup, SSL certificate, email, and everything technical.",
+    q: "Is there a monthly fee for the QR menu?",
+    a: "We offer both bundled (one-time payment with a website) and standalone options. For standalone QR menus, there is a small annual renewal fee for hosting and support, while the bundled version has no recurring fees.",
   },
   {
-    q: "Does Pixora Studios serve businesses outside Bhubaneswar?",
-    a: "Yes. While we are based in Bhubaneswar and serve many local businesses in Odisha, we also work with clients across India remotely.",
-  },
-  {
-    q: "Does Pixora Studios offer ongoing monthly support?",
-    a: "We offer 6 months of free support after delivery for any bugs or small issues. After that, we provide updates on a per-request basis rather than charging a fixed monthly retainer.",
+    q: "Can I use the QR menu without a full website?",
+    a: "Yes. We offer a standalone Digital QR Menu service specifically for restaurants that only need a digital menu without a full business website.",
   },
 ];
 
-export function FAQSection() {
+export function QRMenuFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const faqSchema = {
@@ -49,25 +45,17 @@ export function FAQSection() {
   };
 
   return (
-    <section className="py-24 bg-background-light dark:bg-background-dark">
+    <section className="py-24 bg-surface-light dark:bg-surface-dark">
       <JsonLd data={faqSchema} />
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-4"
-          >
-            FAQ
-          </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-display font-bold"
           >
-            Common Questions
+            QR Menu Questions
           </motion.h2>
         </div>
 
@@ -79,7 +67,7 @@ export function FAQSection() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-6 flex items-center justify-between text-left hover:bg-surface-light dark:hover:bg-surface-dark transition-colors"
+                className="w-full px-6 py-6 flex items-center justify-between text-left hover:bg-background-light dark:hover:bg-background-dark transition-colors"
               >
                 <span className="text-lg font-bold">{faq.q}</span>
                 {openIndex === index ? (

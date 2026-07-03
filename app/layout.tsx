@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { CustomCursor } from "@/components/shared/CustomCursor";
 import { LenisProvider } from "@/components/shared/LenisProvider";
 import { MotionConfig } from "framer-motion";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,8 +29,8 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Pixora Studios — Web Development Bhubaneswar",
-    default: "Pixora Studios | Website Development Company in Bhubaneswar, Odisha",
+    template: "%s | Pixora Studios",
+    default: "Pixora Studios | Website Development Company in Bhubaneswar",
   },
   description: "Pixora Studios builds professional, SEO-optimized websites for clinics, cafes, restaurants, gyms, salons and local businesses in Bhubaneswar and across Odisha.",
   metadataBase: new URL("https://pixorastudios.com"),
@@ -56,6 +57,20 @@ export const metadata: Metadata = {
     creator: "@debidutta",
     images: ["/api/og"],
   },
+  alternates: {
+    canonical: "https://pixorastudios.com",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -63,26 +78,49 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
+  const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "Organization",
     "name": "Pixora Studios",
-    "description": "Web development agency in Bhubaneswar...",
+    "url": "https://pixorastudios.com",
+    "logo": "https://pixorastudios.com/images/logo.png",
+    "sameAs": [
+      "https://linkedin.com/in/debidutta",
+      "https://instagram.com/pixorastudios"
+    ],
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Bhubaneswar",
       "addressRegion": "Odisha",
       "addressCountry": "IN"
-    },
-    "founder": {
-      "@type": "Person",
-      "name": "Debidutta Acharya"
-    },
+    }
+  };
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Pixora Studios",
+    "image": "https://pixorastudios.com/api/og",
+    "@id": "https://pixorastudios.com",
     "url": "https://pixorastudios.com",
-    "sameAs": [
-      "https://linkedin.com/in/debidutta",
-      "https://instagram.com/pixorastudios"
-    ]
+    "telephone": "+91" + (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || ""),
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Bhubaneswar",
+      "addressLocality": "Bhubaneswar",
+      "addressRegion": "Odisha",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 20.2961,
+      "longitude": 85.8245
+    },
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "Odisha"
+    },
+    "priceRange": "₹₹"
   };
 
   return (
@@ -91,10 +129,8 @@ export default function RootLayout({
         className={`${inter.variable} ${syne.variable} ${jetbrainsMono.variable} font-body`}
         suppressHydrationWarning
       >
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={localBusinessSchema} />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
