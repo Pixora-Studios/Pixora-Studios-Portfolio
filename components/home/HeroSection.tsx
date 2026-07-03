@@ -128,7 +128,7 @@ export function HeroSection() {
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-dark/10 rounded-full blur-[120px] animate-pulse delay-700" />
       </div>
 
-      <div className="container mx-auto px-6 grid xl:grid-cols-2 gap-16 items-center">
+      <div className="container mx-auto px-6 grid xl:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
         <motion.div
           className="flex flex-col items-start w-full xl:col-span-1"
           variants={containerVariants}
@@ -137,13 +137,13 @@ export function HeroSection() {
         >
           <motion.div
             variants={itemVariants}
-            className="flex items-center space-x-2 text-primary-light dark:text-primary-dark font-mono text-xs uppercase tracking-widest mb-8"
+            className="flex items-center space-x-2 text-primary-light dark:text-primary-dark font-mono text-xs uppercase tracking-widest mb-6"
           >
             <span>✦ Bhubaneswar → Internet</span>
             <span aria-hidden="true" className="w-[1px] h-4 bg-primary-light dark:bg-primary-dark animate-blink" />
           </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[0.9] mb-8 tracking-tighter">
+          <h1 className="text-[clamp(2.25rem,4.5vw,4.5rem)] font-display font-bold leading-[0.9] mb-6 tracking-tighter">
             <span className="block overflow-hidden">
               {line1.split(" ").map((word, i) => (
                 <motion.span
@@ -179,7 +179,7 @@ export function HeroSection() {
           {/* AEO: plain-language direct-answer line, present in initial HTML for AI/search crawlers */}
           <motion.p
             variants={itemVariants}
-            className="text-lg md:text-xl text-text-muted-light dark:text-text-muted-dark max-w-full xl:max-w-[480px] mb-12 leading-relaxed"
+            className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark max-w-full xl:max-w-[400px] mb-10 leading-relaxed"
           >
             Pixora Studios designs and builds custom websites and Digital QR
             Menu systems for local businesses in Bhubaneswar, Odisha —
@@ -187,11 +187,11 @@ export function HeroSection() {
             No fluff. Just something that works.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-10 mb-16">
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-8 mb-12">
             <MagneticButton>
               <Link
                 href="/contact"
-                className="px-10 py-5 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-lg hover:scale-105 transition-transform flex items-center group"
+                className="px-8 py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-base hover:scale-105 transition-transform flex items-center group"
               >
                 <span>Let&apos;s Build →</span>
               </Link>
@@ -199,7 +199,7 @@ export function HeroSection() {
 
             <Link
               href="/portfolio"
-              className="relative py-2 text-lg font-bold group"
+              className="relative py-2 text-base font-bold group"
             >
               <span>See our web design &amp; QR menu work</span>
               <span aria-hidden="true" className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary-light dark:bg-primary-dark transition-all duration-300 group-hover:w-full" />
@@ -223,17 +223,17 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="relative xl:block hidden"
+          className="relative xl:block hidden max-w-[540px] justify-self-center"
         >
           <div className="rounded-2xl bg-[#0D0D14] border border-white/10 overflow-hidden shadow-2xl shadow-primary-dark/20">
             {/* Browser Top Bar */}
-            <div className="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
+            <div className="flex items-center px-3 py-2 border-b border-white/5 bg-white/5">
               <div aria-hidden="true" className="flex space-x-1.5">
                 <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
                 <div className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
                 <div className="w-3 h-3 rounded-full bg-[#28C840]" />
               </div>
-              <div className="flex-1 mx-8 px-3 py-1 rounded bg-black/20 border border-white/5 text-[10px] text-white/40 font-mono text-center">
+              <div className="flex-1 mx-8 px-2 py-1 rounded bg-black/20 border border-white/5 text-[10px] text-white/40 font-mono text-center">
                 pixorastudios.com/services
               </div>
             </div>
