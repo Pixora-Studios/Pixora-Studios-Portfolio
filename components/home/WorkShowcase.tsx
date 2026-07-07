@@ -46,7 +46,7 @@ export function WorkShowcase() {
   };
 
   return (
-    <section className="py-24 bg-background-light dark:bg-background-dark overflow-hidden">
+    <section className="py-20 bg-background-light dark:bg-background-dark overflow-hidden">
       <div className="container mx-auto px-6 mb-16">
         <div className="text-center">
           <motion.span
@@ -62,7 +62,7 @@ export function WorkShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-display font-bold mb-6"
+            className="text-4xl md:text-5xl font-display font-bold mb-6"
           >
             Real Projects. Real Results.
           </motion.h2>

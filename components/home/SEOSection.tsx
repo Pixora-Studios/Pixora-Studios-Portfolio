@@ -62,7 +62,7 @@ export function SEOSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl lg:text-6xl font-display font-bold"
+            className="text-3xl md:text-5xl lg:text-5xl font-display font-bold"
           >
             We Build Websites Google Loves
           </motion.h2>
@@ -75,7 +75,7 @@ export function SEOSection() {
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
-                className="text-6xl md:text-7xl lg:text-8xl font-display font-bold text-emerald-500"
+                className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-emerald-500"
               >
                 {score}
               </motion.div>

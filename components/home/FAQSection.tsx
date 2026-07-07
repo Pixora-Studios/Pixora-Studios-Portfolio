@@ -49,7 +49,7 @@ export function FAQSection() {
   };
 
   return (
-    <section className="py-24 bg-background-light dark:bg-background-dark">
+    <section className="py-20 bg-background-light dark:bg-background-dark">
       <JsonLd data={faqSchema} />
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
@@ -65,7 +65,7 @@ export function FAQSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-display font-bold"
+            className="text-4xl md:text-5xl font-display font-bold"
           >
             Common Questions
           </motion.h2>

@@ -8,6 +8,17 @@ const config: Config = {
   ],
   darkMode: "class",
   theme: {
+    container: {
+      center: true,
+      padding: "1.5rem",
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "950px",
+        xl: "1150px",
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
         background: {

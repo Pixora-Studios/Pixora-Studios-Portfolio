@@ -49,7 +49,7 @@ export function PricingFAQ() {
   };
 
   return (
-    <section className="py-24 bg-surface-light/50 dark:bg-surface-dark/50">
+    <section className="py-20 bg-surface-light/50 dark:bg-surface-dark/50">
       <JsonLd data={faqSchema} />
       <div className="container mx-auto px-6">
         <div className="max-w-3xl mx-auto">

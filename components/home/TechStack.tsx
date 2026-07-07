@@ -88,7 +88,7 @@ export function TechStack() {
   }, []);
 
   return (
-    <section className="py-24 bg-background-light dark:bg-background-dark overflow-hidden relative">
+    <section className="py-20 bg-background-light dark:bg-background-dark overflow-hidden relative">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
           <motion.span
@@ -103,7 +103,7 @@ export function TechStack() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-display font-bold"
+            className="text-4xl md:text-5xl font-display font-bold"
           >
             Built With Modern Technology
           </motion.h2>

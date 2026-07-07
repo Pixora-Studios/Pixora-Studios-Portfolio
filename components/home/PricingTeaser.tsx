@@ -11,7 +11,7 @@ const teaserPlans = [
 
 export function PricingTeaser() {
   return (
-    <section className="py-24 bg-surface-light/30 dark:bg-surface-dark/30">
+    <section className="py-20 bg-surface-light/30 dark:bg-surface-dark/30">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto text-center">
           <motion.span

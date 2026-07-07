@@ -116,7 +116,7 @@ export function HeroSection() {
   const line2 = "But Make It";
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-x-hidden bg-background-light dark:bg-background-dark">
+    <section className="relative min-h-screen flex items-center pt-16 overflow-x-hidden bg-background-light dark:bg-background-dark">
       <canvas
         ref={canvasRef}
         aria-hidden="true"
@@ -143,7 +143,7 @@ export function HeroSection() {
             <span aria-hidden="true" className="w-[1px] h-4 bg-primary-light dark:bg-primary-dark animate-blink" />
           </motion.div>
 
-          <h1 className="text-[clamp(2.25rem,4.5vw,4.5rem)] font-display font-bold leading-[0.9] mb-6 tracking-tighter">
+          <h1 className="text-[clamp(2rem,4.5vw,4rem)] font-display font-bold leading-[0.9] mb-6 tracking-tighter">
             <span className="block overflow-hidden">
               {line1.split(" ").map((word, i) => (
                 <motion.span
@@ -179,7 +179,7 @@ export function HeroSection() {
           {/* AEO: plain-language direct-answer line, present in initial HTML for AI/search crawlers */}
           <motion.p
             variants={itemVariants}
-            className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark max-w-full xl:max-w-[400px] mb-10 leading-relaxed"
+            className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark max-w-full xl:max-w-[400px] mb-8 leading-relaxed"
           >
             Pixora Studios designs and builds custom websites and Digital QR
             Menu systems for local businesses in Bhubaneswar, Odisha —

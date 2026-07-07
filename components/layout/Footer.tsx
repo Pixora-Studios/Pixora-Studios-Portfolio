@@ -31,7 +31,7 @@ export function Footer() {
     <footer className="bg-[#111118] text-white pt-24 pb-12 overflow-hidden border-t border-white/5" role="contentinfo">
       <div className="container mx-auto px-6">
         <div className="mb-20">
-          <h2 className="text-4xl md:text-6xl font-display font-bold mb-8 max-w-4xl">
+          <h2 className="text-4xl md:text-5xl font-display font-bold mb-8 max-w-4xl">
             Let&apos;s Build Something That Grows Your Business.
           </h2>
           <div className="flex flex-wrap gap-4">

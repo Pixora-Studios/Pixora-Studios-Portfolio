@@ -97,12 +97,12 @@ export default function ServicesPage() {
               >
                 <div className="container mx-auto grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
                   <div className="space-y-6 lg:space-y-8">
-                    <span className="text-5xl lg:text-6xl">{service.icon}</span>
+                    <span className="text-5xl lg:text-5xl">{service.icon}</span>
                     <div>
                       <h3 className="text-primary-light dark:text-primary-dark font-mono text-xs lg:text-sm uppercase tracking-widest mb-2">
                         {service.problem}
                       </h3>
-                      <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold leading-tight">
+                      <h2 className="text-3xl md:text-5xl lg:text-5xl font-display font-bold leading-tight">
                         {service.title}
                       </h2>
                     </div>
@@ -151,9 +151,9 @@ export default function ServicesPage() {
         </div>
 
         {/* Vertical Continuation */}
-        <section className="py-24 bg-background-light dark:bg-background-dark">
+        <section className="py-20 bg-background-light dark:bg-background-dark">
           <div className="container mx-auto px-6 text-center">
-             <h2 className="text-4xl md:text-6xl font-display font-bold mb-8">
+             <h2 className="text-4xl md:text-5xl font-display font-bold mb-8">
                 Ready to Grow?
              </h2>
              <p className="text-xl text-text-muted-light dark:text-text-muted-dark mb-12 max-w-2xl mx-auto">

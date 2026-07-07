@@ -14,14 +14,14 @@ const comparison = [
 
 export function ComparisonSection() {
   return (
-    <section className="py-24 bg-background-light dark:bg-background-dark">
+    <section className="py-20 bg-background-light dark:bg-background-dark">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-display font-bold"
+            className="text-4xl md:text-5xl font-display font-bold"
           >
             Why Your Business Needs a Website Now
           </motion.h2>

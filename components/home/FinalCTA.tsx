@@ -7,7 +7,7 @@ import { MagneticButton } from "@/components/shared/MagneticButton";
 
 export function FinalCTA() {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden">
       {/* Background Mesh */}
       <div className="absolute inset-0 bg-gradient-light dark:bg-gradient-primary" />
       <div className="absolute inset-0 opacity-20">

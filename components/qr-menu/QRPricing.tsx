@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export function QRPricing() {
   return (
-    <section id="pricing" className="py-24">
+    <section id="pricing" className="py-20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">Honest, Simple Pricing</h2>

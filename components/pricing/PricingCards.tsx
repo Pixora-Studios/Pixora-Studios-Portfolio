@@ -60,7 +60,7 @@ const plans = [
 
 export function PricingCards() {
   return (
-    <section className="py-24">
+    <section className="py-20">
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8 mb-24">
           {plans.map((plan, index) => (

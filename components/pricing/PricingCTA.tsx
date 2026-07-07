@@ -9,7 +9,7 @@ export function PricingCTA() {
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "91XXXXXXXXXX";
 
   return (
-    <section className="py-24 bg-background-light dark:bg-background-dark">
+    <section className="py-20 bg-background-light dark:bg-background-dark">
       <div className="container mx-auto px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -17,7 +17,7 @@ export function PricingCTA() {
           viewport={{ once: true }}
           className="max-w-3xl mx-auto"
         >
-          <h2 className="text-4xl md:text-6xl font-display font-bold mb-8">
+          <h2 className="text-4xl md:text-5xl font-display font-bold mb-8">
             Not sure where to start?
           </h2>
           <p className="text-xl text-text-muted-light dark:text-text-muted-dark mb-12">

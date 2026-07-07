@@ -5,7 +5,7 @@ import { PhoneCarousel } from "./PhoneCarousel";
 
 export function QRDesignShowcase() {
   return (
-    <section className="py-24 bg-surface-light/30 dark:bg-surface-dark/30 overflow-hidden">
+    <section className="py-20 bg-surface-light/30 dark:bg-surface-dark/30 overflow-hidden">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

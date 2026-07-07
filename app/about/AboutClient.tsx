@@ -165,7 +165,7 @@ export default function AboutPage() {
                     transition={{ delay: 0.2 }}
                     className={`absolute ${i % 2 === 0 ? 'bottom-[calc(50%+30px)]' : 'top-[calc(50%+30px)]'} w-full text-center px-12`}
                   >
-                     <span className="text-6xl lg:text-8xl font-display font-bold text-primary-light/10 dark:text-primary-dark/10 block leading-none mb-2">
+                     <span className="text-5xl lg:text-8xl font-display font-bold text-primary-light/10 dark:text-primary-dark/10 block leading-none mb-2">
                         {item.year}
                      </span>
                      <div className="bg-white dark:bg-white/5 backdrop-blur-xl p-6 rounded-[28px] border border-primary-light/10 dark:border-white/10 shadow-xl inline-block text-left max-w-sm">

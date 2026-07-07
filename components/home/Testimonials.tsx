@@ -41,7 +41,7 @@ export function Testimonials() {
   }, []);
 
   return (
-    <section className="py-24 bg-surface-light dark:bg-surface-dark overflow-hidden">
+    <section className="py-20 bg-surface-light dark:bg-surface-dark overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <motion.span
@@ -56,7 +56,7 @@ export function Testimonials() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-display font-bold"
+            className="text-4xl md:text-5xl font-display font-bold"
           >
             What Our Clients Say
           </motion.h2>

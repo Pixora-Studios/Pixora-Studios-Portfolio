@@ -7,7 +7,7 @@ import { MagneticButton } from "@/components/shared/MagneticButton";
 
 export function QRMenuCTA() {
   return (
-    <section className="py-24 bg-background-light dark:bg-background-dark overflow-hidden relative">
+    <section className="py-20 bg-background-light dark:bg-background-dark overflow-hidden relative">
       {/* Accent gradient */}
       <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary-dark/10 blur-[128px] rounded-full" />
 
@@ -17,7 +17,7 @@ export function QRMenuCTA() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-display font-bold mb-8"
+            className="text-4xl md:text-5xl font-display font-bold mb-8"
           >
             Elevate Your <br />
             <span className="text-transparent bg-clip-text bg-gradient-light dark:bg-gradient-primary">Guest Experience.</span>

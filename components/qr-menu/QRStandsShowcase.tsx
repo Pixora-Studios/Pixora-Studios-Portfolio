@@ -16,7 +16,7 @@ export function QRStandsShowcase() {
     : qrStands.filter(s => s.material === activeMaterial);
 
   return (
-    <section className="py-24">
+    <section className="py-20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">Premium QR Stands</h2>

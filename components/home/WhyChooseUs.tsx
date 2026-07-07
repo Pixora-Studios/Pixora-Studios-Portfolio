@@ -58,7 +58,7 @@ const features = [
 
 export function WhyChooseUs() {
   return (
-    <section className="py-24 bg-surface-light dark:bg-surface-dark">
+    <section className="py-20 bg-surface-light dark:bg-surface-dark">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <motion.span
@@ -74,7 +74,7 @@ export function WhyChooseUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-display font-bold"
+            className="text-4xl md:text-5xl font-display font-bold"
           >
             Why Local Businesses Choose Us
           </motion.h2>

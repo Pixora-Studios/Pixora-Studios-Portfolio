@@ -51,7 +51,7 @@ export function ProcessTimeline() {
   });
 
   return (
-    <section ref={containerRef} className="py-24 bg-background-light dark:bg-background-dark relative overflow-hidden">
+    <section ref={containerRef} className="py-20 bg-background-light dark:bg-background-dark relative overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="text-center mb-24">
           <motion.span
@@ -66,7 +66,7 @@ export function ProcessTimeline() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-display font-bold"
+            className="text-4xl md:text-5xl font-display font-bold"
           >
             From Discovery to Launch in 2–4 Weeks
           </motion.h2>

@@ -59,7 +59,7 @@ const services = [
 
 export function ServicesOverview() {
   return (
-    <section className="py-24 bg-background-light dark:bg-background-dark">
+    <section className="py-20 bg-background-light dark:bg-background-dark">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
           <motion.span
@@ -74,7 +74,7 @@ export function ServicesOverview() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-display font-bold"
+            className="text-4xl md:text-5xl font-display font-bold"
           >
             What We Build For You
           </motion.h2>
