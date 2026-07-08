@@ -33,14 +33,12 @@ function VisualCard({ gradient, title, icon: Icon, delay, rotation, className }:
         ease: [0.22, 1, 0.36, 1],
       }}
       whileHover={{
-        scale: 1.05,
-        translateZ: 60,
-        rotateX: rotation.x + 5,
-        rotateY: rotation.y + 5,
+        scale: 1.02,
+        translateZ: 20,
         transition: { duration: 0.4 }
       }}
       className={cn(
-        "absolute rounded-2xl overflow-hidden border border-white/10 bg-[#0F0F16]/80 backdrop-blur-2xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)] group",
+        "absolute rounded-xl overflow-hidden border border-white/10 bg-[#0F172A]/40 backdrop-blur-3xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.8)] group",
         className
       )}
       style={{
@@ -51,70 +49,69 @@ function VisualCard({ gradient, title, icon: Icon, delay, rotation, className }:
       <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
       {/* Mock Browser Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-white/5 bg-white/5">
-        <div className="flex space-x-2">
-          <div className="w-3 h-3 rounded-full bg-red-500/40" />
-          <div className="w-3 h-3 rounded-full bg-amber-500/40" />
-          <div className="w-3 h-3 rounded-full bg-emerald-500/40" />
+      <div className="flex items-center justify-between px-4 py-2 border-b border-white/5 bg-white/[0.03]">
+        <div className="flex space-x-1.5">
+          <div className="w-2 h-2 rounded-full bg-[#FF5F56]" />
+          <div className="w-2 h-2 rounded-full bg-[#FFBD2E]" />
+          <div className="w-2 h-2 rounded-full bg-[#27C93F]" />
         </div>
-        <div className="text-[10px] font-mono text-white/20 tracking-widest uppercase">{title}</div>
+        <div className="text-[9px] font-mono text-white/40 tracking-[0.2em] uppercase">{title}</div>
         <div className="w-8" />
       </div>
 
       {/* Content Area with Gradient */}
-      <div className={cn("relative aspect-[16/10] w-full overflow-hidden", gradient)}>
+      <div className={cn("relative aspect-[16/10] w-full overflow-hidden bg-slate-900/50", gradient)}>
         {/* Animated Background Blob inside card */}
         <motion.div
           animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.5, 0.3],
           }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-1/2 -right-1/2 w-full h-full bg-white/10 blur-[60px] rounded-full"
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-1/4 -right-1/4 w-full h-full bg-primary-dark/20 blur-[80px] rounded-full"
         />
 
         {/* Abstract UI Elements with Depth */}
-        <div className="absolute inset-0 p-8 flex flex-col justify-between" style={{ transform: "translateZ(50px)" }}>
-          <div className="flex justify-between items-start">
-            <div className="space-y-3">
-              <div className="w-40 h-4 bg-white/20 rounded-full" />
-              <div className="w-24 h-2.5 bg-white/10 rounded-full" />
-            </div>
-            <div className="p-3 rounded-xl bg-white/10 backdrop-blur-xl border border-white/10 shadow-xl">
-              <Icon className="w-6 h-6 text-white/60" />
-            </div>
+        <div className="absolute inset-0 p-6 flex flex-col" style={{ transform: "translateZ(30px)" }}>
+          {/* Main Hero Area in Card */}
+          <div className="w-full h-32 bg-white/5 rounded-xl border border-white/10 mb-4 relative overflow-hidden">
+             <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
+             <div className="absolute top-4 left-4 space-y-2">
+                <div className="w-24 h-2 bg-white/20 rounded-full" />
+                <div className="w-16 h-1.5 bg-white/10 rounded-full" />
+             </div>
+             <div className="absolute bottom-4 right-4">
+                <Icon className="w-8 h-8 text-white/10" />
+             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          {/* Features Grid in Card */}
+          <div className="grid grid-cols-3 gap-3 mb-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-24 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm relative overflow-hidden group/item">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity" />
-                <div className="absolute bottom-3 left-3 right-3 space-y-1.5">
-                  <div className="w-full h-1.5 bg-white/20 rounded-full" />
-                  <div className="w-2/3 h-1.5 bg-white/10 rounded-full" />
-                </div>
-              </div>
+              <div key={i} className="h-20 bg-white/5 rounded-lg border border-white/5 backdrop-blur-sm" />
             ))}
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="w-32 h-10 bg-white/10 rounded-full border border-white/10 flex items-center px-4">
-              <div className="w-full h-1.5 bg-white/20 rounded-full" />
+          {/* Bottom Bar in Card */}
+          <div className="mt-auto flex items-center justify-between">
+            <div className="space-y-2">
+              <div className="w-32 h-2 bg-white/10 rounded-full" />
+              <div className="w-24 h-2 bg-white/5 rounded-full" />
             </div>
-            <div className="flex -space-x-3">
+            <div className="flex -space-x-2">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-8 h-8 rounded-full bg-white/10 border-2 border-[#1A1A24] backdrop-blur-md" />
+                <div key={i} className="w-7 h-7 rounded-full bg-slate-800 border border-white/10 backdrop-blur-md" />
               ))}
             </div>
           </div>
         </div>
 
         {/* Glossy Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-60 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-40 pointer-events-none" />
       </div>
 
       {/* Edge Highlight */}
-      <div className="absolute inset-0 border border-white/10 rounded-2xl pointer-events-none" />
+      <div className="absolute inset-0 border border-white/10 rounded-xl pointer-events-none" />
     </motion.div>
   );
 }
@@ -143,7 +140,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden bg-[#020204]">
+    <section className="relative min-h-screen flex items-center pt-12 pb-8 overflow-hidden bg-[#020204]">
       {/* Background Ambience */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[60%] bg-primary-dark/20 rounded-full blur-[120px] animate-pulse" />
@@ -153,7 +150,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
       </div>
 
-      <div className="container mx-auto px-6 grid lg:grid-cols-[1fr_1fr] gap-12 items-center">
+      <div className="container mx-auto px-6 grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
         {/* Left Side */}
         <motion.div
           className="flex flex-col items-start z-10"
@@ -214,25 +211,10 @@ export function HeroSection() {
             </Link>
           </motion.div>
 
-          <motion.div
-            variants={itemVariants}
-            className="flex gap-12"
-          >
-            {[
-              { label: "Vibe", value: "Modern" },
-              { label: "Build", value: "Custom" },
-              { label: "Focus", value: "Conversion" },
-            ].map((stat, i) => (
-              <div key={i} className="flex flex-col gap-1">
-                <span className="text-[10px] font-mono text-text-muted-dark uppercase tracking-widest">{stat.label}</span>
-                <span className="text-base font-bold text-white/90">{stat.value}</span>
-              </div>
-            ))}
-          </motion.div>
         </motion.div>
 
         {/* Right Side (3D Depth Cluster) */}
-        <div className="relative hidden lg:block h-[1000px] w-full" style={{ perspective: "3000px", transformStyle: "preserve-3d" }}>
+        <div className="relative hidden lg:block h-[600px] w-full" style={{ perspective: "3000px", transformStyle: "preserve-3d" }}>
           {/* Decorative Background Elements */}
           <div className="absolute inset-0 -z-10 pointer-events-none overflow-visible">
             <motion.div
@@ -257,9 +239,9 @@ export function HeroSection() {
             />
 
             {/* Ambient SVG Grid Connectors */}
-            <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 500 1000" fill="none">
+            <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 500 600" fill="none">
               <motion.path
-                d="M 400 50 Q 100 250 400 500 T 100 950"
+                d="M 450 50 Q 150 200 400 350 T 150 550"
                 stroke="url(#hero-line-gradient)"
                 strokeWidth="1"
                 strokeDasharray="12 16"
@@ -278,73 +260,44 @@ export function HeroSection() {
             </svg>
           </div>
 
-          {/* Card 1: Top Right - Shifted further right */}
+          {/* Card 1: Top Right */}
           <VisualCard
             title="Brand Experience"
             icon={Layout}
-            gradient="bg-gradient-to-br from-indigo-600/30 via-blue-600/30 to-indigo-900/40"
+            gradient="bg-gradient-to-br from-[#1E293B]/60 via-[#0F172A]/80 to-[#020617]"
             delay={0.4}
-            rotation={{ x: 12, y: -20, z: 2 }}
-            className="w-[420px] top-[0%] -right-[5%] z-10"
+            rotation={{ x: 15, y: -25, z: 4 }}
+            className="w-[440px] top-0 right-0 z-10"
           />
 
-          {/* Card 2: Center Left - Shifted further left and slightly down to avoid overlap */}
+          {/* Card 2: Bottom Left */}
           <VisualCard
             title="Digital Ecosystem"
             icon={Monitor}
-            gradient="bg-gradient-to-br from-violet-600/30 via-fuchsia-600/30 to-purple-900/40"
+            gradient="bg-gradient-to-br from-[#312E81]/40 via-[#1E1B4B]/60 to-[#020617]"
             delay={0.6}
-            rotation={{ x: 8, y: -25, z: -4 }}
-            className="w-[420px] top-[35%] -left-[10%] z-20"
+            rotation={{ x: 12, y: -22, z: -2 }}
+            className="w-[440px] bottom-0 left-0 z-20"
           />
 
-          {/* Card 3: Bottom Right - Shifted further right and down */}
-          <VisualCard
-            title="Conversion Engine"
-            icon={Smartphone}
-            gradient="bg-gradient-to-br from-emerald-500/30 via-teal-600/30 to-blue-900/40"
-            delay={0.8}
-            rotation={{ x: 15, y: -18, z: 6 }}
-            className="w-[420px] top-[70%] -right-[5%] z-30"
-          />
-
-          {/* Floating Performance Badges - Strategically placed to fill gaps */}
+          {/* Floating Performance Badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
             animate={{
               opacity: 1,
               scale: 1,
               rotate: 0,
-              y: [0, -15, 0]
+              y: [0, -10, 0]
             }}
             transition={{
               scale: { delay: 1.2, type: "spring", stiffness: 200 },
               opacity: { delay: 1.2 },
               y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
             }}
-            className="absolute top-[20%] left-[20%] px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl flex items-center space-x-3 z-40 shadow-2xl"
+            className="absolute top-[45%] right-[10%] px-6 py-3 rounded-full bg-[#0F172A]/80 border border-white/10 backdrop-blur-xl flex items-center space-x-3 z-40 shadow-2xl"
           >
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-            <span className="text-[9px] font-bold text-white/60 uppercase tracking-[0.25em]">Response Time: 12ms</span>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5, rotate: 10 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              rotate: 0,
-              y: [0, 15, 0]
-            }}
-            transition={{
-              scale: { delay: 1.5, type: "spring", stiffness: 200 },
-              opacity: { delay: 1.5 },
-              y: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }
-            }}
-            className="absolute bottom-[35%] right-[20%] px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl flex items-center space-x-3 z-40 shadow-2xl"
-          >
-            <CheckCircle2 className="w-3.5 h-3.5 text-primary-dark" />
-            <span className="text-[9px] font-bold text-white/60 uppercase tracking-[0.25em]">Accessibility: 100%</span>
+            <span className="text-[9px] font-bold text-white/40 uppercase tracking-[0.3em]">Response Time: 12ms</span>
           </motion.div>
 
           {/* Decorative Cursor */}
