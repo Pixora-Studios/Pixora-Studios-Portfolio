@@ -1,11 +1,155 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, ChevronDown, MoreHorizontal } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { MagneticButton } from "@/components/shared/MagneticButton";
 import { cn } from "@/lib/utils";
+
+interface CardConfig {
+  id: string;
+  label: string;
+  heading: string;
+  image: string;
+  theme: "light" | "dark";
+  top: string;
+  left: string;
+  width: string;
+  rotate: number;
+  glowColor: string;
+  exitX: number;
+  exitY: number;
+  exitScale: number;
+  scrollRange: [number, number];
+}
+
+function FloatingCard({
+  card,
+  index,
+  scrollYProgress,
+  shouldReduceMotion
+}: {
+  card: CardConfig;
+  index: number;
+  scrollYProgress: any;
+  shouldReduceMotion: boolean | null;
+}) {
+  const xExit = useTransform(scrollYProgress, card.scrollRange, [0, card.exitX]);
+  const yExit = useTransform(scrollYProgress, card.scrollRange, [0, card.exitY]);
+  const scaleExit = useTransform(scrollYProgress, card.scrollRange, [1, card.exitScale]);
+  const opacityExit = useTransform(scrollYProgress, card.scrollRange, [1, 0]);
+  const rotateExit = useTransform(scrollYProgress, card.scrollRange, [card.rotate, card.id === "dental" ? 0 : card.rotate]);
+
+  return (
+    <motion.div
+      initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 60, rotate: card.rotate - 5, scale: 0.85 }}
+      animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, rotate: card.rotate, scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+        mass: 1,
+        delay: 0.4 + index * 0.12,
+      }}
+      style={{
+        position: "absolute",
+        top: card.top,
+        left: card.left,
+        width: card.width,
+        x: shouldReduceMotion ? 0 : xExit,
+        y: shouldReduceMotion ? 0 : yExit,
+        scale: shouldReduceMotion ? 1 : scaleExit,
+        rotate: shouldReduceMotion ? card.rotate : rotateExit,
+        opacity: opacityExit,
+        zIndex: 10 + index,
+      }}
+      className="group"
+    >
+      {/* Idle Float Wrapper */}
+      <motion.div
+        animate={shouldReduceMotion ? {} : {
+          y: [0, -10, 0],
+        }}
+        transition={{
+          duration: 4.5 + index,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: index * 0.5,
+        }}
+        className="relative"
+      >
+        {/* Badge */}
+        <div className="absolute -top-4 -left-2 z-20 px-3 py-1 rounded-full bg-surface-dark border border-white/10 shadow-lg flex items-center space-x-1.5 whitespace-nowrap">
+          <span className="text-[10px] font-mono font-bold text-primary-dark">
+            {card.label}
+          </span>
+        </div>
+
+        {/* Browser Mockup */}
+        <div
+          className={cn(
+            "rounded-[16px] overflow-hidden border shadow-2xl transition-all duration-500",
+            card.theme === "dark"
+              ? "bg-[#0D0D14] border-white/10"
+              : "bg-white border-black/10",
+            "group-hover:scale-[1.02] group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+          )}
+          style={{
+            boxShadow: `0 10px 40px -10px ${card.glowColor}`,
+          }}
+        >
+          {/* Top Bar */}
+          <div className={cn(
+            "flex items-center justify-between px-3 py-2 border-b",
+            card.theme === "dark" ? "border-white/5 bg-white/5" : "border-black/5 bg-black/5"
+          )}>
+            <div className="flex space-x-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
+            </div>
+            {index % 2 === 0 && (
+              <MoreHorizontal className={cn(
+                "w-3 h-3",
+                card.theme === "dark" ? "text-white/20" : "text-black/20"
+              )} />
+            )}
+          </div>
+
+          {/* Content Image */}
+          <div className="aspect-[4/3] relative">
+            <Image
+              src={card.image}
+              alt={card.heading}
+              fill
+              className="object-cover"
+            />
+            {/* Scrim */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+            {/* Text Overlay */}
+            <div className="absolute bottom-3 left-3 right-3">
+              <p className="text-[10px] font-mono text-white/60 mb-0.5 uppercase tracking-wider">
+                Live Preview
+              </p>
+              <h3 className="text-sm font-bold text-white leading-tight">
+                {card.heading}
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        {/* Individual Card Glow */}
+        <div
+          className="absolute -inset-4 blur-[30px] -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{ backgroundColor: card.glowColor }}
+        />
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -115,8 +259,100 @@ export function HeroSection() {
   const line1 = "Your Business,";
   const line2 = "But Make It";
 
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end start"],
+  });
+
+  const cards: CardConfig[] = [
+    {
+      id: "dental",
+      label: "✦ Dental Clinic",
+      heading: "Healthy Smiles, Every Day",
+      image: "/mock/dental.jpg",
+      theme: "dark",
+      top: "5%",
+      left: "5%",
+      width: "280px",
+      rotate: -6,
+      glowColor: "rgba(108, 99, 255, 0.3)", // primary-dark
+      exitX: 0,
+      exitY: -200,
+      exitScale: 1.1,
+      scrollRange: [0, 0.25],
+    },
+    {
+      id: "cafe",
+      label: "✦ Cafe Website",
+      heading: "Good Coffee, Great Moments",
+      image: "/mock/cafe.jpg",
+      theme: "light",
+      top: "15%",
+      left: "45%",
+      width: "260px",
+      rotate: 4,
+      glowColor: "rgba(254, 188, 46, 0.3)", // warm amber
+      exitX: 200,
+      exitY: 0,
+      exitScale: 1,
+      scrollRange: [0.15, 0.4],
+    },
+    {
+      id: "restaurant",
+      label: "✦ Restaurant",
+      heading: "Taste the Tradition",
+      image: "/mock/restaurant.jpg",
+      theme: "dark",
+      top: "38%",
+      left: "2%",
+      width: "270px",
+      rotate: -3,
+      glowColor: "rgba(255, 95, 87, 0.3)", // warm red/amber
+      exitX: -200,
+      exitY: 0,
+      exitScale: 1,
+      scrollRange: [0.3, 0.55],
+    },
+    {
+      id: "gym",
+      label: "✦ Fitness Club",
+      heading: "Push Your Limits",
+      image: "/mock/gym.jpg",
+      theme: "dark",
+      top: "52%",
+      left: "48%",
+      width: "260px",
+      rotate: 5,
+      glowColor: "rgba(167, 139, 250, 0.3)", // secondary-dark
+      exitX: 200,
+      exitY: 100,
+      exitScale: 1,
+      scrollRange: [0.45, 0.7],
+    },
+    {
+      id: "qr-menu",
+      label: "✦ Digital QR Menu",
+      heading: "Scan. Order. Enjoy.",
+      image: "/mock/qr-phone.jpg",
+      theme: "dark",
+      top: "68%",
+      left: "15%",
+      width: "300px",
+      rotate: 2,
+      glowColor: "rgba(108, 99, 255, 0.4)", // primary-dark
+      exitX: 0,
+      exitY: 50,
+      exitScale: 1.2,
+      scrollRange: [0.6, 0.85],
+    },
+  ];
+
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-x-hidden bg-background-light dark:bg-background-dark">
+    <section
+      ref={targetRef}
+      className="relative min-h-screen flex items-center pt-20 overflow-x-hidden bg-background-light dark:bg-background-dark"
+    >
       <canvas
         ref={canvasRef}
         aria-hidden="true"
@@ -218,45 +454,37 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* Mock Browser UI */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="relative xl:block hidden max-w-[540px] justify-self-center"
-        >
-          <div className="rounded-2xl bg-[#0D0D14] border border-white/10 overflow-hidden shadow-2xl shadow-primary-dark/20">
-            {/* Browser Top Bar */}
-            <div className="flex items-center px-3 py-2 border-b border-white/5 bg-white/5">
-              <div aria-hidden="true" className="flex space-x-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
-                <div className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
-                <div className="w-3 h-3 rounded-full bg-[#28C840]" />
-              </div>
-              <div className="flex-1 mx-8 px-2 py-1 rounded bg-black/20 border border-white/5 text-[10px] text-white/40 font-mono text-center">
-                pixorastudios.com/services
-              </div>
-            </div>
-            {/* Browser Content */}
-            <div className="aspect-[16/10] relative overflow-hidden group">
-              <video
-                src="https://www.w3schools.com/html/mov_bbb.mp4"
-                aria-label="Preview reel of a Pixora Studios website in the browser"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="h-full w-full object-cover"
-              />
-              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-white/80 backdrop-blur">
-                Featured Reel
-              </div>
-            </div>
-          </div>
-          {/* Decorative Glow */}
-          <div aria-hidden="true" className="absolute -inset-10 bg-primary-dark/20 rounded-full blur-[100px] -z-10" />
-        </motion.div>
+        {/* Website Cluster Column */}
+        <div className="relative xl:block hidden h-[700px] w-full self-center">
+          {/* Decorative Background Elements */}
+          <svg
+            viewBox="0 0 800 700"
+            className="absolute inset-0 w-full h-full pointer-events-none opacity-20"
+            aria-hidden="true"
+          >
+            <path
+              d="M 50,150 C 150,50 350,50 450,200 S 250,500 400,600 S 700,550 750,400"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+              strokeDasharray="4 4"
+              className="text-text-muted-dark"
+            />
+            <circle cx="150" cy="80" r="2" className="fill-primary-dark animate-pulse" />
+            <circle cx="450" cy="180" r="1.5" className="fill-secondary-dark animate-pulse delay-300" />
+            <circle cx="550" cy="350" r="2" className="fill-indigo-400 animate-pulse delay-700" />
+          </svg>
+
+          {cards.map((card, index) => (
+            <FloatingCard
+              key={card.id}
+              card={card}
+              index={index}
+              scrollYProgress={scrollYProgress}
+              shouldReduceMotion={shouldReduceMotion}
+            />
+          ))}
+        </div>
       </div>
 
       <motion.div
