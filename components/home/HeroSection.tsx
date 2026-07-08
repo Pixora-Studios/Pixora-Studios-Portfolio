@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { ArrowRight, ChevronDown, MoreHorizontal } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MagneticButton } from "@/components/shared/MagneticButton";
@@ -18,6 +18,8 @@ interface CardConfig {
   left: string;
   width: string;
   rotate: number;
+  rotateX: number;
+  rotateY: number;
   glowColor: string;
   exitX: number;
   exitY: number;
@@ -33,7 +35,7 @@ function FloatingCard({
 }: {
   card: CardConfig;
   index: number;
-  scrollYProgress: any;
+  scrollYProgress: MotionValue<number>;
   shouldReduceMotion: boolean | null;
 }) {
   const xExit = useTransform(scrollYProgress, card.scrollRange, [0, card.exitX]);
@@ -44,8 +46,22 @@ function FloatingCard({
 
   return (
     <motion.div
-      initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 60, rotate: card.rotate - 5, scale: 0.85 }}
-      animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, rotate: card.rotate, scale: 1 }}
+      initial={shouldReduceMotion ? { opacity: 0 } : {
+        opacity: 0,
+        y: 60,
+        rotate: card.rotate - 5,
+        rotateX: card.rotateX - 10,
+        rotateY: card.rotateY - 10,
+        scale: 0.85
+      }}
+      animate={shouldReduceMotion ? { opacity: 1 } : {
+        opacity: 1,
+        y: 0,
+        rotate: card.rotate,
+        rotateX: card.rotateX,
+        rotateY: card.rotateY,
+        scale: 1
+      }}
       transition={{
         type: "spring",
         stiffness: 100,
@@ -64,13 +80,21 @@ function FloatingCard({
         rotate: shouldReduceMotion ? card.rotate : rotateExit,
         opacity: opacityExit,
         zIndex: 10 + index,
+        transformStyle: "preserve-3d",
         willChange: "transform",
       }}
-      className="group"
+      whileHover={shouldReduceMotion ? {} : {
+        y: -10,
+        scale: 1.05,
+        rotateX: 0,
+        rotateY: 0,
+        transition: { duration: 0.3 }
+      }}
+      className="group cursor-pointer"
     >
-      {/* Static Deep Glow (Performance Optimized: no filter animations) */}
+      {/* Static Deep Glow */}
       <div
-        className="absolute inset-0 -z-10 blur-[70px] opacity-25 rounded-full pointer-events-none"
+        className="absolute inset-0 -z-10 blur-[80px] opacity-20 rounded-full pointer-events-none"
         style={{ backgroundColor: card.glowColor }}
       />
 
@@ -86,10 +110,10 @@ function FloatingCard({
           delay: index * 0.5,
         }}
         className="relative"
-        style={{ willChange: "transform" }}
+        style={{ willChange: "transform", transformStyle: "preserve-3d" }}
       >
         {/* Badge */}
-        <div className="absolute -top-3 -left-2 z-20 px-2.5 py-1 rounded-full bg-surface-dark border border-white/10 shadow-lg flex items-center space-x-1 whitespace-nowrap">
+        <div className="absolute -top-3 -left-2 z-20 px-3 py-1 rounded-full bg-surface-dark/90 backdrop-blur-md border border-white/20 shadow-lg flex items-center space-x-1.5 whitespace-nowrap">
           <span className="text-[10px] font-mono font-bold text-primary-dark">
             {card.label}
           </span>
@@ -98,12 +122,18 @@ function FloatingCard({
         {/* Browser Mockup */}
         <div
           className={cn(
-            "rounded-[16px] overflow-hidden border shadow-xl transition-all duration-500",
+            "rounded-[16px] overflow-hidden border transition-all duration-500",
             card.theme === "dark"
               ? "bg-[#0D0D14] border-white/10"
               : "bg-white border-black/10",
-            "group-hover:scale-[1.02] group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+            "group-hover:scale-[1.02]"
           )}
+          style={{
+            boxShadow: `
+              0 20px 40px -15px rgba(0,0,0,0.5),
+              0 0 40px -10px ${card.glowColor}
+            `
+          }}
         >
           {/* Top Bar */}
           <div className={cn(
@@ -126,30 +156,27 @@ function FloatingCard({
           {/* Content Image */}
           <div className={cn(
             "relative",
-            card.id === "qr-menu" ? "aspect-[3/4]" : "aspect-[4/3]"
+            card.id === "qr-menu" ? "aspect-[3/4]" : "aspect-[16/10]"
           )}>
             <Image
               src={card.image}
               alt={card.heading}
               fill
-              sizes="(max-width: 1280px) 100vw, 300px"
+              sizes="(max-width: 1280px) 100vw, 400px"
               className="object-cover"
               priority={index < 2}
             />
             {/* Scrim */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
             {/* Text Overlay */}
-            <div className="absolute bottom-2.5 left-3 right-3">
-              <p className="text-[9px] font-mono text-white/50 mb-0.5 uppercase tracking-wider">
+            <div className="absolute bottom-3 left-4 right-4">
+              <p className="text-[10px] font-mono text-white/50 mb-0.5 uppercase tracking-wider">
                 Live Preview
               </p>
-              <h3 className="text-[13px] font-bold text-white leading-[1.15]">
+              <h3 className="text-[14px] font-bold text-white leading-tight">
                 {card.heading}
               </h3>
-              {index === 1 && (
-                <p className="text-[9px] text-white/40 mt-1">Our Specials →</p>
-              )}
             </div>
           </div>
         </div>
@@ -281,13 +308,15 @@ export function HeroSection() {
       heading: "Healthy Smiles, Every Day",
       image: "/mock/dental.jpg",
       theme: "dark",
-      top: "5%",
-      left: "2%",
-      width: "230px",
-      rotate: -5,
-      glowColor: "rgba(108, 99, 255, 0.3)", // primary-dark
-      exitX: -50,
-      exitY: -200,
+      top: "0%",
+      left: "-10%",
+      width: "520px",
+      rotate: -6,
+      rotateX: 8,
+      rotateY: 12,
+      glowColor: "rgba(108, 99, 255, 0.3)",
+      exitX: -100,
+      exitY: -250,
       exitScale: 1.1,
       scrollRange: [0, 0.25],
     },
@@ -297,13 +326,15 @@ export function HeroSection() {
       heading: "Good Coffee, Great Moments",
       image: "/mock/cafe.jpg",
       theme: "light",
-      top: "10%",
-      left: "54%",
-      width: "225px",
+      top: "6%",
+      left: "40%",
+      width: "500px",
       rotate: 4,
-      glowColor: "rgba(254, 188, 46, 0.3)", // warm amber
-      exitX: 200,
-      exitY: -50,
+      rotateX: -5,
+      rotateY: -10,
+      glowColor: "rgba(254, 188, 46, 0.3)",
+      exitX: 250,
+      exitY: -100,
       exitScale: 1,
       scrollRange: [0.15, 0.4],
     },
@@ -313,13 +344,15 @@ export function HeroSection() {
       heading: "Taste the Tradition",
       image: "/mock/restaurant.jpg",
       theme: "dark",
-      top: "34%",
-      left: "0%",
-      width: "235px",
+      top: "30%",
+      left: "-18%",
+      width: "540px",
       rotate: -3,
-      glowColor: "rgba(255, 95, 87, 0.3)", // warm red/amber
-      exitX: -200,
-      exitY: 50,
+      rotateX: 10,
+      rotateY: 5,
+      glowColor: "rgba(255, 95, 87, 0.3)",
+      exitX: -250,
+      exitY: 100,
       exitScale: 1,
       scrollRange: [0.3, 0.55],
     },
@@ -329,13 +362,15 @@ export function HeroSection() {
       heading: "Push Your Limits",
       image: "/mock/gym.jpg",
       theme: "dark",
-      top: "39%",
-      left: "58%",
-      width: "220px",
+      top: "36%",
+      left: "45%",
+      width: "520px",
       rotate: 6,
-      glowColor: "rgba(167, 139, 250, 0.3)", // secondary-dark
-      exitX: 200,
-      exitY: 100,
+      rotateX: -8,
+      rotateY: -12,
+      glowColor: "rgba(167, 139, 250, 0.3)",
+      exitX: 250,
+      exitY: 150,
       exitScale: 1,
       scrollRange: [0.45, 0.7],
     },
@@ -345,13 +380,15 @@ export function HeroSection() {
       heading: "Scan. Order. Enjoy.",
       image: "/mock/qr-phone.jpg",
       theme: "dark",
-      top: "62%",
-      left: "26%",
-      width: "175px",
+      top: "56%",
+      left: "22%",
+      width: "230px",
       rotate: 2,
-      glowColor: "rgba(108, 99, 255, 0.4)", // primary-dark
+      rotateX: 12,
+      rotateY: 0,
+      glowColor: "rgba(108, 99, 255, 0.4)",
       exitX: 0,
-      exitY: 80,
+      exitY: 120,
       exitScale: 1.2,
       scrollRange: [0.6, 0.85],
     },
@@ -469,7 +506,10 @@ export function HeroSection() {
         </motion.div>
 
         {/* Website Cluster Column */}
-        <div className="relative xl:block hidden h-[700px] w-full self-center">
+        <div
+          className="relative xl:block hidden h-[700px] w-full self-center origin-center xl:scale-[0.6] 2xl:scale-[0.85] transition-transform duration-500"
+          style={{ perspective: "1200px" }}
+        >
           {/* Decorative Background Elements */}
           <motion.svg
             viewBox="0 0 800 700"
