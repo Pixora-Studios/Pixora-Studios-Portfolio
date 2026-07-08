@@ -1,554 +1,389 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform, MotionValue } from "framer-motion";
-import { ArrowRight, ChevronDown, MoreHorizontal } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { ChevronDown, Monitor, Smartphone, Layout, MousePointer2, CheckCircle2, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { MagneticButton } from "@/components/shared/MagneticButton";
 import { cn } from "@/lib/utils";
 
-interface CardConfig {
-  id: string;
-  label: string;
-  heading: string;
-  image: string;
-  theme: "light" | "dark";
-  top: string;
-  left: string;
-  width: string;
-  rotate: number;
-  rotateX: number;
-  rotateY: number;
-  glowColor: string;
-  exitX: number;
-  exitY: number;
-  exitScale: number;
-  scrollRange: [number, number];
+interface VisualCardProps {
+  className?: string;
+  gradient: string;
+  title: string;
+  icon: React.ElementType;
+  delay: number;
+  rotation: { x: number; y: number; z: number };
 }
 
-function FloatingCard({
-  card,
-  index,
-  scrollYProgress,
-  shouldReduceMotion
-}: {
-  card: CardConfig;
-  index: number;
-  scrollYProgress: MotionValue<number>;
-  shouldReduceMotion: boolean | null;
-}) {
-  const xExit = useTransform(scrollYProgress, card.scrollRange, [0, card.exitX]);
-  const yExit = useTransform(scrollYProgress, card.scrollRange, [0, card.exitY]);
-  const scaleExit = useTransform(scrollYProgress, card.scrollRange, [1, card.exitScale]);
-  const opacityExit = useTransform(scrollYProgress, card.scrollRange, [1, 0]);
-  const rotateExit = useTransform(scrollYProgress, card.scrollRange, [card.rotate, card.id === "dental" ? 0 : card.rotate]);
-
+function VisualCard({ gradient, title, icon: Icon, delay, rotation, className }: VisualCardProps) {
   return (
     <motion.div
-      initial={shouldReduceMotion ? { opacity: 0 } : {
-        opacity: 0,
-        y: 60,
-        rotate: card.rotate - 5,
-        rotateX: card.rotateX - 10,
-        rotateY: card.rotateY - 10,
-        scale: 0.85
-      }}
-      animate={shouldReduceMotion ? { opacity: 1 } : {
+      initial={{ opacity: 0, scale: 0.9, x: 50 }}
+      animate={{
         opacity: 1,
-        y: 0,
-        rotate: card.rotate,
-        rotateX: card.rotateX,
-        rotateY: card.rotateY,
-        scale: 1
+        scale: 1,
+        x: 0,
+        rotateX: rotation.x,
+        rotateY: rotation.y,
+        rotateZ: rotation.z,
       }}
       transition={{
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        mass: 1,
-        delay: 0.4 + index * 0.12,
+        duration: 1.2,
+        delay: delay,
+        ease: [0.22, 1, 0.36, 1],
       }}
-      style={{
-        position: "absolute",
-        top: card.top,
-        left: card.left,
-        width: card.width,
-        x: shouldReduceMotion ? 0 : xExit,
-        y: shouldReduceMotion ? 0 : yExit,
-        scale: shouldReduceMotion ? 1 : scaleExit,
-        rotate: shouldReduceMotion ? card.rotate : rotateExit,
-        opacity: opacityExit,
-        zIndex: 10 + index,
-        transformStyle: "preserve-3d",
-        willChange: "transform",
-      }}
-      whileHover={shouldReduceMotion ? {} : {
-        y: -10,
+      whileHover={{
         scale: 1.05,
-        rotateX: 0,
-        rotateY: 0,
-        transition: { duration: 0.3 }
+        translateZ: 60,
+        rotateX: rotation.x + 5,
+        rotateY: rotation.y + 5,
+        transition: { duration: 0.4 }
       }}
-      className="group cursor-pointer"
+      className={cn(
+        "absolute rounded-2xl overflow-hidden border border-white/10 bg-[#0F0F16]/80 backdrop-blur-2xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)] group",
+        className
+      )}
+      style={{
+        transformStyle: "preserve-3d",
+      }}
     >
-      {/* Static Deep Glow */}
-      <div
-        className="absolute inset-0 -z-10 blur-[80px] opacity-20 rounded-full pointer-events-none"
-        style={{ backgroundColor: card.glowColor }}
-      />
+      {/* Glassy Shimmer Effect */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-      {/* Idle Float Wrapper */}
-      <motion.div
-        animate={shouldReduceMotion ? {} : {
-          y: [0, -10, 0],
-        }}
-        transition={{
-          duration: 4.5 + index,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: index * 0.5,
-        }}
-        className="relative"
-        style={{ willChange: "transform", transformStyle: "preserve-3d" }}
-      >
-        {/* Badge */}
-        <div className="absolute -top-3 -left-2 z-20 px-3 py-1 rounded-full bg-surface-dark/90 backdrop-blur-md border border-white/20 shadow-lg flex items-center space-x-1.5 whitespace-nowrap">
-          <span className="text-[10px] font-mono font-bold text-primary-dark">
-            {card.label}
-          </span>
+      {/* Mock Browser Header */}
+      <div className="flex items-center justify-between px-5 py-4 border-b border-white/5 bg-white/5">
+        <div className="flex space-x-2">
+          <div className="w-3 h-3 rounded-full bg-red-500/40" />
+          <div className="w-3 h-3 rounded-full bg-amber-500/40" />
+          <div className="w-3 h-3 rounded-full bg-emerald-500/40" />
         </div>
+        <div className="text-[10px] font-mono text-white/20 tracking-widest uppercase">{title}</div>
+        <div className="w-8" />
+      </div>
 
-        {/* Browser Mockup */}
-        <div
-          className={cn(
-            "rounded-[16px] overflow-hidden border transition-all duration-500",
-            card.theme === "dark"
-              ? "bg-[#0D0D14] border-white/10"
-              : "bg-white border-black/10",
-            "group-hover:scale-[1.02]"
-          )}
-          style={{
-            boxShadow: `
-              0 20px 40px -15px rgba(0,0,0,0.5),
-              0 0 40px -10px ${card.glowColor}
-            `
+      {/* Content Area with Gradient */}
+      <div className={cn("relative aspect-[16/10] w-full overflow-hidden", gradient)}>
+        {/* Animated Background Blob inside card */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
           }}
-        >
-          {/* Top Bar */}
-          <div className={cn(
-            "flex items-center justify-between px-3 py-1.5 border-b",
-            card.theme === "dark" ? "border-white/5 bg-white/5" : "border-black/5 bg-black/5"
-          )}>
-            <div className="flex space-x-1.5">
-              <div className="w-2 h-2 rounded-full bg-[#FF5F57]" />
-              <div className="w-2 h-2 rounded-full bg-[#FEBC2E]" />
-              <div className="w-2 h-2 rounded-full bg-[#28C840]" />
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-1/2 -right-1/2 w-full h-full bg-white/10 blur-[60px] rounded-full"
+        />
+
+        {/* Abstract UI Elements with Depth */}
+        <div className="absolute inset-0 p-8 flex flex-col justify-between" style={{ transform: "translateZ(50px)" }}>
+          <div className="flex justify-between items-start">
+            <div className="space-y-3">
+              <div className="w-40 h-4 bg-white/20 rounded-full" />
+              <div className="w-24 h-2.5 bg-white/10 rounded-full" />
             </div>
-            {index % 2 === 0 && (
-              <MoreHorizontal className={cn(
-                "w-3 h-3",
-                card.theme === "dark" ? "text-white/20" : "text-black/20"
-              )} />
-            )}
+            <div className="p-3 rounded-xl bg-white/10 backdrop-blur-xl border border-white/10 shadow-xl">
+              <Icon className="w-6 h-6 text-white/60" />
+            </div>
           </div>
 
-          {/* Content Image */}
-          <div className={cn(
-            "relative",
-            card.id === "qr-menu" ? "aspect-[3/4]" : "aspect-[16/10]"
-          )}>
-            <Image
-              src={card.image}
-              alt={card.heading}
-              fill
-              sizes="(max-width: 1280px) 100vw, 400px"
-              className="object-cover"
-              priority={index < 2}
-            />
-            {/* Scrim */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+          <div className="grid grid-cols-3 gap-4">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-24 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm relative overflow-hidden group/item">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity" />
+                <div className="absolute bottom-3 left-3 right-3 space-y-1.5">
+                  <div className="w-full h-1.5 bg-white/20 rounded-full" />
+                  <div className="w-2/3 h-1.5 bg-white/10 rounded-full" />
+                </div>
+              </div>
+            ))}
+          </div>
 
-            {/* Text Overlay */}
-            <div className="absolute bottom-3 left-4 right-4">
-              <p className="text-[10px] font-mono text-white/50 mb-0.5 uppercase tracking-wider">
-                Live Preview
-              </p>
-              <h3 className="text-[14px] font-bold text-white leading-tight">
-                {card.heading}
-              </h3>
+          <div className="flex items-center justify-between">
+            <div className="w-32 h-10 bg-white/10 rounded-full border border-white/10 flex items-center px-4">
+              <div className="w-full h-1.5 bg-white/20 rounded-full" />
+            </div>
+            <div className="flex -space-x-3">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="w-8 h-8 rounded-full bg-white/10 border-2 border-[#1A1A24] backdrop-blur-md" />
+              ))}
             </div>
           </div>
         </div>
-      </motion.div>
+
+        {/* Glossy Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-60 pointer-events-none" />
+      </div>
+
+      {/* Edge Highlight */}
+      <div className="absolute inset-0 border border-white/10 rounded-2xl pointer-events-none" />
     </motion.div>
   );
 }
 
 export function HeroSection() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (shouldReduceMotion || !canvasRef.current) return;
-
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let particles: Particle[] = [];
-
-    class Particle {
-      x: number;
-      y: number;
-      size: number;
-      speedX: number;
-      speedY: number;
-      opacity: number;
-
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-        this.opacity = Math.random() * 0.5;
-      }
-
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x > canvas.width) this.x = 0;
-        else if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        else if (this.y < 0) this.y = canvas.height;
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.fillStyle = `rgba(108, 99, 255, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    const init = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      particles = [];
-      for (let i = 0; i < 50; i++) {
-        particles.push(new Particle());
-      }
-    };
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
-      }
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    init();
-    animate();
-
-    const handleResize = () => {
-      init();
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [shouldReduceMotion]);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.15,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: [0.215, 0.61, 0.355, 1],
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
       },
     },
   };
 
-  const line1 = "Your Business,";
-  const line2 = "But Make It";
-
-  const targetRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "end start"],
-  });
-
-  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
-  const cards: CardConfig[] = [
-    {
-      id: "dental",
-      label: "✦ Dental Clinic",
-      heading: "Healthy Smiles, Every Day",
-      image: "/mock/dental.jpg",
-      theme: "dark",
-      top: "0%",
-      left: "-10%",
-      width: "520px",
-      rotate: -6,
-      rotateX: 8,
-      rotateY: 12,
-      glowColor: "rgba(108, 99, 255, 0.3)",
-      exitX: -100,
-      exitY: -250,
-      exitScale: 1.1,
-      scrollRange: [0, 0.25],
-    },
-    {
-      id: "cafe",
-      label: "✦ Cafe Website",
-      heading: "Good Coffee, Great Moments",
-      image: "/mock/cafe.jpg",
-      theme: "light",
-      top: "6%",
-      left: "40%",
-      width: "500px",
-      rotate: 4,
-      rotateX: -5,
-      rotateY: -10,
-      glowColor: "rgba(254, 188, 46, 0.3)",
-      exitX: 250,
-      exitY: -100,
-      exitScale: 1,
-      scrollRange: [0.15, 0.4],
-    },
-    {
-      id: "restaurant",
-      label: "✦ Restaurant",
-      heading: "Taste the Tradition",
-      image: "/mock/restaurant.jpg",
-      theme: "dark",
-      top: "30%",
-      left: "-18%",
-      width: "540px",
-      rotate: -3,
-      rotateX: 10,
-      rotateY: 5,
-      glowColor: "rgba(255, 95, 87, 0.3)",
-      exitX: -250,
-      exitY: 100,
-      exitScale: 1,
-      scrollRange: [0.3, 0.55],
-    },
-    {
-      id: "gym",
-      label: "✦ Fitness Club",
-      heading: "Push Your Limits",
-      image: "/mock/gym.jpg",
-      theme: "dark",
-      top: "36%",
-      left: "45%",
-      width: "520px",
-      rotate: 6,
-      rotateX: -8,
-      rotateY: -12,
-      glowColor: "rgba(167, 139, 250, 0.3)",
-      exitX: 250,
-      exitY: 150,
-      exitScale: 1,
-      scrollRange: [0.45, 0.7],
-    },
-    {
-      id: "qr-menu",
-      label: "✦ Digital QR Menu",
-      heading: "Scan. Order. Enjoy.",
-      image: "/mock/qr-phone.jpg",
-      theme: "dark",
-      top: "56%",
-      left: "22%",
-      width: "230px",
-      rotate: 2,
-      rotateX: 12,
-      rotateY: 0,
-      glowColor: "rgba(108, 99, 255, 0.4)",
-      exitX: 0,
-      exitY: 120,
-      exitScale: 1.2,
-      scrollRange: [0.6, 0.85],
-    },
-  ];
-
   return (
-    <section
-      ref={targetRef}
-      className="relative min-h-screen flex items-center pt-20 overflow-x-hidden bg-background-light dark:bg-background-dark"
-    >
-      <motion.canvas
-        ref={canvasRef}
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [0.5, 0]) }}
-      />
-      {/* Ambient background effects — decorative only */}
-      <motion.div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 overflow-hidden"
-        style={{ opacity: backgroundOpacity }}
-      >
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-dark/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-dark/10 rounded-full blur-[120px] animate-pulse delay-700" />
-      </motion.div>
+    <section className="relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden bg-[#020204]">
+      {/* Background Ambience */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[60%] bg-primary-dark/20 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-5%] left-[-5%] w-[40%] h-[40%] bg-indigo-600/10 rounded-full blur-[100px]" />
 
-      <div className="container mx-auto px-6 grid xl:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
+        {/* CSS Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+      </div>
+
+      <div className="container mx-auto px-6 grid lg:grid-cols-[1fr_1fr] gap-12 items-center">
+        {/* Left Side */}
         <motion.div
-          className="flex flex-col items-start w-full xl:col-span-1"
+          className="flex flex-col items-start z-10"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           <motion.div
             variants={itemVariants}
-            className="flex items-center space-x-2 text-primary-light dark:text-primary-dark font-mono text-xs uppercase tracking-widest mb-6"
+            className="flex items-center space-x-4 text-primary-dark font-mono text-[12px] font-bold uppercase tracking-[0.3em] mb-8"
           >
-            <span>✦ Bhubaneswar → Internet</span>
-            <span aria-hidden="true" className="w-[1px] h-4 bg-primary-light dark:bg-primary-dark animate-blink" />
+            <div className="flex space-x-1">
+              <div className="w-2 h-2 rounded-full bg-primary-dark" />
+              <div className="w-2 h-2 rounded-full bg-primary-dark/40" />
+              <div className="w-2 h-2 rounded-full bg-primary-dark/20" />
+            </div>
+            <span>Pixora Studios • {new Date().getFullYear()}</span>
           </motion.div>
 
-          <h1 className="text-[clamp(2rem,4.5vw,4rem)] font-display font-bold leading-[0.9] mb-6 tracking-tighter">
-            <span className="block overflow-hidden">
-              {line1.split(" ").map((word, i) => (
-                <motion.span
-                  key={i}
-                  variants={itemVariants}
-                  className="inline-block mr-[0.2em]"
-                >
-                  {word}
-                </motion.span>
-              ))}
+          <motion.h1
+            variants={itemVariants}
+            className="text-[clamp(3rem,7vw,6.5rem)] font-display font-bold leading-[0.9] mb-10 tracking-[-0.05em] text-white"
+          >
+            Your Business, <br />
+            But Make It <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-dark via-indigo-400 to-blue-500 bg-[length:200%_auto] animate-gradient-flow">
+              Unforgettable.
             </span>
-            <span className="block overflow-hidden">
-              {line2.split(" ").map((word, i) => (
-                <motion.span
-                  key={i}
-                  variants={itemVariants}
-                  className="inline-block mr-[0.2em]"
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </span>
-            <span className="block overflow-hidden">
-              <motion.span
-                variants={itemVariants}
-                className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 bg-[length:200%_auto] animate-gradient-flow"
-              >
-                Unforgettable.
-              </motion.span>
-            </span>
-          </h1>
+          </motion.h1>
 
-          {/* AEO: plain-language direct-answer line, present in initial HTML for AI/search crawlers */}
           <motion.p
             variants={itemVariants}
-            className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark max-w-full xl:max-w-[400px] mb-8 leading-relaxed"
+            className="text-lg md:text-xl text-text-muted-dark max-w-[540px] mb-12 leading-relaxed font-body"
           >
-            Pixora Studios designs and builds custom websites and Digital QR
-            Menu systems for local businesses in Bhubaneswar, Odisha —
-            cafes, clinics, restaurants, salons, and gyms. No templates.
-            No fluff. Just something that works.
+            We blend artistic vision with technical excellence to build
+            digital products that redefine what&apos;s possible for
+            forward-thinking brands.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-8 mb-12">
+          <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-8 mb-16">
             <MagneticButton>
               <Link
                 href="/contact"
-                className="px-8 py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-base hover:scale-105 transition-transform flex items-center group"
+                className="px-10 py-5 rounded-full bg-primary-dark text-white font-bold text-lg hover:shadow-[0_20px_40px_-10px_rgba(108,99,255,0.5)] transition-all flex items-center group overflow-hidden relative"
               >
-                <span>Let&apos;s Build →</span>
+                <span className="relative z-10">Get Started Now</span>
+                <ArrowRight className="ml-2 w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-primary-dark opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
             </MagneticButton>
 
             <Link
               href="/portfolio"
-              className="relative py-2 text-base font-bold group"
+              className="text-white font-semibold text-lg hover:text-primary-dark transition-colors flex items-center group"
             >
-              <span>See our web design &amp; QR menu work</span>
-              <span aria-hidden="true" className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary-light dark:bg-primary-dark transition-all duration-300 group-hover:w-full" />
+              <span>View Our Work</span>
+              <div className="ml-3 w-8 h-[2px] bg-white group-hover:w-12 group-hover:bg-primary-dark transition-all duration-300" />
             </Link>
           </motion.div>
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap gap-x-3 gap-y-2 text-xs font-mono text-text-muted-light dark:text-text-muted-dark uppercase tracking-widest items-center"
+            className="flex gap-12"
           >
-            <span>✦ 15+ brands live</span>
-            <span aria-hidden="true" className="opacity-40">·</span>
-            <span>✦ MERN + Next.js</span>
-            <span aria-hidden="true" className="opacity-40">·</span>
-            <span>✦ Ships in 2–4 weeks</span>
+            {[
+              { label: "Vibe", value: "Modern" },
+              { label: "Build", value: "Custom" },
+              { label: "Focus", value: "Conversion" },
+            ].map((stat, i) => (
+              <div key={i} className="flex flex-col gap-1">
+                <span className="text-[10px] font-mono text-text-muted-dark uppercase tracking-widest">{stat.label}</span>
+                <span className="text-base font-bold text-white/90">{stat.value}</span>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
 
-        {/* Website Cluster Column */}
-        <div
-          className="relative xl:block hidden h-[700px] w-full self-center origin-center xl:scale-[0.6] 2xl:scale-[0.85] transition-transform duration-500"
-          style={{ perspective: "1200px" }}
-        >
+        {/* Right Side (3D Depth Cluster) */}
+        <div className="relative hidden lg:block h-[1000px] w-full" style={{ perspective: "3000px", transformStyle: "preserve-3d" }}>
           {/* Decorative Background Elements */}
-          <motion.svg
-            viewBox="0 0 800 700"
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            aria-hidden="true"
-            style={{ opacity: useTransform(scrollYProgress, [0, 0.4], [0.2, 0]) }}
-          >
-            <path
-              d="M 50,150 C 150,50 350,50 450,200 S 250,500 400,600 S 700,550 750,400"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-              strokeDasharray="4 4"
-              className="text-text-muted-dark"
+          <div className="absolute inset-0 -z-10 pointer-events-none overflow-visible">
+            <motion.div
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.15, 0.25, 0.15],
+                x: [0, 40, 0],
+                y: [0, -40, 0]
+              }}
+              transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-dark/10 rounded-full blur-[140px]"
             />
-            <circle cx="150" cy="80" r="2" className="fill-primary-dark animate-pulse" />
-            <circle cx="450" cy="180" r="1.5" className="fill-secondary-dark animate-pulse delay-300" />
-            <circle cx="550" cy="350" r="2" className="fill-indigo-400 animate-pulse delay-700" />
-          </motion.svg>
+            <motion.div
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.1, 0.2, 0.1],
+                x: [0, -50, 0],
+                y: [0, 50, 0]
+              }}
+              transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute bottom-0 left-0 w-[450px] h-[450px] bg-indigo-500/10 rounded-full blur-[120px]"
+            />
 
-          {cards.map((card, index) => (
-            <FloatingCard
-              key={card.id}
-              card={card}
-              index={index}
-              scrollYProgress={scrollYProgress}
-              shouldReduceMotion={shouldReduceMotion}
-            />
-          ))}
+            {/* Ambient SVG Grid Connectors */}
+            <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 500 1000" fill="none">
+              <motion.path
+                d="M 400 50 Q 100 250 400 500 T 100 950"
+                stroke="url(#hero-line-gradient)"
+                strokeWidth="1"
+                strokeDasharray="12 16"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 4, ease: "easeInOut" }}
+              />
+              <defs>
+                <linearGradient id="hero-line-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="var(--primary-dark)" stopOpacity="0" />
+                  <stop offset="20%" stopColor="var(--primary-dark)" stopOpacity="0.4" />
+                  <stop offset="80%" stopColor="var(--primary-dark)" stopOpacity="0.4" />
+                  <stop offset="100%" stopColor="var(--primary-dark)" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          {/* Card 1: Top Right - Shifted further right */}
+          <VisualCard
+            title="Brand Experience"
+            icon={Layout}
+            gradient="bg-gradient-to-br from-indigo-600/30 via-blue-600/30 to-indigo-900/40"
+            delay={0.4}
+            rotation={{ x: 12, y: -20, z: 2 }}
+            className="w-[420px] top-[0%] -right-[5%] z-10"
+          />
+
+          {/* Card 2: Center Left - Shifted further left and slightly down to avoid overlap */}
+          <VisualCard
+            title="Digital Ecosystem"
+            icon={Monitor}
+            gradient="bg-gradient-to-br from-violet-600/30 via-fuchsia-600/30 to-purple-900/40"
+            delay={0.6}
+            rotation={{ x: 8, y: -25, z: -4 }}
+            className="w-[420px] top-[35%] -left-[10%] z-20"
+          />
+
+          {/* Card 3: Bottom Right - Shifted further right and down */}
+          <VisualCard
+            title="Conversion Engine"
+            icon={Smartphone}
+            gradient="bg-gradient-to-br from-emerald-500/30 via-teal-600/30 to-blue-900/40"
+            delay={0.8}
+            rotation={{ x: 15, y: -18, z: 6 }}
+            className="w-[420px] top-[70%] -right-[5%] z-30"
+          />
+
+          {/* Floating Performance Badges - Strategically placed to fill gaps */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              rotate: 0,
+              y: [0, -15, 0]
+            }}
+            transition={{
+              scale: { delay: 1.2, type: "spring", stiffness: 200 },
+              opacity: { delay: 1.2 },
+              y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="absolute top-[20%] left-[20%] px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl flex items-center space-x-3 z-40 shadow-2xl"
+          >
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+            <span className="text-[9px] font-bold text-white/60 uppercase tracking-[0.25em]">Response Time: 12ms</span>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5, rotate: 10 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              rotate: 0,
+              y: [0, 15, 0]
+            }}
+            transition={{
+              scale: { delay: 1.5, type: "spring", stiffness: 200 },
+              opacity: { delay: 1.5 },
+              y: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }
+            }}
+            className="absolute bottom-[35%] right-[20%] px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl flex items-center space-x-3 z-40 shadow-2xl"
+          >
+            <CheckCircle2 className="w-3.5 h-3.5 text-primary-dark" />
+            <span className="text-[9px] font-bold text-white/60 uppercase tracking-[0.25em]">Accessibility: 100%</span>
+          </motion.div>
+
+          {/* Decorative Cursor */}
+          <motion.div
+            initial={{ opacity: 0, x: 100, y: 100 }}
+            animate={{
+              opacity: [0, 1, 1, 0],
+              x: [100, 250, 150, 50],
+              y: [150, 450, 350, 250]
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+              times: [0, 0.1, 0.9, 1]
+            }}
+            className="absolute z-50 pointer-events-none"
+          >
+            <MousePointer2 className="w-5 h-5 text-white fill-white/20 drop-shadow-lg" />
+            <div className="ml-4 -mt-1 px-3 py-1.5 bg-primary-dark/90 backdrop-blur-md text-white text-[8px] font-bold rounded-lg shadow-2xl whitespace-nowrap border border-white/20 uppercase tracking-widest">
+              Fluid Motion
+            </div>
+          </motion.div>
         </div>
       </div>
 
+      {/* Scroll Hint */}
       <motion.div
-        aria-hidden="true"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        transition={{ delay: 2.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center"
       >
-        <ChevronDown className="w-6 h-6 text-text-muted-dark opacity-50" />
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        >
+          <ChevronDown className="w-6 h-6 text-white" />
+        </motion.div>
       </motion.div>
     </section>
   );
