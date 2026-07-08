@@ -64,9 +64,16 @@ function FloatingCard({
         rotate: shouldReduceMotion ? card.rotate : rotateExit,
         opacity: opacityExit,
         zIndex: 10 + index,
+        willChange: "transform",
       }}
       className="group"
     >
+      {/* Static Deep Glow (Performance Optimized: no filter animations) */}
+      <div
+        className="absolute inset-0 -z-10 blur-[70px] opacity-25 rounded-full pointer-events-none"
+        style={{ backgroundColor: card.glowColor }}
+      />
+
       {/* Idle Float Wrapper */}
       <motion.div
         animate={shouldReduceMotion ? {} : {
@@ -79,9 +86,10 @@ function FloatingCard({
           delay: index * 0.5,
         }}
         className="relative"
+        style={{ willChange: "transform" }}
       >
         {/* Badge */}
-        <div className="absolute -top-4 -left-2 z-20 px-3 py-1 rounded-full bg-surface-dark border border-white/10 shadow-lg flex items-center space-x-1.5 whitespace-nowrap">
+        <div className="absolute -top-3 -left-2 z-20 px-2.5 py-1 rounded-full bg-surface-dark border border-white/10 shadow-lg flex items-center space-x-1 whitespace-nowrap">
           <span className="text-[10px] font-mono font-bold text-primary-dark">
             {card.label}
           </span>
@@ -90,25 +98,22 @@ function FloatingCard({
         {/* Browser Mockup */}
         <div
           className={cn(
-            "rounded-[16px] overflow-hidden border shadow-2xl transition-all duration-500",
+            "rounded-[16px] overflow-hidden border shadow-xl transition-all duration-500",
             card.theme === "dark"
               ? "bg-[#0D0D14] border-white/10"
               : "bg-white border-black/10",
             "group-hover:scale-[1.02] group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
           )}
-          style={{
-            boxShadow: `0 10px 40px -10px ${card.glowColor}`,
-          }}
         >
           {/* Top Bar */}
           <div className={cn(
-            "flex items-center justify-between px-3 py-2 border-b",
+            "flex items-center justify-between px-3 py-1.5 border-b",
             card.theme === "dark" ? "border-white/5 bg-white/5" : "border-black/5 bg-black/5"
           )}>
             <div className="flex space-x-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
-              <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
-              <div className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
+              <div className="w-2 h-2 rounded-full bg-[#FF5F57]" />
+              <div className="w-2 h-2 rounded-full bg-[#FEBC2E]" />
+              <div className="w-2 h-2 rounded-full bg-[#28C840]" />
             </div>
             {index % 2 === 0 && (
               <MoreHorizontal className={cn(
@@ -119,33 +124,35 @@ function FloatingCard({
           </div>
 
           {/* Content Image */}
-          <div className="aspect-[4/3] relative">
+          <div className={cn(
+            "relative",
+            card.id === "qr-menu" ? "aspect-[3/4]" : "aspect-[4/3]"
+          )}>
             <Image
               src={card.image}
               alt={card.heading}
               fill
+              sizes="(max-width: 1280px) 100vw, 300px"
               className="object-cover"
+              priority={index < 2}
             />
             {/* Scrim */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
             {/* Text Overlay */}
-            <div className="absolute bottom-3 left-3 right-3">
-              <p className="text-[10px] font-mono text-white/60 mb-0.5 uppercase tracking-wider">
+            <div className="absolute bottom-2.5 left-3 right-3">
+              <p className="text-[9px] font-mono text-white/50 mb-0.5 uppercase tracking-wider">
                 Live Preview
               </p>
-              <h3 className="text-sm font-bold text-white leading-tight">
+              <h3 className="text-[13px] font-bold text-white leading-[1.15]">
                 {card.heading}
               </h3>
+              {index === 1 && (
+                <p className="text-[9px] text-white/40 mt-1">Our Specials →</p>
+              )}
             </div>
           </div>
         </div>
-
-        {/* Individual Card Glow */}
-        <div
-          className="absolute -inset-4 blur-[30px] -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{ backgroundColor: card.glowColor }}
-        />
       </motion.div>
     </motion.div>
   );
@@ -265,6 +272,8 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   });
 
+  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   const cards: CardConfig[] = [
     {
       id: "dental",
@@ -273,11 +282,11 @@ export function HeroSection() {
       image: "/mock/dental.jpg",
       theme: "dark",
       top: "5%",
-      left: "5%",
-      width: "280px",
-      rotate: -6,
+      left: "2%",
+      width: "230px",
+      rotate: -5,
       glowColor: "rgba(108, 99, 255, 0.3)", // primary-dark
-      exitX: 0,
+      exitX: -50,
       exitY: -200,
       exitScale: 1.1,
       scrollRange: [0, 0.25],
@@ -288,13 +297,13 @@ export function HeroSection() {
       heading: "Good Coffee, Great Moments",
       image: "/mock/cafe.jpg",
       theme: "light",
-      top: "15%",
-      left: "45%",
-      width: "260px",
+      top: "10%",
+      left: "54%",
+      width: "225px",
       rotate: 4,
       glowColor: "rgba(254, 188, 46, 0.3)", // warm amber
       exitX: 200,
-      exitY: 0,
+      exitY: -50,
       exitScale: 1,
       scrollRange: [0.15, 0.4],
     },
@@ -304,13 +313,13 @@ export function HeroSection() {
       heading: "Taste the Tradition",
       image: "/mock/restaurant.jpg",
       theme: "dark",
-      top: "38%",
-      left: "2%",
-      width: "270px",
+      top: "34%",
+      left: "0%",
+      width: "235px",
       rotate: -3,
       glowColor: "rgba(255, 95, 87, 0.3)", // warm red/amber
       exitX: -200,
-      exitY: 0,
+      exitY: 50,
       exitScale: 1,
       scrollRange: [0.3, 0.55],
     },
@@ -320,10 +329,10 @@ export function HeroSection() {
       heading: "Push Your Limits",
       image: "/mock/gym.jpg",
       theme: "dark",
-      top: "52%",
-      left: "48%",
-      width: "260px",
-      rotate: 5,
+      top: "39%",
+      left: "58%",
+      width: "220px",
+      rotate: 6,
       glowColor: "rgba(167, 139, 250, 0.3)", // secondary-dark
       exitX: 200,
       exitY: 100,
@@ -336,13 +345,13 @@ export function HeroSection() {
       heading: "Scan. Order. Enjoy.",
       image: "/mock/qr-phone.jpg",
       theme: "dark",
-      top: "68%",
-      left: "15%",
-      width: "300px",
+      top: "62%",
+      left: "26%",
+      width: "175px",
       rotate: 2,
       glowColor: "rgba(108, 99, 255, 0.4)", // primary-dark
       exitX: 0,
-      exitY: 50,
+      exitY: 80,
       exitScale: 1.2,
       scrollRange: [0.6, 0.85],
     },
@@ -353,16 +362,21 @@ export function HeroSection() {
       ref={targetRef}
       className="relative min-h-screen flex items-center pt-20 overflow-x-hidden bg-background-light dark:bg-background-dark"
     >
-      <canvas
+      <motion.canvas
         ref={canvasRef}
         aria-hidden="true"
-        className="absolute inset-0 pointer-events-none opacity-50"
+        className="absolute inset-0 pointer-events-none"
+        style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [0.5, 0]) }}
       />
       {/* Ambient background effects — decorative only */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 overflow-hidden"
+        style={{ opacity: backgroundOpacity }}
+      >
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-dark/10 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-dark/10 rounded-full blur-[120px] animate-pulse delay-700" />
-      </div>
+      </motion.div>
 
       <div className="container mx-auto px-6 grid xl:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
         <motion.div
@@ -457,10 +471,11 @@ export function HeroSection() {
         {/* Website Cluster Column */}
         <div className="relative xl:block hidden h-[700px] w-full self-center">
           {/* Decorative Background Elements */}
-          <svg
+          <motion.svg
             viewBox="0 0 800 700"
-            className="absolute inset-0 w-full h-full pointer-events-none opacity-20"
+            className="absolute inset-0 w-full h-full pointer-events-none"
             aria-hidden="true"
+            style={{ opacity: useTransform(scrollYProgress, [0, 0.4], [0.2, 0]) }}
           >
             <path
               d="M 50,150 C 150,50 350,50 450,200 S 250,500 400,600 S 700,550 750,400"
@@ -473,7 +488,7 @@ export function HeroSection() {
             <circle cx="150" cy="80" r="2" className="fill-primary-dark animate-pulse" />
             <circle cx="450" cy="180" r="1.5" className="fill-secondary-dark animate-pulse delay-300" />
             <circle cx="550" cy="350" r="2" className="fill-indigo-400 animate-pulse delay-700" />
-          </svg>
+          </motion.svg>
 
           {cards.map((card, index) => (
             <FloatingCard
