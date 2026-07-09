@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   ChevronDown,
   ArrowRight,
@@ -41,56 +41,12 @@ function PortfolioCard({
   delay,
   imageUrl,
 }: PortfolioCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  // Motion values for tracking cursor relative to card center
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  // Springs for smooth 3D tilt
-  const springConfig = { damping: 20, stiffness: 150, mass: 0.5 };
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [15, -15]), springConfig);
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-15, 15]), springConfig);
-
-  // Glare position springs (map from -0.5..0.5 to percentage strings)
-  const glareLeft = useSpring(useTransform(x, [-0.5, 0.5], ["0%", "100%"]), springConfig);
-  const glareTop = useSpring(useTransform(y, [-0.5, 0.5], ["0%", "100%"]), springConfig);
-  const glareOpacity = useSpring(useMotionValue(0), springConfig);
-
-  // Hover scale & Z translation
-  const liftY = useSpring(useMotionValue(0), springConfig);
-  const scale = useSpring(useMotionValue(1), springConfig);
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const w = rect.width;
-    const h = rect.height;
-    // Normalized value between -0.5 and 0.5
-    const mouseX = (event.clientX - rect.left) / w - 0.5;
-    const mouseY = (event.clientY - rect.top) / h - 0.5;
-
-    x.set(mouseX);
-    y.set(mouseY);
-    glareOpacity.set(0.4); // Subtle glare opacity on hover
-    liftY.set(-10); // Lift card slightly up
-    scale.set(1.04); // Scale up slightly on hover
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-    glareOpacity.set(0);
-    liftY.set(0);
-    scale.set(1);
-  };
-
-  const glareBg = useMotionTemplate`radial-gradient(circle 120px at ${glareLeft} ${glareTop}, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 80%)`;
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9, y: 30, rotate: baseRotate }}
-      animate={{ opacity: 1, scale: 1, y: 0, rotate: baseRotate }}
+      initial={{ opacity: 0, scale: 0.9, y: 30 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{
         duration: 0.8,
         delay: delay,
@@ -101,20 +57,28 @@ function PortfolioCard({
         top: `${top}px`,
         left: `${left}px`,
         width: `${width}px`,
-        zIndex: zIndex,
-        perspective: "1000px",
+        zIndex: isHovered ? 99 : zIndex,
+        perspective: "1500px",
       }}
     >
       <motion.div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className="relative rounded-2xl border border-white/10 bg-[#0F172A]/90 backdrop-blur-3xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] cursor-pointer overflow-visible group"
+        animate={{
+          rotateX: isHovered ? 0 : 15,
+          rotateY: isHovered ? 0 : -20,
+          rotateZ: isHovered ? 0 : baseRotate,
+          y: isHovered ? -15 : 0,
+          scale: isHovered ? 1.08 : 1,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 220,
+          damping: 22,
+          mass: 0.8,
+        }}
         style={{
-          rotateX,
-          rotateY,
-          y: liftY,
-          scale,
           transformStyle: "preserve-3d",
         }}
       >
@@ -150,15 +114,6 @@ function PortfolioCard({
 
           {/* Dark gradient scrim from the bottom */}
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
-
-          {/* Glare overlay */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none z-30 mix-blend-overlay"
-            style={{
-              background: glareBg,
-              opacity: glareOpacity,
-            }}
-          />
 
           {/* Overlaid content at the bottom */}
           <div
