@@ -1,195 +1,119 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ChevronDown,
   ArrowRight,
-  Stethoscope,
-  Coffee,
-  UtensilsCrossed,
-  Dumbbell,
-  QrCode
+  QrCode,
+  Search,
+  Star,
+  Wifi,
+  SignalHigh,
+  BatteryFull,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { MagneticButton } from "@/components/shared/MagneticButton";
 
-interface PortfolioCardProps {
-  badgeLabel: string;
-  Icon: React.ComponentType<{ className?: string }>;
-  headlineLines: string[];
-  ctaText: string;
-  top: number;
-  left: number;
-  width: number;
-  baseRotate: number;
-  defaultRotateX: number;
-  defaultRotateY: number;
-  zIndex: number;
-  delay: number;
-  imageUrl: string;
-}
+// Same category / menu data pattern as QRHero.tsx — trimmed for the smaller
+// hero phone. Swap for real client data whenever.
+const categories = ["Pizza", "Coffee", "Burger", "Desserts"];
 
-function PortfolioCard({
-  badgeLabel,
-  Icon,
-  headlineLines,
-  ctaText,
-  top,
-  left,
-  width,
-  baseRotate,
-  defaultRotateX,
-  defaultRotateY,
-  zIndex,
-  delay,
-  imageUrl,
-}: PortfolioCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const cardRef = useRef<HTMLDivElement>(null);
+const menuItems = [
+  {
+    name: "Farmhouse Pizza",
+    desc: "Fresh vegetables with mozzarella",
+    price: "₹299",
+    veg: true,
+    gradient: "from-orange-300 to-red-400",
+  },
+  {
+    name: "Cold Brew Coffee",
+    desc: "Smooth, bold, slow-steeped 18 hrs",
+    price: "₹180",
+    veg: true,
+    gradient: "from-amber-200 to-yellow-400",
+  },
+  {
+    name: "Classic Cheese Burger",
+    desc: "Grilled patty, cheddar, house sauce",
+    price: "₹249",
+    veg: false,
+    gradient: "from-red-300 to-orange-500",
+  },
+  {
+    name: "Belgian Waffle",
+    desc: "Maple syrup, vanilla ice cream",
+    price: "₹220",
+    veg: true,
+    gradient: "from-yellow-200 to-orange-300",
+  },
+  {
+    name: "Margherita Pizza",
+    desc: "Basil, tomato, fresh mozzarella",
+    price: "₹279",
+    veg: true,
+    gradient: "from-red-200 to-orange-400",
+  },
+  {
+    name: "Caramel Latte",
+    desc: "Espresso, steamed milk, caramel drizzle",
+    price: "₹190",
+    veg: true,
+    gradient: "from-amber-300 to-orange-200",
+  },
+];
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
+// ---------------------------------------------------------------------------
+// Laptop screen alignment
+// ---------------------------------------------------------------------------
+// /public/images/laptop.png is a bezel-only mockup (background removed, and
+// the screen area is transparent) so real content can sit "inside" it.
+// These four numbers describe where the transparent screen cutout sits
+// relative to the full image, as percentages. If the video doesn't line up
+// perfectly with the bezel edges after you swap in the real footage, nudge
+// these — they were eyeballed from the source PNG.
+const LAPTOP_SCREEN = {
+  top: "10.5%",
+  left: "13%",
+  width: "74%",
+  height: "70%",
+};
 
-    // Normalize coordinates from -0.5 to 0.5
-    const widthVal = rect.width;
-    const heightVal = rect.height;
-    const mouseX = (e.clientX - rect.left) / widthVal - 0.5;
-    const mouseY = (e.clientY - rect.top) / heightVal - 0.5;
-
-    setMousePos({ x: mouseX, y: mouseY });
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setMousePos({ x: 0, y: 0 });
-  };
-
-  const springTransition = {
-    type: "spring",
-    stiffness: 150,
-    damping: 20,
-    mass: 0.6,
-  };
-
-  // Glare tracking template (using mousePos when hovered)
-  const glareBg = `radial-gradient(circle 150px at ${(mousePos.x + 0.5) * 100}% ${(mousePos.y + 0.5) * 100}%, rgba(255, 255, 255, 0.22) 0%, transparent 80%)`;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9, y: 30 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{
-        duration: 0.8,
-        delay: delay,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      className="absolute select-none"
-      style={{
-        top: `${top}px`,
-        left: `${left}px`,
-        width: `${width}px`,
-        zIndex: isHovered ? 99 : zIndex,
-        perspective: "1500px",
-      }}
-    >
-      <motion.div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="relative rounded-2xl border border-white/10 bg-gradient-to-b from-[#1E293B] to-[#020617] backdrop-blur-3xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] cursor-pointer overflow-visible group"
-        animate={{
-          rotateX: isHovered ? -mousePos.y * 24 : defaultRotateX,
-          rotateY: isHovered ? mousePos.x * 24 : defaultRotateY,
-          rotateZ: isHovered ? 0 : baseRotate,
-          y: isHovered ? -15 : 0,
-          scale: isHovered ? 1.08 : 1,
-        }}
-        transition={springTransition}
-        style={{
-          transformStyle: "preserve-3d",
-        }}
-      >
-        {/* Floating pill badge above the top-left corner */}
-        <div
-          className="absolute -top-3.5 -left-3.5 z-50 flex items-center gap-1.5 px-3 py-1.5 bg-[#0A0A0F]/90 border border-white/15 rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 group-hover:border-indigo-500/50"
-          style={{ transform: "translateZ(30px)" }}
-        >
-          <Icon className="w-3.5 h-3.5 text-indigo-400 group-hover:scale-110 transition-transform duration-300" />
-          <span className="text-[10px] font-mono font-bold text-white tracking-wider uppercase">
-            {badgeLabel}
-          </span>
-        </div>
-
-        {/* Mock Browser chrome header */}
-        <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-white/10 bg-black/40 rounded-t-2xl">
-          <div className="flex space-x-1.5">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#FF5F56] shadow-[0_0_6px_rgba(255,95,86,0.5)]" />
-            <div className="w-1.5 h-1.5 rounded-full bg-[#FFBD2E] shadow-[0_0_6px_rgba(255,189,46,0.5)]" />
-            <div className="w-1.5 h-1.5 rounded-full bg-[#27C93F] shadow-[0_0_6px_rgba(39,201,63,0.5)]" />
-          </div>
-          <div className="text-[9px] font-mono font-bold tracking-widest text-white/40 uppercase">
-            {badgeLabel}
-          </div>
-          <div className="w-8" />
-        </div>
-
-        {/* Card Body - full-bleed photo filling the card body, aspect ratio ~4:3 */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-b-2xl">
-          {/* Subtle glare/highlight overlay */}
-          <div
-            className="absolute inset-0 pointer-events-none z-30"
-            style={{
-              background: glareBg,
-              opacity: isHovered ? 1 : 0,
-              transition: "opacity 0.3s ease",
-            }}
-          />
-
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={imageUrl}
-            alt={badgeLabel}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
-
-          {/* Dark gradient scrim from the bottom */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent pointer-events-none z-10" />
-
-          {/* Overlaid content at the bottom */}
-          <div
-            className="absolute bottom-0 inset-x-0 p-4 flex flex-col items-start gap-2.5 z-20"
-            style={{ transform: "translateZ(20px)" }}
-          >
-            <div className="flex flex-col">
-              {headlineLines.map((line, idx) => (
-                <span key={idx} className="text-white text-[15px] font-bold leading-tight drop-shadow-md font-display">
-                  {line}
-                </span>
-              ))}
-            </div>
-
-            {/* Pill-shaped CTA button with yellow hover/gold touch */}
-            <span className="mt-1 px-3.5 py-1 text-[10px] font-bold text-white bg-indigo-600 border border-indigo-500/40 rounded-full shadow-lg group-hover:bg-indigo-500 group-hover:border-indigo-400 group-hover:text-yellow-400 transition-all duration-300">
-              {ctaText}
-            </span>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
+// Dummy placeholder clip — replace with the real client reel/demo video
+// whenever it's ready. Nothing else needs to change.
+const DUMMY_VIDEO_SRC =
+  "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
 
 export function HeroSection() {
   const currentYear = new Date().getFullYear();
+
+  // ← CHANGED: ref + scroll progress for the whole hero section, used to
+  // drive the laptop/phone/QR exit animation below.
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // ← CHANGED: Laptop tilts back, drifts up, scales down slightly, and
+  // fades out as the user scrolls down through the hero.
+  const laptopY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const laptopRotateX = useTransform(scrollYProgress, [0, 1], [0, 14]);
+  const laptopScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+  const laptopOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
+  // ← CHANGED: Phone slides down and rotates away, fading slightly later
+  // than the laptop for a staggered parallax feel.
+  const phoneY = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const phoneRotate = useTransform(scrollYProgress, [0, 1], [0, 18]);
+  const phoneOpacity = useTransform(scrollYProgress, [0.1, 0.8], [1, 0]);
+
+  // ← CHANGED: QR badge drifts further/faster than the phone (extra
+  // parallax layer) on top of its existing infinite float loop.
+  const qrY = useTransform(scrollYProgress, [0, 1], [0, 260]);
+  const qrOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -213,93 +137,18 @@ export function HeroSection() {
     },
   };
 
-  const cardsData = [
-    {
-      badgeLabel: "Dental Clinic",
-      Icon: Stethoscope,
-      headlineLines: ["Your Smile,", "Our Priority"],
-      ctaText: "Book Now",
-      top: 0,
-      left: 190,
-      width: 250,
-      baseRotate: -4,
-      defaultRotateX: 8,
-      defaultRotateY: 10,
-      zIndex: 10,
-      delay: 0.1,
-      imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      badgeLabel: "Cafe Website",
-      Icon: Coffee,
-      headlineLines: ["Good Coffee,", "Great Moments"],
-      ctaText: "Our Specials",
-      top: 95,
-      left: 460,
-      width: 250,
-      baseRotate: 5,
-      defaultRotateX: 6,
-      defaultRotateY: -12,
-      zIndex: 35,
-      delay: 0.25,
-      imageUrl: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      badgeLabel: "Restaurant Website",
-      Icon: UtensilsCrossed,
-      headlineLines: ["Good Food,", "Great Taste"],
-      ctaText: "Order Now",
-      top: 240,
-      left: 0,
-      width: 250,
-      baseRotate: -3,
-      defaultRotateX: -4,
-      defaultRotateY: 12,
-      zIndex: 20,
-      delay: 0.4,
-      imageUrl: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      badgeLabel: "Gym & Fitness",
-      Icon: Dumbbell,
-      headlineLines: ["Stronger", "Every Day."],
-      ctaText: "Join Now",
-      top: 325,
-      left: 440,
-      width: 250,
-      baseRotate: 4,
-      defaultRotateX: -6,
-      defaultRotateY: -10,
-      zIndex: 45,
-      delay: 0.55,
-      imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      badgeLabel: "QR Menu System",
-      Icon: QrCode,
-      headlineLines: ["Scan. Order.", "Enjoy."],
-      ctaText: "Try Demo",
-      top: 475,
-      left: 175,
-      width: 230,
-      baseRotate: -2,
-      defaultRotateX: -10,
-      defaultRotateY: 5,
-      zIndex: 55,
-      delay: 0.7,
-      imageUrl: "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=800&auto=format&fit=crop",
-    },
-  ];
-
   return (
-    <section className="relative max-h-[100vh] flex items-center pt-24 pb-12 overflow-hidden bg-black">
+    <section
+      ref={sectionRef} // ← CHANGED: added ref for scroll tracking
+      className="relative max-h-[100vh] flex items-center pt-24 pb-12 overflow-hidden bg-black"
+    >
       {/* Subtle Glows */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-indigo-500/5 rounded-full blur-[100px]" />
         <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-primary-dark/5 rounded-full blur-[80px]" />
       </div>
 
-      <div className="container mx-auto px-10 grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
+      <div className="container mx-auto px-10 grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
         {/* Left Side Content */}
         <motion.div
           className="flex flex-col items-start z-10"
@@ -312,8 +161,8 @@ export function HeroSection() {
             className="flex items-center space-x-3 mb-6"
           >
             <div className="flex space-x-1">
-               <div className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-               <div className="w-1.5 h-1.5 rounded-full bg-primary-dark" />
+              <div className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+              <div className="w-1.5 h-1.5 rounded-full bg-primary-dark" />
             </div>
             <span className="text-white/30 font-mono text-[9px] font-bold uppercase tracking-[0.4em]">
               Pixora Studios • {currentYear}
@@ -359,37 +208,209 @@ export function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* Right Side 3D Visual Cluster - Top Aligned, Fanned 3D Tilt Layout */}
-        <div className="relative hidden lg:block h-[620px] w-full lg:self-start lg:-mt-12 overflow-visible">
-          <div
-            className="absolute top-0 right-0 h-[620px] w-[720px] lg:scale-[0.62] xl:scale-[0.78] 2xl:scale-[0.92] origin-top-right transition-transform duration-500"
-            style={{ perspective: "1500px" }}
-          >
-            {/* Decorative background dashed SVG connector path and glowing dots */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40 z-0" viewBox="0 0 720 620" fill="none">
-              <path
-                d="M 190 100 Q 300 200 460 200 T 175 520"
-                stroke="rgba(99, 102, 241, 0.3)"
-                strokeWidth="2"
-                strokeDasharray="6 6"
-                fill="none"
-              />
-              {/* Glowing dots along the path */}
-              <circle cx="190" cy="100" r="4" fill="#818CF8" className="animate-ping" />
-              <circle cx="190" cy="100" r="3" fill="#818CF8" />
-              <circle cx="460" cy="200" r="4" fill="#818CF8" className="animate-ping" style={{ animationDelay: "1s" }} />
-              <circle cx="460" cy="200" r="3" fill="#818CF8" />
-              <circle cx="175" cy="520" r="4" fill="#818CF8" className="animate-ping" style={{ animationDelay: "2s" }} />
-              <circle cx="175" cy="520" r="3" fill="#818CF8" />
-            </svg>
+        {/* Right Side Visual - Laptop (image mockup + video) + phone overlapping its right edge */}
+        {/* Fixed-size canvas positioned with explicit coordinates, then scaled
+            down responsively. Matches the Figma layout: laptop dominant,
+            phone overlapping its bottom-right corner rather than sitting
+            beside it. Both mockups render perfectly upright at rest — no
+            tilt — and now animate out on scroll (see transforms above). */}
+        <div className="relative hidden lg:block h-[500px] w-full overflow-visible">
+          <div className="absolute top-0 right-0 h-[500px] w-[660px] lg:scale-[0.68] xl:scale-[0.82] 2xl:scale-100 origin-top-right">
+            {/* Ambient glow behind the mockups */}
+            <div className="absolute top-[15%] right-[15%] -z-10 w-[320px] h-[320px] rounded-full bg-indigo-500/10 blur-[100px] pointer-events-none" />
 
-            {/* Ambient decorative pulsing blobs */}
-            <div className="absolute top-[20%] left-[30%] -z-10 w-[300px] h-[300px] rounded-full bg-indigo-500/10 blur-[100px] animate-pulse pointer-events-none" style={{ animationDuration: "8s" }} />
-            <div className="absolute bottom-[20%] right-[20%] -z-10 w-[250px] h-[250px] rounded-full bg-indigo-500/5 blur-[80px] animate-pulse pointer-events-none" style={{ animationDuration: "12s" }} />
+            {/* ---------- Laptop mockup (image + video inside the screen) ---------- */}
+            {/* ← CHANGED: outer wrapper now owns positioning + scroll-linked
+                style transforms (y/scale/opacity/rotateX). Inner wrapper
+                keeps the original on-load entrance animation untouched. */}
+            <motion.div
+              style={{
+                y: laptopY,
+                scale: laptopScale,
+                opacity: laptopOpacity,
+                rotateX: laptopRotateX,
+                transformPerspective: 1000,
+              }}
+              className="absolute top-[40px] left-[20px] w-[580px] z-10"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.94, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {/* Aspect-ratio box matching the laptop.png artwork (adjust
+                    if the source PNG's proportions differ) */}
+                <div className="relative w-full aspect-[1519/1036]">
+                  {/* Video, sitting inside the transparent screen cutout */}
+                  <div
+                    className="absolute overflow-hidden rounded-[2px] bg-black"
+                    style={{
+                      top: LAPTOP_SCREEN.top,
+                      left: LAPTOP_SCREEN.left,
+                      width: LAPTOP_SCREEN.width,
+                      height: LAPTOP_SCREEN.height,
+                    }}
+                  >
+                    <video
+                      className="w-full h-full object-cover"
+                      src={DUMMY_VIDEO_SRC}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    />
+                  </div>
 
-            {cardsData.map((card, idx) => (
-              <PortfolioCard key={idx} {...card} />
-            ))}
+                  {/* Laptop bezel/base artwork on top — background + screen
+                      area are transparent in the PNG, so the video shows
+                      through the cutout above */}
+                  <Image
+                    src="/images/laptop.png"
+                    alt="Laptop mockup"
+                    fill
+                    priority
+                    className="pointer-events-none select-none object-contain"
+                    sizes="580px"
+                  />
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* ---------- Mobile mockup, overlapping the laptop's bottom-right corner ---------- */}
+            {/* ← CHANGED: outer wrapper now owns positioning + scroll-linked
+                style transforms (y/rotate/opacity). Inner wrapper keeps the
+                original on-load entrance animation untouched. */}
+            <motion.div
+              style={{ y: phoneY, rotate: phoneRotate, opacity: phoneOpacity }}
+              className="absolute top-[190px] right-[20px] w-[200px] z-20"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className="relative">
+                  {/* Side buttons */}
+                  <div className="absolute -left-[3px] top-20 w-[3px] h-5 bg-neutral-800 rounded-l-sm" />
+                  <div className="absolute -left-[3px] top-28 w-[3px] h-8 bg-neutral-800 rounded-l-sm" />
+                  <div className="absolute -right-[3px] top-24 w-[3px] h-11 bg-neutral-800 rounded-r-sm" />
+
+                  <div className="relative w-[200px] h-[410px] bg-black rounded-[2.25rem] border-[8px] border-black shadow-[0_35px_70px_-20px_rgba(0,0,0,0.7)] ring-1 ring-white/10 overflow-hidden">
+                    {/* Notch */}
+                    <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-16 h-4 bg-black rounded-full z-20" />
+
+                    {/* Screen */}
+                    <div className="absolute inset-0 bg-[#FFFBF6] flex flex-col">
+                      {/* Status bar */}
+                      <div className="flex items-center justify-between px-3 pt-2 pb-1 text-[8px] font-semibold text-neutral-900">
+                        <span>9:41</span>
+                        <div className="flex items-center gap-1">
+                          <SignalHigh className="w-2.5 h-2.5" />
+                          <Wifi className="w-2.5 h-2.5" />
+                          <BatteryFull className="w-3 h-3" />
+                        </div>
+                      </div>
+
+                      {/* Static header section */}
+                      <div className="px-2.5 pt-1 space-y-2">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-white font-display font-bold text-[10px] shadow-md shadow-orange-500/30 shrink-0">
+                            B
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1">
+                              <h3 className="text-[9px] font-bold text-neutral-900 truncate">Your Cafe</h3>
+                              <span className="px-1 py-0.5 rounded-full bg-green-100 text-green-600 text-[5px] font-bold uppercase tracking-wide shrink-0">
+                                Open
+                              </span>
+                            </div>
+                            <p className="text-[6.5px] text-neutral-400 truncate">Cafe • Snacks • Coffee</p>
+                          </div>
+                          <div className="flex items-center gap-0.5 px-1 py-0.5 rounded-full bg-orange-50 shrink-0">
+                            <Star className="w-2 h-2 fill-orange-400 text-orange-400" />
+                            <span className="text-[6.5px] font-bold text-neutral-700">4.8</span>
+                          </div>
+                        </div>
+
+                        {/* Search bar */}
+                        <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-neutral-100">
+                          <Search className="w-2.5 h-2.5 text-neutral-400" />
+                          <span className="text-[7px] text-neutral-400">Search menu...</span>
+                        </div>
+
+                        {/* Category chips */}
+                        <div className="flex gap-1 overflow-hidden">
+                          {categories.map((cat, i) => (
+                            <span
+                              key={cat}
+                              className={`shrink-0 px-2 py-0.5 rounded-full text-[6.5px] font-bold whitespace-nowrap ${
+                                i === 0
+                                  ? "bg-orange-500 text-white shadow-sm shadow-orange-500/30"
+                                  : "bg-neutral-100 text-neutral-500"
+                              }`}
+                            >
+                              {cat}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Auto-scrolling menu viewport */}
+                      <div className="relative flex-1 overflow-hidden mt-2 px-2.5 pb-2.5">
+                        <div className="absolute inset-x-2.5 top-0 h-4 bg-gradient-to-b from-[#FFFBF6] to-transparent z-10 pointer-events-none" />
+                        <div className="absolute inset-x-2.5 bottom-0 h-4 bg-gradient-to-t from-[#FFFBF6] to-transparent z-10 pointer-events-none" />
+
+                        <motion.div
+                          animate={{ y: ["0%", "-50%"] }}
+                          transition={{ duration: 22, ease: "linear", repeat: Infinity }}
+                          className="flex flex-col gap-1.5"
+                        >
+                          {[...menuItems, ...menuItems].map((item, i) => (
+                            <div
+                              key={`${item.name}-${i}`}
+                              className="flex items-center gap-1.5 p-1 rounded-lg bg-white shadow-sm shadow-neutral-200/60 border border-neutral-100 shrink-0"
+                            >
+                              <div className={`w-7 h-7 rounded-md bg-gradient-to-br ${item.gradient} shrink-0`} />
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-1">
+                                  <span
+                                    className={`w-1.5 h-1.5 rounded-sm border flex items-center justify-center shrink-0 ${
+                                      item.veg ? "border-green-500" : "border-red-500"
+                                    }`}
+                                  >
+                                    <span className={`w-0.5 h-0.5 rounded-full ${item.veg ? "bg-green-500" : "bg-red-500"}`} />
+                                  </span>
+                                  <h4 className="text-[7px] font-bold text-neutral-900 truncate">{item.name}</h4>
+                                </div>
+                                <p className="text-[6px] text-neutral-400 truncate mt-0.5">{item.desc}</p>
+                              </div>
+                              <p className="text-[7px] font-extrabold text-neutral-900 shrink-0">{item.price}</p>
+                            </div>
+                          ))}
+                        </motion.div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* QR badge floating off the phone's top-right edge */}
+              {/* ← CHANGED: outer motion.div carries the scroll-linked parallax
+                  (y/opacity); inner motion.div keeps the original infinite
+                  float loop untouched. */}
+              <motion.div
+                style={{ y: qrY, opacity: qrOpacity }}
+                className="absolute -right-8 top-6 glass p-2.5 rounded-2xl border border-white/20 shadow-2xl backdrop-blur-xl z-30"
+              >
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                  className="bg-white rounded-xl p-1 shadow-inner"
+                >
+                  <QrCode className="w-12 h-12 text-black" strokeWidth={1.6} />
+                </motion.div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </div>
