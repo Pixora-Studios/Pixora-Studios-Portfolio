@@ -113,14 +113,14 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center pt-24 pb-12 overflow-hidden bg-background-dark">
+    <section className="relative max-h-[100vh] flex items-center pt-24 pb-12 overflow-hidden bg-black">
       {/* Subtle Glows */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-indigo-500/5 rounded-full blur-[100px]" />
         <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-primary-dark/5 rounded-full blur-[80px]" />
       </div>
 
-      <div className="container mx-auto px-6 grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
+      <div className="container mx-auto px-10 grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
         {/* Left Side Content */}
         <motion.div
           className="flex flex-col items-start z-10"
@@ -156,9 +156,7 @@ export function HeroSection() {
             variants={itemVariants}
             className="text-base text-white/40 max-w-[440px] mb-8 leading-relaxed font-body"
           >
-            We blend artistic vision with technical excellence to build
-            digital products that redefine what&apos;s possible for
-            forward-thinking brands.
+            Pixora Studios designs and builds custom websites and Digital QR Menu systems for local businesses in Bhubaneswar, Odisha. Cafes, clinics, restaurants, salons, and gyms. No templates. No fluff. Just something that works.
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-6">
