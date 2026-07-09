@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
 import {
   ChevronDown,
   ArrowRight,
@@ -42,6 +42,45 @@ function PortfolioCard({
   imageUrl,
 }: PortfolioCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Mouse position values from -0.5 to 0.5
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  // Smooth springs for 3D rotation
+  const springConfig = { damping: 20, stiffness: 150, mass: 0.5 };
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [12, -12]), springConfig);
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-12, 12]), springConfig);
+
+  // Glare tracking template
+  const glareLeft = useSpring(useTransform(x, [-0.5, 0.5], ["0%", "100%"]), springConfig);
+  const glareTop = useSpring(useTransform(y, [-0.5, 0.5], ["0%", "100%"]), springConfig);
+  const glareBg = useMotionTemplate`radial-gradient(circle 150px at ${glareLeft} ${glareTop}, rgba(255, 255, 255, 0.22) 0%, transparent 80%)`;
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+
+    // Normalize coordinates from -0.5 to 0.5
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = (e.clientX - rect.left) / width - 0.5;
+    const mouseY = (e.clientY - rect.top) / height - 0.5;
+
+    x.set(mouseX);
+    y.set(mouseY);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    x.set(0);
+    y.set(0);
+  };
 
   return (
     <motion.div
@@ -62,13 +101,13 @@ function PortfolioCard({
       }}
     >
       <motion.div
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         className="relative rounded-2xl border border-white/10 bg-[#0F172A]/90 backdrop-blur-3xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] cursor-pointer overflow-visible group"
         animate={{
-          rotateX: isHovered ? 0 : 15,
-          rotateY: isHovered ? 0 : -20,
-          rotateZ: isHovered ? 0 : baseRotate,
+          rotateZ: isHovered ? baseRotate * 0.2 : baseRotate,
           y: isHovered ? -15 : 0,
           scale: isHovered ? 1.08 : 1,
         }}
@@ -80,6 +119,8 @@ function PortfolioCard({
         }}
         style={{
           transformStyle: "preserve-3d",
+          rotateX: rotateX,
+          rotateY: rotateY,
         }}
       >
         {/* Floating pill badge above the top-left corner */}
@@ -105,6 +146,16 @@ function PortfolioCard({
 
         {/* Card Body - full-bleed photo filling the card body, aspect ratio ~4:3 */}
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-b-2xl">
+          {/* Subtle glare/highlight overlay */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none z-30"
+            style={{
+              background: glareBg,
+              opacity: isHovered ? 1 : 0,
+              transition: "opacity 0.3s ease",
+            }}
+          />
+
           <img
             src={imageUrl}
             alt={badgeLabel}
