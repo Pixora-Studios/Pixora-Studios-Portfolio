@@ -89,29 +89,29 @@ const DUMMY_VIDEO_SRC =
 export function HeroSection() {
   const currentYear = new Date().getFullYear();
 
-  // ← CHANGED: ref + scroll progress for the whole hero section, used to
-  // drive the laptop/phone/QR exit animation below.
+  // Ref + scroll progress for the whole hero section, used to drive the
+  // laptop/phone/QR exit animation below.
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
 
-  // ← CHANGED: Laptop tilts back, drifts up, scales down slightly, and
-  // fades out as the user scrolls down through the hero.
+  // Laptop tilts back, drifts up, scales down slightly, and fades out as
+  // the user scrolls down through the hero.
   const laptopY = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const laptopRotateX = useTransform(scrollYProgress, [0, 1], [0, 14]);
   const laptopScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
   const laptopOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
-  // ← CHANGED: Phone slides down and rotates away, fading slightly later
-  // than the laptop for a staggered parallax feel.
+  // Phone slides down and rotates away, fading slightly later than the
+  // laptop for a staggered parallax feel.
   const phoneY = useTransform(scrollYProgress, [0, 1], [0, 180]);
   const phoneRotate = useTransform(scrollYProgress, [0, 1], [0, 18]);
   const phoneOpacity = useTransform(scrollYProgress, [0.1, 0.8], [1, 0]);
 
-  // ← CHANGED: QR badge drifts further/faster than the phone (extra
-  // parallax layer) on top of its existing infinite float loop.
+  // QR badge drifts further/faster than the phone (extra parallax layer)
+  // on top of its existing infinite float loop.
   const qrY = useTransform(scrollYProgress, [0, 1], [0, 260]);
   const qrOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
@@ -139,13 +139,15 @@ export function HeroSection() {
 
   return (
     <section
-      ref={sectionRef} // ← CHANGED: added ref for scroll tracking
-      className="relative max-h-[100vh] flex items-center pt-24 pb-12 overflow-hidden bg-black"
+      ref={sectionRef}
+      // ← CHANGED: bg-black replaced with theme-aware background to match
+      // QRHero.tsx's dark/light token pattern
+      className="relative max-h-[100vh] flex items-center pt-24 pb-12 overflow-hidden bg-white dark:bg-black"
     >
       {/* Subtle Glows */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-indigo-500/5 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-primary-dark/5 rounded-full blur-[80px]" />
+        <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-primary-dark/10 dark:bg-indigo-500/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-secondary-dark/10 dark:bg-primary-dark/5 rounded-full blur-[80px]" />
       </div>
 
       <div className="container mx-auto px-10 grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
@@ -161,49 +163,56 @@ export function HeroSection() {
             className="flex items-center space-x-3 mb-6"
           >
             <div className="flex space-x-1">
-              <div className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
               <div className="w-1.5 h-1.5 rounded-full bg-primary-dark" />
+              <div className="w-1.5 h-1.5 rounded-full bg-secondary-dark" />
             </div>
-            <span className="text-white/30 font-mono text-[9px] font-bold uppercase tracking-[0.4em]">
+            {/* ← CHANGED: text-white/30 → theme-aware muted text */}
+            <span className="text-text-muted-light dark:text-text-muted-dark font-mono text-[9px] font-bold uppercase tracking-[0.4em]">
               Pixora Studios • {currentYear}
             </span>
           </motion.div>
 
           <motion.h1
             variants={itemVariants}
-            className="text-[clamp(2rem,4.5vw,3.5rem)] font-display font-bold leading-[1.1] mb-6 tracking-tight text-white"
+            // ← CHANGED: text-white → theme-aware primary text
+            className="text-[clamp(2rem,4.5vw,3.5rem)] font-display font-bold leading-[1.1] mb-6 tracking-tight text-text-primary-light dark:text-text-primary-dark"
           >
             Your Business, <br />
             But Make It <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
+            {/* ← CHANGED: gradient text now matches QRHero's light/dark gradient pattern */}
+            <span className="text-transparent bg-clip-text bg-gradient-light dark:bg-gradient-primary">
               Unforgettable.
             </span>
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
-            className="text-base text-white/40 max-w-[440px] mb-8 leading-relaxed font-body"
+            // ← CHANGED: text-white/40 → theme-aware muted text
+            className="text-base text-text-muted-light dark:text-text-muted-dark max-w-[440px] mb-8 leading-relaxed font-body"
           >
             Pixora Studios designs and builds custom websites and Digital QR Menu systems for local businesses in Bhubaneswar, Odisha. Cafes, clinics, restaurants, salons, and gyms. No templates. No fluff. Just something that works.
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-6">
             <MagneticButton>
+              {/* ← CHANGED: bg-indigo-600 solid → theme-aware gradient CTA, matching QRHero's "Talk to Us" button */}
               <Link
                 href="/contact"
-                className="px-8 py-4 rounded-full bg-indigo-600 text-white font-bold text-sm hover:bg-indigo-500 transition-all flex items-center group"
+                className="px-8 py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-sm hover:scale-105 transition-transform flex items-center group"
               >
                 <span>Get Started Now</span>
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </MagneticButton>
 
+            {/* ← CHANGED: text-white → theme-aware primary text */}
             <Link
               href="/portfolio"
-              className="text-white font-semibold text-sm flex items-center group relative py-1"
+              className="text-text-primary-light dark:text-text-primary-dark font-semibold text-sm flex items-center group relative py-1"
             >
               <span>View Our Work</span>
-              <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/20" />
+              {/* ← CHANGED: bg-white/20 → theme-aware border color */}
+              <div className="absolute bottom-0 left-0 w-full h-[1px] bg-border-light dark:bg-border-dark" />
             </Link>
           </motion.div>
         </motion.div>
@@ -213,16 +222,15 @@ export function HeroSection() {
             down responsively. Matches the Figma layout: laptop dominant,
             phone overlapping its bottom-right corner rather than sitting
             beside it. Both mockups render perfectly upright at rest — no
-            tilt — and now animate out on scroll (see transforms above). */}
+            tilt — and animate out on scroll (see transforms above). Mockup
+            "screen content" stays on fixed cream/black tones regardless of
+            site theme, same as QRHero.tsx's phone mockup. */}
         <div className="relative hidden lg:block h-[500px] w-full overflow-visible">
           <div className="absolute top-0 right-0 h-[500px] w-[660px] lg:scale-[0.68] xl:scale-[0.82] 2xl:scale-100 origin-top-right">
             {/* Ambient glow behind the mockups */}
-            <div className="absolute top-[15%] right-[15%] -z-10 w-[320px] h-[320px] rounded-full bg-indigo-500/10 blur-[100px] pointer-events-none" />
+            <div className="absolute top-[15%] right-[15%] -z-10 w-[320px] h-[320px] rounded-full bg-primary-dark/10 dark:bg-indigo-500/10 blur-[100px] pointer-events-none" />
 
             {/* ---------- Laptop mockup (image + video inside the screen) ---------- */}
-            {/* ← CHANGED: outer wrapper now owns positioning + scroll-linked
-                style transforms (y/scale/opacity/rotateX). Inner wrapper
-                keeps the original on-load entrance animation untouched. */}
             <motion.div
               style={{
                 y: laptopY,
@@ -277,9 +285,6 @@ export function HeroSection() {
             </motion.div>
 
             {/* ---------- Mobile mockup, overlapping the laptop's bottom-right corner ---------- */}
-            {/* ← CHANGED: outer wrapper now owns positioning + scroll-linked
-                style transforms (y/rotate/opacity). Inner wrapper keeps the
-                original on-load entrance animation untouched. */}
             <motion.div
               style={{ y: phoneY, rotate: phoneRotate, opacity: phoneOpacity }}
               className="absolute top-[190px] right-[20px] w-[200px] z-20"
@@ -299,7 +304,8 @@ export function HeroSection() {
                     {/* Notch */}
                     <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-16 h-4 bg-black rounded-full z-20" />
 
-                    {/* Screen */}
+                    {/* Screen — intentionally fixed cream tone, matches
+                        QRHero's phone mockup regardless of site theme */}
                     <div className="absolute inset-0 bg-[#FFFBF6] flex flex-col">
                       {/* Status bar */}
                       <div className="flex items-center justify-between px-3 pt-2 pb-1 text-[8px] font-semibold text-neutral-900">
@@ -395,9 +401,6 @@ export function HeroSection() {
               </motion.div>
 
               {/* QR badge floating off the phone's top-right edge */}
-              {/* ← CHANGED: outer motion.div carries the scroll-linked parallax
-                  (y/opacity); inner motion.div keeps the original infinite
-                  float loop untouched. */}
               <motion.div
                 style={{ y: qrY, opacity: qrOpacity }}
                 className="absolute -right-8 top-6 glass p-2.5 rounded-2xl border border-white/20 shadow-2xl backdrop-blur-xl z-30"
@@ -421,7 +424,8 @@ export function HeroSection() {
         transition={{ delay: 2 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2"
       >
-        <ChevronDown className="w-5 h-5 text-white animate-bounce" />
+        {/* ← CHANGED: text-white → theme-aware primary text */}
+        <ChevronDown className="w-5 h-5 text-text-primary-light dark:text-text-primary-dark animate-bounce" />
       </motion.div>
     </section>
   );
