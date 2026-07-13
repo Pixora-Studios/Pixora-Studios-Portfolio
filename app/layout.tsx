@@ -83,7 +83,7 @@ export default function RootLayout({
     "@type": "Organization",
     "name": "Pixora Studios",
     "url": "https://pixorastudios.com",
-    "logo": "https://pixorastudios.com/images/logo.png",
+    "logo": "https://pixorastudios.com/images/square-logo.png",
     "sameAs": [
       "https://linkedin.com/in/debidutta",
       "https://instagram.com/pixorastudios"
