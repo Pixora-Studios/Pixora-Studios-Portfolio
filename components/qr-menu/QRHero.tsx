@@ -239,13 +239,14 @@ export function QRHero() {
 
                     <motion.div
                       animate={{ y: ["0%", "-50%"] }}
-                      transition={{ duration: 26, ease: "linear", repeat: Infinity }}
-                      className="flex flex-col gap-2"
+                      transition={{ duration: 12, ease: "linear", repeat: Infinity }}
+                      style={{ willChange: "transform" }}
+                      className="flex flex-col"
                     >
                       {[...menuItems, ...menuItems].map((item, i) => (
                         <div
                           key={`${item.name}-${i}`}
-                          className="flex items-center gap-2 p-1.5 rounded-xl bg-white shadow-sm shadow-neutral-200/60 border border-neutral-100 shrink-0"
+                          className="flex items-center gap-2 p-1.5 rounded-xl bg-white shadow-sm shadow-neutral-200/60 border border-neutral-100 shrink-0 mb-2"
                         >
                           <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${item.gradient} shrink-0`} />
                           <div className="flex-1 min-w-0">

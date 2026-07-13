@@ -321,6 +321,47 @@ export function HeroSection() {
                   />
                 </div>
               </motion.div>
+
+              {/* Three Badge Chips below laptop base */}
+              <div className="absolute top-[420px] left-[18px] w-full grid grid-cols-3 gap-3">
+                {/* Google Rating Chip */}
+                <div className="glass px-3 py-2.5 rounded-xl border border-primary-light/10 dark:border-white/10 flex items-center gap-3 shadow-md">
+                  <div className="shrink-0 bg-white/10 p-1 rounded-lg flex items-center justify-center">
+                    <GoogleIcon />
+                  </div>
+                  <div className="text-left leading-tight">
+                    <div className="flex gap-0.5 text-amber-500 mb-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-2.5 h-2.5 fill-current" />
+                      ))}
+                    </div>
+                    <p className="text-[10px] font-bold text-text-primary-light dark:text-text-primary-dark">5.0 Rating</p>
+                    <p className="text-[8px] text-text-muted-light dark:text-text-muted-dark font-medium">On Google</p>
+                  </div>
+                </div>
+
+                {/* Performance Score Chip */}
+                <div className="glass px-3 py-2.5 rounded-xl border border-primary-light/10 dark:border-white/10 flex items-center gap-3 shadow-md">
+                  <div className="shrink-0 bg-primary-light/10 dark:bg-primary-dark/10 p-2 rounded-lg flex items-center justify-center text-primary-light dark:text-primary-dark">
+                    <Rocket className="w-4 h-4 text-primary-light dark:text-primary-dark" />
+                  </div>
+                  <div className="text-left leading-tight">
+                    <p className="text-[10px] font-bold text-text-primary-light dark:text-text-primary-dark">98/100</p>
+                    <p className="text-[8px] text-text-muted-light dark:text-text-muted-dark font-medium">Performance Score</p>
+                  </div>
+                </div>
+
+                {/* SEO Ready Chip */}
+                <div className="glass px-3 py-2.5 rounded-xl border border-primary-light/10 dark:border-white/10 flex items-center gap-3 shadow-md col-span-2">
+                  <div className="shrink-0 bg-primary-light/10 dark:bg-primary-dark/10 p-2 rounded-lg flex items-center justify-center text-primary-light dark:text-primary-dark">
+                    <Shield className="w-4 h-4 text-primary-light dark:text-primary-dark" />
+                  </div>
+                  <div className="text-left leading-tight">
+                    <p className="text-[10px] font-bold text-text-primary-light dark:text-text-primary-dark">SEO Ready</p>
+                    <p className="text-[8px] text-text-muted-light dark:text-text-muted-dark font-medium">Structured Data & Schema</p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
 
             {/* ---------- Mobile mockup, overlapping the laptop's bottom-right corner ---------- */}
@@ -406,13 +447,14 @@ export function HeroSection() {
 
                         <motion.div
                           animate={{ y: ["0%", "-50%"] }}
-                          transition={{ duration: 22, ease: "linear", repeat: Infinity }}
-                          className="flex flex-col gap-1.5"
+                          transition={{ duration: 8, ease: "linear", repeat: Infinity }}
+                          style={{ willChange: "transform" }}
+                          className="flex flex-col"
                         >
                           {[...menuItems, ...menuItems].map((item, i) => (
                             <div
                               key={`${item.name}-${i}`}
-                              className="flex items-center gap-1.5 p-1 rounded-lg bg-white shadow-sm shadow-neutral-200/60 border border-neutral-100 shrink-0 text-left"
+                              className="flex items-center gap-1.5 p-1 rounded-lg bg-white shadow-sm shadow-neutral-200/60 border border-neutral-100 shrink-0 text-left mb-1.5"
                             >
                               <div className={`w-7 h-7 rounded-md bg-gradient-to-br ${item.gradient} shrink-0`} />
                               <div className="flex-1 min-w-0">
@@ -479,46 +521,7 @@ export function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Three Badge Chips below laptop base */}
-            <div className="absolute top-[440px] left-[20px] w-[580px] grid grid-cols-3 gap-3">
-              {/* Google Rating Chip */}
-              <div className="glass px-3 py-2.5 rounded-xl border border-primary-light/10 dark:border-white/10 flex items-center gap-3 shadow-md">
-                <div className="shrink-0 bg-white/10 p-1 rounded-lg flex items-center justify-center">
-                  <GoogleIcon />
-                </div>
-                <div className="text-left leading-tight">
-                  <div className="flex gap-0.5 text-amber-500 mb-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-2.5 h-2.5 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-[10px] font-bold text-text-primary-light dark:text-text-primary-dark">5.0 Rating</p>
-                  <p className="text-[8px] text-text-muted-light dark:text-text-muted-dark font-medium">On Google</p>
-                </div>
-              </div>
 
-              {/* Performance Score Chip */}
-              <div className="glass px-3 py-2.5 rounded-xl border border-primary-light/10 dark:border-white/10 flex items-center gap-3 shadow-md">
-                <div className="shrink-0 bg-primary-light/10 dark:bg-primary-dark/10 p-2 rounded-lg flex items-center justify-center text-primary-light dark:text-primary-dark">
-                  <Rocket className="w-4 h-4 text-primary-light dark:text-primary-dark" />
-                </div>
-                <div className="text-left leading-tight">
-                  <p className="text-[10px] font-bold text-text-primary-light dark:text-text-primary-dark">98/100</p>
-                  <p className="text-[8px] text-text-muted-light dark:text-text-muted-dark font-medium">Performance Score</p>
-                </div>
-              </div>
-
-              {/* SEO Ready Chip */}
-              <div className="glass px-3 py-2.5 rounded-xl border border-primary-light/10 dark:border-white/10 flex items-center gap-3 shadow-md">
-                <div className="shrink-0 bg-primary-light/10 dark:bg-primary-dark/10 p-2 rounded-lg flex items-center justify-center text-primary-light dark:text-primary-dark">
-                  <Shield className="w-4 h-4 text-primary-light dark:text-primary-dark" />
-                </div>
-                <div className="text-left leading-tight">
-                  <p className="text-[10px] font-bold text-text-primary-light dark:text-text-primary-dark">SEO Ready</p>
-                  <p className="text-[8px] text-text-muted-light dark:text-text-muted-dark font-medium">Structured Data & Schema</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
