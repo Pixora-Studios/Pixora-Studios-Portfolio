@@ -116,10 +116,32 @@ export default function RootLayout({
       "latitude": 20.2961,
       "longitude": 85.8245
     },
-    "areaServed": {
-      "@type": "AdministrativeArea",
-      "name": "Odisha"
-    },
+    "areaServed": [
+      {
+        "@type": "AdministrativeArea",
+        "name": "Bhubaneswar"
+      },
+      {
+        "@type": "AdministrativeArea",
+        "name": "Odisha"
+      },
+      {
+        "@type": "AdministrativeArea",
+        "name": "India"
+      }
+    ],
+    "knowsAbout": [
+      "Custom Website Development",
+      "Digital QR Menu",
+      "SEO",
+      "Restaurants",
+      "Cafés",
+      "Clinics",
+      "Gyms",
+      "Spas",
+      "Salons",
+      "Hotels"
+    ],
     "priceRange": "₹₹"
   };
 
