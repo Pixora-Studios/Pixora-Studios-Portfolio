@@ -103,14 +103,18 @@ export function Testimonials() {
           <div className="flex justify-center items-center space-x-6 mt-12">
             <button
               onClick={prev}
+              aria-label="Previous testimonial"
               className="w-12 h-12 rounded-full border border-border-light dark:border-border-dark flex items-center justify-center hover:bg-primary-light dark:hover:bg-primary-dark hover:text-white transition-all"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-6 h-6" aria-hidden="true" />
             </button>
-            <div className="flex space-x-2">
+            <div className="flex space-x-2" role="tablist" aria-label="Testimonial navigation">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
+                  role="tab"
+                  aria-selected={i === activeIndex}
+                  aria-label={`Go to testimonial ${i + 1}`}
                   onClick={() => setActiveIndex(i)}
                   className={`w-3 h-3 rounded-full transition-all ${
                     i === activeIndex ? "bg-primary-light dark:bg-primary-dark w-8" : "bg-border-light dark:bg-border-dark"
@@ -120,9 +124,10 @@ export function Testimonials() {
             </div>
             <button
               onClick={next}
+              aria-label="Next testimonial"
               className="w-12 h-12 rounded-full border border-border-light dark:border-border-dark flex items-center justify-center hover:bg-primary-light dark:hover:bg-primary-dark hover:text-white transition-all"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-6 h-6" aria-hidden="true" />
             </button>
           </div>
         </div>
