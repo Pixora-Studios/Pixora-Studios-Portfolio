@@ -60,6 +60,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://pixorastudios.com",
   },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   robots: {
     index: true,
     follow: true,
