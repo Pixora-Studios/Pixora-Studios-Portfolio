@@ -86,9 +86,9 @@ const menuItems = [
 ];
 
 const LAPTOP_SCREEN = {
-  top: "10.5%",
+  top: "13%",
   left: "13%",
-  width: "74%",
+  width: "73.5%",
   height: "70%",
 };
 
@@ -268,46 +268,16 @@ export function HeroSection() {
                       height: LAPTOP_SCREEN.height,
                     }}
                   >
-                    <div className="w-full h-full bg-[#0a0a0f] text-white p-3 flex flex-col font-sans select-none overflow-hidden relative">
-                      {/* Taste House Navbar */}
-                      <div className="flex items-center justify-between border-b border-white/5 pb-2 text-[7px] tracking-wide shrink-0">
-                        <div className="font-bold text-amber-500 text-[8px] tracking-widest font-display">TASTE HOUSE</div>
-                        <div className="flex items-center gap-2 text-white/50">
-                          <span>Home</span>
-                          <span>Menu</span>
-                          <span>About</span>
-                          <span>Gallery</span>
-                          <span>Contact</span>
-                        </div>
-                        <div className="px-2 py-0.5 rounded border border-amber-500/30 text-amber-400 text-[6px]">
-                          Book a Table
-                        </div>
-                      </div>
-                      
-                      {/* Taste House Hero Content */}
-                      <div className="flex-1 grid grid-cols-[1.15fr_0.85fr] gap-3 items-center pt-2">
-                        <div className="space-y-2 pl-1 text-left">
-                          <h2 className="text-[12px] xl:text-[14px] font-bold font-display leading-[1.2] text-white">
-                            Experience<br />Exceptional Taste
-                          </h2>
-                          <p className="text-[6.5px] text-white/40 leading-relaxed max-w-[155px]">
-                            Discover delicious food, warm ambience and unforgettable moments.
-                          </p>
-                          <div className="inline-block px-2.5 py-1 rounded bg-amber-500 text-black text-[6px] font-bold">
-                            Explore Menu
-                          </div>
-                        </div>
-                        <div className="relative w-full h-[85%] rounded-lg overflow-hidden border border-white/5">
-                          <Image
-                            src="https://images.pexels.com/photos/262959/pexels-photo-262959.jpeg?auto=compress&cs=tinysrgb&w=300"
-                            alt="Pixora Studios Taste House client website demo"
-                            fill
-                            className="object-cover"
-                            sizes="150px"
-                          />
-                        </div>
-                      </div>
-                    </div>
+                    <video
+                      className="w-full h-full object-cover bg-black"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="auto"
+                    >
+                      <source src="/videos/hero-demo.mp4" type="video/mp4" />
+                    </video>
                   </div>
 
                   {/* Bezel Overlay */}
@@ -428,11 +398,10 @@ export function HeroSection() {
                           {categories.map((cat, i) => (
                             <span
                               key={cat}
-                              className={`shrink-0 px-2 py-0.5 rounded-full text-[6.5px] font-bold whitespace-nowrap ${
-                                i === 0
-                                  ? "bg-orange-500 text-white shadow-sm shadow-orange-500/30"
-                                  : "bg-neutral-100 text-neutral-500"
-                              }`}
+                              className={`shrink-0 px-2 py-0.5 rounded-full text-[6.5px] font-bold whitespace-nowrap ${i === 0
+                                ? "bg-orange-500 text-white shadow-sm shadow-orange-500/30"
+                                : "bg-neutral-100 text-neutral-500"
+                                }`}
                             >
                               {cat}
                             </span>
@@ -460,9 +429,8 @@ export function HeroSection() {
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-1">
                                   <span
-                                    className={`w-1.5 h-1.5 rounded-sm border flex items-center justify-center shrink-0 ${
-                                      item.veg ? "border-green-500" : "border-red-500"
-                                    }`}
+                                    className={`w-1.5 h-1.5 rounded-sm border flex items-center justify-center shrink-0 ${item.veg ? "border-green-500" : "border-red-500"
+                                      }`}
                                   >
                                     <span className={`w-0.5 h-0.5 rounded-full ${item.veg ? "bg-green-500" : "bg-red-500"}`} />
                                   </span>
