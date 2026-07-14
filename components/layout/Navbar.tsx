@@ -87,9 +87,12 @@ export function Navbar() {
           <ThemeToggle />
           <button
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-nav"
             className="text-text-primary-light dark:text-text-primary-dark"
           >
-            {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+            {isOpen ? <X className="w-8 h-8" aria-hidden="true" /> : <Menu className="w-8 h-8" aria-hidden="true" />}
           </button>
         </div>
       </div>
@@ -102,6 +105,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-full left-0 w-full h-screen bg-background-light dark:bg-background-dark p-6 md:hidden"
+            id="mobile-nav"
           >
             <div className="flex flex-col space-y-8 mt-12">
               {navLinks.map((link, index) => (
