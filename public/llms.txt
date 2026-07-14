@@ -9,6 +9,11 @@ Pixora Studios is a premier web design and development agency based in Bhubanesw
 - **Booking Systems**: Integrated appointment and reservation systems for healthcare and hospitality sectors.
 - **SEO & Speed Optimization**: Every project includes comprehensive on-page SEO and performance tuning.
 
+## Featured Portfolio Projects
+
+- **Bangalore Express**: Restaurant/Cafe website near KIIT, Bhubaneswar built with Next.js and Tailwind CSS featuring dynamic menu, booking form, and AEO. Live at `https://bangalore-express.pixorastudios.com`
+- **SOVEREIGN**: Premium nightlife brand and lounge website in Patia, Bhubaneswar featuring elegant dark-aesthetic multi-page architecture. Live at `https://sovereign.pixorastudios.com`
+
 ## Location & Service Area
 
 - **Primary Base**: Bhubaneswar, Odisha, India.

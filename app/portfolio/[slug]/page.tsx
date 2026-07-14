@@ -58,9 +58,39 @@ export default async function ProjectPage({ params }: Props) {
     ]
   };
 
+  const creativeWorkSchema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": `${project.name} Case Study`,
+    "description": project.description,
+    "url": `https://pixorastudios.com/portfolio/${project.slug}`,
+    "image": project.image,
+    "creator": {
+      "@type": "Organization",
+      "name": "Pixora Studios",
+      "url": "https://pixorastudios.com"
+    },
+    "about": {
+      "@type": "Service",
+      "name": "Web Design & Development",
+      "provider": {
+        "@type": "Organization",
+        "name": "Pixora Studios"
+      },
+      "serviceOutput": {
+        "@type": "WebSite",
+        "name": project.name,
+        "url": project.link || ""
+      }
+    }
+  };
+
+  const isStrategyStyle = project.slug === 'bangalore-express' || project.slug === 'sovereign';
+
   return (
     <PageTransition>
       <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={creativeWorkSchema} />
       <article className="pt-32 pb-24 min-h-screen">
         <div className="container mx-auto px-6">
           <Link
@@ -97,7 +127,7 @@ export default async function ProjectPage({ params }: Props) {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-3 px-8 py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-lg"
+                  className="inline-flex items-center space-x-3 px-8 py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-lg hover:shadow-lg transition-all"
                 >
                   <span>Visit Live Site</span>
                   <ExternalLink className="w-5 h-5" />
@@ -110,11 +140,12 @@ export default async function ProjectPage({ params }: Props) {
                 alt={project.name}
                 fill
                 className="object-cover"
+                priority
               />
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-12 border-t border-border-light dark:border-border-dark pt-24">
+          <div className="grid md:grid-cols-3 gap-12 border-t border-border-light dark:border-border-dark pt-24 mb-24">
             <div className="md:col-span-2 space-y-16">
               <section>
                 <h2 className="text-3xl font-display font-bold mb-6">The Challenge</h2>
@@ -141,21 +172,114 @@ export default async function ProjectPage({ params }: Props) {
               </section>
             </div>
             <div className="glass p-8 rounded-3xl h-fit">
-              <h2 className="text-2xl font-display font-bold mb-6">Project Results</h2>
+              <h2 className="text-2xl font-display font-bold mb-6">
+                {isStrategyStyle ? "Project Strategy" : "Project Results"}
+              </h2>
               <ul className="space-y-6">
-                {project.results.map((result, i) => (
-                  <li key={i} className="flex flex-col">
-                    <span className="text-3xl font-display font-bold text-primary-light dark:text-primary-dark mb-2">
-                      {result.split(" ")[0]}
-                    </span>
-                    <span className="text-text-muted-light dark:text-text-muted-dark">
-                      {result.split(" ").slice(1).join(" ")}
-                    </span>
-                  </li>
-                ))}
+                {project.results.map((result, i) => {
+                  if (isStrategyStyle) {
+                    return (
+                      <li key={i} className="flex flex-col">
+                        <span className="text-xl font-display font-bold text-primary-light dark:text-primary-dark mb-2">
+                          {result}
+                        </span>
+                      </li>
+                    );
+                  }
+
+                  const firstWord = result.split(" ")[0];
+                  const remainingText = result.split(" ").slice(1).join(" ");
+                  return (
+                    <li key={i} className="flex flex-col">
+                      <span className="text-3xl font-display font-bold text-primary-light dark:text-primary-dark mb-2">
+                        {firstWord}
+                      </span>
+                      <span className="text-text-muted-light dark:text-text-muted-dark">
+                        {remainingText}
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
+
+          {/* Project Gallery */}
+          {project.gallery && project.gallery.length > 0 && (
+            <section className="border-t border-border-light dark:border-border-dark pt-24 mb-24">
+              <h2 className="text-4xl font-display font-bold mb-12 text-center">Project Gallery</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {project.gallery.map((img, idx) => (
+                  <div key={idx} className="relative aspect-[16/10] rounded-2xl overflow-hidden shadow-lg group">
+                    <Image
+                      src={img}
+                      alt={`${project.name} gallery image ${idx + 1}`}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Q&A AEO Section */}
+          {project.aeo && (
+            <section className="border-t border-border-light dark:border-border-dark pt-24 mb-24 max-w-4xl mx-auto">
+              <div className="glass p-8 md:p-12 rounded-3xl">
+                <h2 className="text-3xl font-display font-bold mb-8 text-primary-light dark:text-primary-dark border-b border-border-light dark:border-border-dark pb-4">
+                  Quick Facts & AI Answer Engine Reference
+                </h2>
+                <div className="space-y-8">
+                  <div>
+                    <h3 className="text-lg font-bold font-display text-text-light dark:text-text-dark mb-2">
+                      What did Pixora Studios build for {project.name}?
+                    </h3>
+                    <p className="text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+                      {project.aeo.built}
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold font-display text-text-light dark:text-text-dark mb-2">
+                      What problem did this solve for the client?
+                    </h3>
+                    <p className="text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+                      {project.aeo.solved}
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold font-display text-text-light dark:text-text-dark mb-2">
+                      What technologies were used?
+                    </h3>
+                    <p className="text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+                      {project.aeo.tech}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Bottom Call To Action */}
+          {project.link && (
+            <div className="flex flex-col items-center justify-center border-t border-border-light dark:border-border-dark pt-24 text-center">
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+                Want to see the live work?
+              </h2>
+              <p className="text-lg text-text-muted-light dark:text-text-muted-dark mb-8 max-w-xl">
+                Explore the high-fidelity design, interactions, and structure directly on the live client domain.
+              </p>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-3 px-8 py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-lg hover:shadow-lg transition-all"
+              >
+                <span>Visit Live Site</span>
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            </div>
+          )}
         </div>
       </article>
     </PageTransition>

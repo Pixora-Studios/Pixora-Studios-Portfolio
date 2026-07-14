@@ -8,7 +8,7 @@ import { projects } from "@/lib/data/projects";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { cn } from "@/lib/utils";
 
-const categories = ["All", "Clinics", "Cafes", "Restaurants", "Gyms", "Institutes", "Others"];
+const categories = ["All", "Clinics", "Cafes", "Restaurants", "Nightlife", "Gyms", "Institutes", "Others"];
 
 export default function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState("All");
