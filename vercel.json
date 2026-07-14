@@ -3,5 +3,13 @@
     "deploymentEnabled": {
       "main": true
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.pixorastudios.com" }],
+      "destination": "https://pixorastudios.com/:path*",
+      "permanent": true
+    }
+  ]
 }
