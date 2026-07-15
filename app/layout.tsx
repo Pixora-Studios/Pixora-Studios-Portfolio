@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Syne, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
@@ -152,10 +153,33 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
+      {/* Google Tag Manager */}
+      <Script
+        id="gtm-head"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K2S2GK3N');`,
+        }}
+      />
+      {/* End Google Tag Manager */}
       <body
         className={`${inter.variable} ${syne.variable} ${jetbrainsMono.variable} font-body`}
         suppressHydrationWarning
       >
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-K2S2GK3N"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
         <JsonLd data={organizationSchema} />
         <JsonLd data={localBusinessSchema} />
         <ThemeProvider
