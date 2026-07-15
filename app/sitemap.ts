@@ -6,53 +6,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const projectUrls = projects.map((project) => ({
     url: `${baseUrl}/portfolio/${project.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
+    lastModified: new Date(project.updatedAt),
   }));
 
   const staticPages = [
     {
       url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 1,
+      lastModified: new Date("2026-07-16"),
     },
     {
       url: `${baseUrl}/portfolio`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
+      lastModified: new Date("2026-07-16"),
     },
     {
       url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
+      lastModified: new Date("2026-07-16"),
     },
     {
       url: `${baseUrl}/services/qr-menu`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
+      lastModified: new Date("2026-07-16"),
     },
     {
       url: `${baseUrl}/pricing`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
+      lastModified: new Date("2026-07-16"),
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
+      lastModified: new Date("2026-07-16"),
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
+      lastModified: new Date("2026-07-16"),
     },
   ];
 

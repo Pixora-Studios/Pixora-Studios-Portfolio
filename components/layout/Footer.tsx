@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Linkedin, Instagram, Github, Phone as WhatsApp } from "lucide-react";
+import { Linkedin, Instagram, Phone as WhatsApp } from "lucide-react";
 
 const footerLinks = {
   about: [
@@ -19,10 +19,9 @@ const footerLinks = {
     { name: "Gyms", href: "/#industries" },
   ],
   connect: [
-    { name: "LinkedIn", href: "#", icon: Linkedin },
-    { name: "Instagram", href: "#", icon: Instagram },
-    { name: "GitHub", href: "#", icon: Github },
-    { name: "WhatsApp", href: "#", icon: WhatsApp },
+    { name: "LinkedIn", href: "https://linkedin.com/in/debidutta", icon: Linkedin },
+    { name: "Instagram", href: "https://instagram.com/pixorastudios", icon: Instagram },
+    { name: "WhatsApp", href: `https://wa.me/+91${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`, icon: WhatsApp },
   ],
 };
 
@@ -107,6 +106,8 @@ export function Footer() {
                   <Link
                     key={link.name}
                     href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-colors"
                     aria-label={`Visit our ${link.name} profile`}
                   >

@@ -14,6 +14,7 @@ export interface Project {
   video?: string;
   link?: string;
   gallery?: string[];
+  updatedAt: string;
   aeo?: {
     built: string;
     solved: string;
@@ -45,6 +46,7 @@ export const projects: Project[] = [
       "Designed to Convert Foot Traffic Near KIIT",
     ],
     image: "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070&auto=format&fit=crop",
+    updatedAt: "2026-05-15",
     link: "https://bangalore-express.pixorastudios.com",
     gallery: [
       "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop",
@@ -82,6 +84,7 @@ export const projects: Project[] = [
       "Optimized for Mobile-First Discovery",
     ],
     image: "https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=2070&auto=format&fit=crop",
+    updatedAt: "2026-04-20",
     link: "https://sovereign.pixorastudios.com",
     gallery: [
       "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop",
@@ -112,11 +115,12 @@ export const projects: Project[] = [
       "Patient testimonial section",
     ],
     results: [
-      "40% increase in monthly inquiries",
-      "Page 1 ranking for 'Dental Clinic Bhubaneswar'",
+      "Built to increase direct patient inquiries",
+      "Designed for a stronger local search presence",
       "Reduced front-desk booking time",
     ],
     image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2070&auto=format&fit=crop",
+    updatedAt: "2026-03-10",
     link: "https://prachisdentalhub.in",
   },
   {
@@ -136,11 +140,12 @@ export const projects: Project[] = [
       "Patient record history",
     ],
     results: [
-      "Zero scheduling conflicts in 6 months",
-      "50% reduction in no-show rates",
+      "Streamlined appointment scheduling to reduce conflicts",
+      "Structured to lower no-show rates through automated reminders",
       "Streamlined patient onboarding",
     ],
     image: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070&auto=format&fit=crop",
+    updatedAt: "2026-02-28",
   },
   {
     id: 5,
@@ -159,11 +164,12 @@ export const projects: Project[] = [
       "Local SEO optimization",
     ],
     results: [
-      "25% increase in weekend foot traffic",
+      "Designed to drive repeat weekend visits",
       "Viral growth on local social media",
-      "3x more website visits than competitors",
+      "Built for stronger digital visibility than local competitors",
     ],
     image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2047&auto=format&fit=crop",
+    updatedAt: "2026-01-15",
   },
   {
     id: 6,
@@ -182,11 +188,12 @@ export const projects: Project[] = [
       "BMI calculator integration",
     ],
     results: [
-      "20% boost in online membership inquiries",
+      "Built to increase online membership inquiries",
       "Reduced repetitive pricing calls",
       "Improved brand authority in the local area",
     ],
     image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop",
+    updatedAt: "2025-12-10",
   },
   {
     id: 7,
@@ -210,6 +217,7 @@ export const projects: Project[] = [
       "Improved weekend table turnover",
     ],
     image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop",
+    updatedAt: "2025-11-20",
   },
   {
     id: 8,
@@ -233,5 +241,6 @@ export const projects: Project[] = [
       "Established as a digital-first institute",
     ],
     image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop",
+    updatedAt: "2025-10-05",
   },
 ];

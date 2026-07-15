@@ -41,7 +41,7 @@ export function Testimonials() {
   }, []);
 
   return (
-    <section className="py-20 bg-surface-light dark:bg-surface-dark overflow-hidden">
+    <section id="testimonials" className="py-20 bg-surface-light dark:bg-surface-dark overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <motion.span

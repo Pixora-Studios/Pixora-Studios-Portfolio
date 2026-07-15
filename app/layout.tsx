@@ -33,11 +33,11 @@ export const metadata: Metadata = {
     template: "%s | Pixora Studios",
     default: "Pixora Studios | Website Development Company in Bhubaneswar",
   },
-  description: "Pixora Studios builds professional, SEO-optimized websites for clinics, cafes, restaurants, gyms, salons and local businesses in Bhubaneswar and across Odisha.",
+  description: "Pixora Studios designs and builds premium websites, booking systems, and Digital QR Menus for restaurants, cafés, clinics, gyms, and local businesses in Bhubaneswar and across Odisha.",
   metadataBase: new URL("https://pixorastudios.com"),
   openGraph: {
     title: "Pixora Studios | Website Development Company in Bhubaneswar, Odisha",
-    description: "Pixora Studios builds professional, SEO-optimized websites for local businesses in Bhubaneswar and Odisha.",
+    description: "Pixora Studios designs and builds premium websites, booking systems, and Digital QR Menus for restaurants, cafés, clinics, gyms, and local businesses in Bhubaneswar and Odisha.",
     url: "https://pixorastudios.com",
     siteName: "Pixora Studios",
     locale: "en_IN",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Pixora Studios | Website Development Company in Bhubaneswar, Odisha",
-    description: "Professional websites for local businesses in Bhubaneswar and Odisha.",
+    description: "Premium websites, booking systems, and Digital QR Menus for local businesses in Bhubaneswar and Odisha.",
     creator: "@debidutta",
     images: ["/api/og"],
   },
@@ -99,28 +99,6 @@ export default function RootLayout({
       "addressLocality": "Bhubaneswar",
       "addressRegion": "Odisha",
       "addressCountry": "IN"
-    }
-  };
-
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Pixora Studios",
-    "image": "https://pixorastudios.com/api/og",
-    "@id": "https://pixorastudios.com",
-    "url": "https://pixorastudios.com",
-    "telephone": "+91" + (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || ""),
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Bhubaneswar",
-      "addressLocality": "Bhubaneswar",
-      "addressRegion": "Odisha",
-      "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 20.2961,
-      "longitude": 85.8245
     },
     "areaServed": [
       {
@@ -135,21 +113,9 @@ export default function RootLayout({
         "@type": "AdministrativeArea",
         "name": "India"
       }
-    ],
-    "knowsAbout": [
-      "Custom Website Development",
-      "Digital QR Menu",
-      "SEO",
-      "Restaurants",
-      "Cafés",
-      "Clinics",
-      "Gyms",
-      "Spas",
-      "Salons",
-      "Hotels"
-    ],
-    "priceRange": "₹₹"
+    ]
   };
+
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -181,7 +147,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         <JsonLd data={organizationSchema} />
-        <JsonLd data={localBusinessSchema} />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

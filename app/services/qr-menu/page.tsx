@@ -1,6 +1,7 @@
 import { constructMetadata } from "@/lib/seo";
 import { QRMenuClient } from "./QRMenuClient";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { qrPricingPlans } from "@/lib/data/qrMenuData";
 
 export const metadata = constructMetadata({
   title: "Digital QR Menu for Restaurants & Cafes",
@@ -9,6 +10,10 @@ export const metadata = constructMetadata({
 });
 
 export default function QRMenuPage() {
+  const prices = qrPricingPlans.map((p) => p.price);
+  const lowPrice = Math.min(...prices).toString();
+  const highPrice = Math.max(...prices).toString();
+
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -16,12 +21,15 @@ export default function QRMenuPage() {
     "operatingSystem": "Web-based",
     "applicationCategory": "BusinessApplication",
     "offers": {
-      "@type": "Offer",
-      "price": "999",
-      "priceCurrency": "INR"
+      "@type": "AggregateOffer",
+      "lowPrice": lowPrice,
+      "highPrice": highPrice,
+      "priceCurrency": "INR",
+      "offerCount": prices.length.toString()
     },
     "description": "A contactless, mobile-optimized digital menu solution for restaurants and cafes with instant update capabilities."
   };
+
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
