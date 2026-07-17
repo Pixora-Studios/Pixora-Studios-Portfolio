@@ -4,301 +4,344 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowRight,
-  Smartphone,
   QrCode,
   Search,
   Star,
   Wifi,
   SignalHigh,
   BatteryFull,
+  TrendingUp,
+  ShoppingBag,
+  CreditCard,
+  ChefHat,
+  CheckCircle2,
 } from "lucide-react";
+import { MagneticButton } from "@/components/shared/MagneticButton";
 
-const categories = ["Pizza", "Coffee", "Burger", "Desserts", "Drinks", "Breakfast"];
+const categories = ["All", "Pizza", "Coffee", "Burger", "Desserts"];
 
 const menuItems = [
-  {
-    name: "Farmhouse Pizza",
-    desc: "Fresh vegetables with mozzarella",
-    price: "₹299",
-    veg: true,
-    gradient: "from-orange-300 to-red-400",
-  },
-  {
-    name: "Cold Brew Coffee",
-    desc: "Smooth, bold, slow-steeped 18 hrs",
-    price: "₹180",
-    veg: true,
-    gradient: "from-amber-200 to-yellow-400",
-  },
-  {
-    name: "Classic Cheese Burger",
-    desc: "Grilled patty, cheddar, house sauce",
-    price: "₹249",
-    veg: false,
-    gradient: "from-red-300 to-orange-500",
-  },
-  {
-    name: "Belgian Waffle",
-    desc: "Maple syrup, vanilla ice cream",
-    price: "₹220",
-    veg: true,
-    gradient: "from-yellow-200 to-orange-300",
-  },
-  {
-    name: "Margherita Pizza",
-    desc: "Basil, tomato, fresh mozzarella",
-    price: "₹279",
-    veg: true,
-    gradient: "from-red-200 to-orange-400",
-  },
-  {
-    name: "Caramel Latte",
-    desc: "Espresso, steamed milk, caramel drizzle",
-    price: "₹190",
-    veg: true,
-    gradient: "from-amber-300 to-orange-200",
-  },
-  {
-    name: "Grilled Chicken Burger",
-    desc: "Smoky grilled chicken, lettuce, mayo",
-    price: "₹269",
-    veg: false,
-    gradient: "from-orange-400 to-red-300",
-  },
-  {
-    name: "Choco Lava Cake",
-    desc: "Warm molten centre, vanilla scoop",
-    price: "₹210",
-    veg: true,
-    gradient: "from-red-300 to-amber-500",
-  },
-  {
-    name: "Fresh Orange Mojito",
-    desc: "Zesty citrus, mint, soda",
-    price: "₹150",
-    veg: true,
-    gradient: "from-yellow-300 to-orange-400",
-  },
-  {
-    name: "Avocado Toast",
-    desc: "Sourdough, smashed avocado, chili flakes",
-    price: "₹230",
-    veg: true,
-    gradient: "from-yellow-100 to-green-300",
-  },
+  { name: "Farmhouse Pizza", desc: "Fresh vegetables, mozzarella", price: "₹299", veg: true, gradient: "from-orange-300 to-red-400" },
+  { name: "Cold Brew Coffee", desc: "Smooth, bold, slow-steeped", price: "₹180", veg: true, gradient: "from-amber-200 to-yellow-400" },
+  { name: "Classic Cheese Burger", desc: "Grilled patty, cheddar, house sauce", price: "₹249", veg: false, gradient: "from-red-300 to-orange-500" },
+  { name: "Belgian Waffle", desc: "Maple syrup, vanilla ice cream", price: "₹220", veg: true, gradient: "from-yellow-200 to-orange-300" },
+  { name: "Margherita Pizza", desc: "Basil, tomato, fresh mozzarella", price: "₹279", veg: true, gradient: "from-red-200 to-orange-400" },
+  { name: "Caramel Latte", desc: "Espresso, steamed milk, caramel", price: "₹190", veg: true, gradient: "from-amber-300 to-orange-200" },
 ];
+
+const dashboardStats = [
+  { label: "Today's Orders", value: "24", icon: ShoppingBag, color: "text-violet-400", bg: "bg-violet-400/10" },
+  { label: "Revenue", value: "₹8,640", icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-400/10" },
+  { label: "Payments", value: "₹7,920", icon: CreditCard, color: "text-blue-400", bg: "bg-blue-400/10" },
+  { label: "Menu Active", value: "48 items", icon: ChefHat, color: "text-amber-400", bg: "bg-amber-400/10" },
+];
+
+const recentOrders = [
+  { table: "Table 4", item: "Farmhouse Pizza", status: "Ready", statusColor: "bg-emerald-400/20 text-emerald-400" },
+  { table: "Table 7", item: "Cold Brew Coffee", status: "Preparing", statusColor: "bg-amber-400/20 text-amber-400" },
+  { table: "Table 2", item: "Cheese Burger", status: "New", statusColor: "bg-violet-400/20 text-violet-400" },
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+};
 
 export function QRHero() {
   return (
-    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-      {/* Background gradients */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-dark/20 blur-[128px] -z-10" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary-dark/20 blur-[128px] -z-10" />
+    <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-20 overflow-hidden">
+      {/* Background glows */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary-dark/10 blur-[140px] -z-10 rounded-full" />
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary-dark/10 blur-[120px] -z-10 rounded-full" />
 
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            {/* AEO Direct Answer Block */}
-            <div className="mb-8 p-6 rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-lg leading-relaxed sr-only md:not-sr-only">
-              <p>
-                Pixora Studios offers a Digital QR Menu service for restaurants and cafes in Bhubaneswar and Odisha. Our contactless menu solution is mobile-optimized, requires no app download, and allows for instant price and item updates from any device.
-              </p>
-            </div>
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 xl:gap-16 items-center">
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-6"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-yellow-400"></span>
+          {/* ── Left: Copy ── */}
+          <motion.div
+            className="flex flex-col items-start z-10"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Eyebrow */}
+            <motion.div variants={itemVariants} className="flex items-center space-x-3 mb-5">
+              <div className="flex space-x-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary-dark" />
+                <div className="w-1.5 h-1.5 rounded-full bg-secondary-dark" />
+              </div>
+              <span className="text-text-muted-light dark:text-text-muted-dark font-mono text-[9px] font-bold uppercase tracking-[0.4em]">
+                DIGITAL RESTAURANT EXPERIENCE SYSTEM
               </span>
-              <span>Now Testing / New Service</span>
             </motion.div>
 
+            {/* H1 */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-display font-bold leading-tight mb-6"
+              variants={itemVariants}
+              className="text-[clamp(2.4rem,4.2vw,4.5rem)] font-display font-bold leading-[1.08] mb-5 tracking-tight text-text-primary-light dark:text-text-primary-dark"
             >
-              Contactless, Instant, <br />
-              <span className="text-transparent bg-clip-text bg-gradient-light dark:bg-gradient-primary">No-App</span> Digital Menu.
+              Your Restaurant&apos;s{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-light dark:bg-gradient-primary">
+                Digital Front Door.
+              </span>
             </motion.h1>
 
+            {/* Supporting paragraph */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-text-muted-light dark:text-text-muted-dark mb-10 max-w-lg"
+              variants={itemVariants}
+              className="text-base text-text-muted-light dark:text-text-muted-dark max-w-[480px] mb-4 leading-relaxed font-body"
             >
-              Scan a QR code to view and order. A fast, mobile-optimized experience for your customers without the friction of app downloads.
+              From the first scan to the final order, Pixora helps restaurants build a faster, smarter digital experience for guests and teams.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col sm:flex-row items-center gap-4"
+            {/* Secondary semantic paragraph */}
+            <motion.p
+              variants={itemVariants}
+              className="text-sm text-text-muted-light/80 dark:text-text-muted-dark/80 max-w-[480px] mb-8 leading-relaxed font-body border-l-2 border-primary-dark/30 pl-4"
             >
+              Digital QR menus, restaurant ordering, payment workflows and flexible POS integrations — built around your workflow, not the other way around.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4">
+              <MagneticButton>
+                <Link
+                  href="/contact"
+                  className="px-7 py-3.5 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-sm hover:scale-105 transition-transform flex items-center gap-2 shadow-lg shadow-primary-light/20 dark:shadow-primary-dark/20"
+                >
+                  <span>Build Your Restaurant Experience</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </MagneticButton>
               <Link
-                href="/contact"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-center hover:scale-105 transition-transform flex items-center justify-center gap-2"
+                href="#how-it-works"
+                className="px-7 py-3.5 rounded-full border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark font-semibold text-sm hover:bg-black/[0.03] dark:hover:bg-white/[0.03] transition-colors flex items-center gap-2 group"
               >
-                <span>Talk to Us</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link
-                href="#pricing"
-                className="w-full sm:w-auto px-8 py-4 rounded-full glass font-bold text-center hover:bg-white/10 transition-colors"
-              >
-                View Pricing
+                <span>See How It Works</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
-          </div>
 
+            {/* Trust bar */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-8 text-text-muted-light dark:text-text-muted-dark font-mono text-[9px] font-bold uppercase tracking-wider"
+            >
+              {[
+                "No App Download",
+                "Instant Updates",
+                "Mobile First",
+                "Custom Integrations",
+              ].map((item, i) => (
+                <div key={item} className="flex items-center gap-1.5">
+                  {i > 0 && <span className="text-text-muted-light/30 dark:text-text-muted-dark/30">•</span>}
+                  <CheckCircle2 className="w-3 h-3 text-primary-light dark:text-primary-dark shrink-0" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* ── Right: Product Visual ── */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="relative flex justify-center"
+            transition={{ delay: 0.35, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="relative flex justify-center lg:justify-end mt-8 lg:mt-0"
           >
-            {/* Phone Mockup */}
-            <div className="relative">
-              {/* Side buttons */}
-              <div className="absolute -left-[3px] top-28 w-[3px] h-7 bg-neutral-800 rounded-l-sm" />
-              <div className="absolute -left-[3px] top-40 w-[3px] h-11 bg-neutral-800 rounded-l-sm" />
-              <div className="absolute -right-[3px] top-32 w-[3px] h-16 bg-neutral-800 rounded-r-sm" />
+            {/* Outer container — fixed height to prevent overflow */}
+            <div className="relative w-full max-w-[480px] h-[460px] sm:h-[500px]">
 
-              <div className="relative w-64 h-[520px] bg-black rounded-[3rem] border-[10px] border-black shadow-[0_35px_70px_-20px_rgba(0,0,0,0.55)] ring-1 ring-white/10 overflow-hidden">
-                {/* Notch */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-full z-20" />
+              {/* ── Phone Mockup ── */}
+              <div className="absolute left-0 top-0 bottom-0 flex items-center">
+                <div className="relative">
+                  {/* Side buttons */}
+                  <div className="absolute -left-[3px] top-24 w-[3px] h-6 bg-neutral-800 rounded-l-sm" />
+                  <div className="absolute -left-[3px] top-32 w-[3px] h-9 bg-neutral-800 rounded-l-sm" />
+                  <div className="absolute -right-[3px] top-28 w-[3px] h-14 bg-neutral-800 rounded-r-sm" />
 
-                {/* Screen */}
-                <div className="absolute inset-0 bg-[#FFFBF6] flex flex-col">
-                  {/* Status bar */}
-                  <div className="flex items-center justify-between px-4 pt-2.5 pb-1 text-[10px] font-semibold text-neutral-900">
-                    <span>9:41</span>
-                    <div className="flex items-center gap-1">
-                      <SignalHigh className="w-3 h-3" />
-                      <Wifi className="w-3 h-3" />
-                      <BatteryFull className="w-3.5 h-3.5" />
-                    </div>
-                  </div>
+                  <div className="relative w-[200px] h-[410px] bg-black rounded-[2.5rem] border-[8px] border-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)] ring-1 ring-white/10 overflow-hidden">
+                    {/* Notch */}
+                    <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-16 h-4 bg-black rounded-full z-20" />
 
-                  {/* Static header section */}
-                  <div className="px-3 pt-1.5 space-y-2.5">
-                    {/* Restaurant header */}
-                    <div className="flex items-center gap-2">
-                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-white font-display font-bold text-sm shadow-md shadow-orange-500/30 shrink-0">
-                        B
-                      </div>
-                      <div className="flex-1 min-w-0">
+                    {/* Screen */}
+                    <div className="absolute inset-0 bg-[#FFFBF6] flex flex-col">
+                      {/* Status bar */}
+                      <div className="flex items-center justify-between px-3 pt-2 pb-1 text-[8px] font-semibold text-neutral-900 shrink-0">
+                        <span>9:41</span>
                         <div className="flex items-center gap-1">
-                          <h3 className="text-[11px] font-bold text-neutral-900 truncate">Your Cafe</h3>
-                          <span className="px-1.5 py-0.5 rounded-full bg-green-100 text-green-600 text-[6px] font-bold uppercase tracking-wide shrink-0">
-                            Open
-                          </span>
+                          <SignalHigh className="w-2.5 h-2.5" />
+                          <Wifi className="w-2.5 h-2.5" />
+                          <BatteryFull className="w-3 h-3" />
                         </div>
-                        <p className="text-[8px] text-neutral-400 truncate">Cafe • Snacks • Coffee</p>
                       </div>
-                      <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-orange-50 shrink-0">
-                        <Star className="w-2.5 h-2.5 fill-orange-400 text-orange-400" />
-                        <span className="text-[8px] font-bold text-neutral-700">4.8</span>
-                      </div>
-                    </div>
 
-                    {/* Search bar */}
-                    <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-neutral-100">
-                      <Search className="w-3 h-3 text-neutral-400" />
-                      <span className="text-[9px] text-neutral-400">Search menu...</span>
-                    </div>
-
-                    {/* Category chips */}
-                    <div className="flex gap-1.5 overflow-hidden">
-                      {categories.map((cat, i) => (
-                        <span
-                          key={cat}
-                          className={`shrink-0 px-2.5 py-1 rounded-full text-[8px] font-bold whitespace-nowrap ${
-                            i === 0
-                              ? "bg-orange-500 text-white shadow-sm shadow-orange-500/30"
-                              : "bg-neutral-100 text-neutral-500"
-                          }`}
-                        >
-                          {cat}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Auto-scrolling menu viewport */}
-                  <div className="relative flex-1 overflow-hidden mt-2.5 px-3 pb-3">
-                    <div className="absolute inset-x-3 top-0 h-5 bg-gradient-to-b from-[#FFFBF6] to-transparent z-10 pointer-events-none" />
-                    <div className="absolute inset-x-3 bottom-0 h-5 bg-gradient-to-t from-[#FFFBF6] to-transparent z-10 pointer-events-none" />
-
-                    <motion.div
-                      animate={{ y: ["0%", "-50%"] }}
-                      transition={{ duration: 12, ease: "linear", repeat: Infinity }}
-                      style={{ willChange: "transform" }}
-                      className="flex flex-col"
-                    >
-                      {[...menuItems, ...menuItems].map((item, i) => (
-                        <div
-                          key={`${item.name}-${i}`}
-                          className="flex items-center gap-2 p-1.5 rounded-xl bg-white shadow-sm shadow-neutral-200/60 border border-neutral-100 shrink-0 mb-2"
-                        >
-                          <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${item.gradient} shrink-0`} />
+                      {/* Restaurant header */}
+                      <div className="px-2.5 pt-1 space-y-2 shrink-0">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-white font-display font-bold text-[10px] shadow-md shadow-orange-500/30 shrink-0">
+                            B
+                          </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-1">
-                              <span
-                                className={`w-2 h-2 rounded-sm border flex items-center justify-center shrink-0 ${
-                                  item.veg ? "border-green-500" : "border-red-500"
-                                }`}
-                              >
-                                <span className={`w-0.5 h-0.5 rounded-full ${item.veg ? "bg-green-500" : "bg-red-500"}`} />
-                              </span>
-                              <h4 className="text-[9px] font-bold text-neutral-900 truncate">{item.name}</h4>
+                              <span className="text-[9px] font-bold text-neutral-900 truncate">Bistro One</span>
+                              <span className="px-1 py-0.5 rounded-full bg-green-100 text-green-600 text-[5px] font-bold uppercase tracking-wide shrink-0">Open</span>
                             </div>
-                            <p className="text-[7px] text-neutral-400 truncate mt-0.5">{item.desc}</p>
+                            <p className="text-[6.5px] text-neutral-400 truncate">Cafe • Pizza • Coffee</p>
                           </div>
-                          <p className="text-[9px] font-extrabold text-neutral-900 shrink-0">{item.price}</p>
+                          <div className="flex items-center gap-0.5 px-1 py-0.5 rounded-full bg-orange-50 shrink-0">
+                            <Star className="w-2.5 h-2.5 fill-orange-400 text-orange-400" />
+                            <span className="text-[6.5px] font-bold text-neutral-700">4.8</span>
+                          </div>
                         </div>
-                      ))}
-                    </motion.div>
+                        {/* Search */}
+                        <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-neutral-100">
+                          <Search className="w-2.5 h-2.5 text-neutral-400" />
+                          <span className="text-[7px] text-neutral-400">Search menu...</span>
+                        </div>
+                        {/* Categories */}
+                        <div className="flex gap-1 overflow-hidden">
+                          {categories.map((cat, i) => (
+                            <span
+                              key={cat}
+                              className={`shrink-0 px-2 py-0.5 rounded-full text-[6.5px] font-bold whitespace-nowrap ${
+                                i === 0 ? "bg-orange-500 text-white" : "bg-neutral-100 text-neutral-500"
+                              }`}
+                            >
+                              {cat}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Scrolling menu list */}
+                      <div className="relative flex-1 overflow-hidden mt-2 px-2.5 pb-1">
+                        <div className="absolute inset-x-2.5 top-0 h-4 bg-gradient-to-b from-[#FFFBF6] to-transparent z-10 pointer-events-none" />
+                        <div className="absolute inset-x-2.5 bottom-0 h-4 bg-gradient-to-t from-[#FFFBF6] to-transparent z-10 pointer-events-none" />
+                        <motion.div
+                          animate={{ y: ["0%", "-50%"] }}
+                          transition={{ duration: 10, ease: "linear", repeat: Infinity }}
+                          style={{ willChange: "transform" }}
+                          className="flex flex-col"
+                        >
+                          {[...menuItems, ...menuItems].map((item, i) => (
+                            <div
+                              key={`${item.name}-${i}`}
+                              className="flex items-center gap-1.5 p-1 rounded-lg bg-white shadow-sm shadow-neutral-200/60 border border-neutral-100 shrink-0 mb-1.5"
+                            >
+                              <div className={`w-7 h-7 rounded-md bg-gradient-to-br ${item.gradient} shrink-0`} />
+                              <div className="flex-1 min-w-0">
+                                <span className="text-[7px] font-bold text-neutral-900 truncate block">{item.name}</span>
+                                <span className="text-[6px] text-neutral-400 truncate block">{item.desc}</span>
+                              </div>
+                              <span className="text-[7px] font-extrabold text-neutral-900 shrink-0">{item.price}</span>
+                            </div>
+                          ))}
+                        </motion.div>
+                      </div>
+
+                      {/* Cart button */}
+                      <div className="px-2.5 pb-2.5 pt-1 bg-[#FFFBF6] border-t border-neutral-100/50 shrink-0">
+                        <button className="w-full py-1.5 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold text-[7.5px] shadow-sm">
+                          View Cart (2 items) →
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* ── QR Scan Badge ── */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: -10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.5 }}
+                className="absolute left-[155px] top-[30px] glass p-2.5 rounded-2xl border border-white/20 shadow-xl backdrop-blur-xl flex flex-col items-center gap-1.5 z-20"
+              >
+                <div className="bg-white rounded-xl p-1 shadow-inner">
+                  <QrCode className="w-8 h-8 text-black" strokeWidth={1.8} />
+                </div>
+                <span className="text-[7px] font-bold text-center leading-tight text-text-primary-dark whitespace-nowrap">
+                  Scan to View
+                </span>
+              </motion.div>
+
+              {/* ── Dashboard Card ── */}
+              <motion.div
+                initial={{ opacity: 0, x: 20, y: 10 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute right-0 top-4 w-[210px] glass rounded-2xl border border-white/10 dark:border-white/10 shadow-2xl overflow-hidden"
+              >
+                {/* Dashboard header */}
+                <div className="px-3 py-2.5 border-b border-white/5 dark:border-white/5 bg-white/5 dark:bg-white/5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[8px] font-bold text-text-primary-light dark:text-text-primary-dark uppercase tracking-wider">Restaurant Dashboard</span>
+                    <span className="text-[6px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-400/20 text-emerald-400">Live</span>
+                  </div>
+                  <p className="text-[6.5px] text-text-muted-light dark:text-text-muted-dark mt-0.5">Today • Bistro One</p>
+                </div>
+
+                {/* Stats grid */}
+                <div className="grid grid-cols-2 gap-1.5 p-2.5">
+                  {dashboardStats.map((stat) => (
+                    <div key={stat.label} className="bg-white/5 dark:bg-white/5 rounded-xl p-2">
+                      <div className={`w-5 h-5 rounded-lg ${stat.bg} flex items-center justify-center mb-1.5`}>
+                        <stat.icon className={`w-3 h-3 ${stat.color}`} />
+                      </div>
+                      <p className={`text-[9px] font-extrabold ${stat.color}`}>{stat.value}</p>
+                      <p className="text-[6px] text-text-muted-light dark:text-text-muted-dark leading-tight mt-0.5">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Recent orders */}
+                <div className="px-2.5 pb-2.5">
+                  <p className="text-[6.5px] font-bold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark mb-1.5">Recent Orders</p>
+                  <div className="space-y-1">
+                    {recentOrders.map((order) => (
+                      <div key={order.table} className="flex items-center justify-between bg-white/5 dark:bg-white/5 rounded-lg px-2 py-1.5">
+                        <div>
+                          <p className="text-[7px] font-bold text-text-primary-light dark:text-text-primary-dark">{order.table}</p>
+                          <p className="text-[6px] text-text-muted-light dark:text-text-muted-dark truncate max-w-[90px]">{order.item}</p>
+                        </div>
+                        <span className={`text-[5.5px] font-bold px-1.5 py-0.5 rounded-full ${order.statusColor}`}>
+                          {order.status}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Concept label */}
+                <div className="px-2.5 pb-2 text-center">
+                  <span className="text-[5.5px] text-text-muted-light/60 dark:text-text-muted-dark/60 font-mono uppercase tracking-wider">
+                    Dashboard Preview — Product Concept
+                  </span>
+                </div>
+              </motion.div>
+
+              {/* ── Animated connector dots ── */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1, duration: 0.5 }}
+                className="absolute left-[200px] top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 z-10"
+              >
+                {[0, 0.2, 0.4].map((delay, i) => (
+                  <motion.div
+                    key={i}
+                    className="w-1 h-1 rounded-full bg-primary-dark/60"
+                    animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
+                    transition={{ duration: 1.5, delay, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                ))}
+              </motion.div>
             </div>
-
-            {/* QR Floating Element */}
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="absolute -right-4 top-1/4 glass p-5 rounded-3xl border border-white/20 shadow-2xl backdrop-blur-xl"
-            >
-              <div className="bg-white rounded-2xl mb-3 shadow-inner">
-                <QrCode className="w-24 h-24 text-black" strokeWidth={1.6} />
-              </div>
-              <div className="text-center">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-text-primary-dark">Scan to View</p>
-              </div>
-            </motion.div>
-
-            {/* Feature badge */}
-            <motion.div
-              animate={{ y: [0, 20, 0] }}
-              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.5 }}
-              className="absolute -left-8 bottom-1/4 glass px-5 py-3.5 rounded-2xl border border-white/20 shadow-2xl flex items-center gap-3 backdrop-blur-xl"
-            >
-              <div className="w-10 h-10 rounded-xl bg-primary-dark/20 flex items-center justify-center text-primary-dark shrink-0">
-                <Smartphone className="w-6 h-6" />
-              </div>
-              <div className="text-left">
-                <p className="text-[14px] font-bold text-text-primary-dark uppercase tracking-wide">Ultra Fast</p>
-                <p className="text-[13px] text-text-muted-dark">No App Needed</p>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
       </div>

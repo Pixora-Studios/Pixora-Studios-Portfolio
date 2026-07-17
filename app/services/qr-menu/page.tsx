@@ -1,64 +1,62 @@
 import { constructMetadata } from "@/lib/seo";
 import { QRMenuClient } from "./QRMenuClient";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { qrPricingPlans } from "@/lib/data/qrMenuData";
 
 export const metadata = constructMetadata({
-  title: "Digital QR Menu for Restaurants & Cafes",
-  description: "Boost your restaurant's efficiency with a contactless digital QR menu. Instant updates, mobile-optimized, and no app download required.",
+  title: "Digital Restaurant Experience & QR Ordering Solutions | Pixora Studios",
+  description:
+    "Build a modern digital restaurant experience with QR menus, ordering workflows, payments, dashboards and flexible POS integrations designed around your restaurant.",
   canonical: "/services/qr-menu",
 });
 
 export default function QRMenuPage() {
-  const prices = qrPricingPlans.map((p) => p.price);
-  const lowPrice = Math.min(...prices).toString();
-  const highPrice = Math.max(...prices).toString();
-
-  const productSchema = {
+  const serviceSchema = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Pixora Digital QR Menu",
-    "operatingSystem": "Web-based",
-    "applicationCategory": "BusinessApplication",
-    "offers": {
-      "@type": "AggregateOffer",
-      "lowPrice": lowPrice,
-      "highPrice": highPrice,
-      "priceCurrency": "INR",
-      "offerCount": prices.length.toString()
+    "@type": "Service",
+    name: "Digital Restaurant Experience System",
+    provider: {
+      "@type": "Organization",
+      name: "Pixora Studios",
+      url: "https://pixorastudios.com",
     },
-    "description": "A contactless, mobile-optimized digital menu solution for restaurants and cafes with instant update capabilities."
+    serviceType: "Digital Restaurant Technology",
+    description:
+      "Pixora Studios designs and builds digital restaurant experience systems — from QR menus and ordering workflows to owner dashboards and flexible POS integrations.",
+    areaServed: {
+      "@type": "Country",
+      name: "India",
+    },
+    url: "https://pixorastudios.com/services/qr-menu",
   };
-
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://pixorastudios.com"
+        position: 1,
+        name: "Home",
+        item: "https://pixorastudios.com",
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "Services",
-        "item": "https://pixorastudios.com/services"
+        position: 2,
+        name: "Services",
+        item: "https://pixorastudios.com/services",
       },
       {
         "@type": "ListItem",
-        "position": 3,
-        "name": "Digital QR Menu",
-        "item": "https://pixorastudios.com/services/qr-menu"
-      }
-    ]
+        position: 3,
+        name: "Digital Restaurant Experience",
+        item: "https://pixorastudios.com/services/qr-menu",
+      },
+    ],
   };
 
   return (
     <>
-      <JsonLd data={productSchema} />
+      <JsonLd data={serviceSchema} />
       <JsonLd data={breadcrumbSchema} />
       <QRMenuClient />
     </>
