@@ -41,14 +41,14 @@ export function Testimonials() {
   }, []);
 
   return (
-    <section id="testimonials" className="py-20 bg-surface-light dark:bg-surface-dark overflow-hidden">
+    <section id="testimonials" className="py-14 md:py-16 bg-surface-light dark:bg-surface-dark overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-4"
+            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-3"
           >
             Testimonials
           </motion.span>
@@ -56,7 +56,7 @@ export function Testimonials() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold"
+            className="text-3xl md:text-4xl font-display font-bold tracking-tight"
           >
             What Our Clients Say
           </motion.h2>
@@ -72,8 +72,8 @@ export function Testimonials() {
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.5 }}
               >
-                <GlassCard className="p-8 md:p-12 text-center">
-                  <div className="flex justify-center space-x-1 mb-8">
+                <GlassCard className="p-6 md:p-8 text-center">
+                  <div className="flex justify-center space-x-1 mb-6">
                     {[...Array(testimonials[activeIndex].rating)].map((_, i) => (
                       <motion.div
                         key={i}
@@ -81,16 +81,16 @@ export function Testimonials() {
                         animate={{ scale: 1 }}
                         transition={{ delay: i * 0.1 }}
                       >
-                        <Star className="w-6 h-6 fill-yellow-400 text-yellow-400" />
+                        <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                       </motion.div>
                     ))}
                   </div>
-                  <p className="text-xl md:text-2xl italic text-text-primary-light dark:text-text-primary-dark mb-8 leading-relaxed">
+                  <p className="text-lg md:text-xl italic text-text-primary-light dark:text-text-primary-dark mb-6 leading-relaxed">
                     &quot;{testimonials[activeIndex].text}&quot;
                   </p>
                   <div>
-                    <h4 className="text-lg font-display font-bold">{testimonials[activeIndex].name}</h4>
-                    <p className="text-text-muted-light dark:text-text-muted-dark text-sm">
+                    <h4 className="text-base font-display font-bold">{testimonials[activeIndex].name}</h4>
+                    <p className="text-text-muted-light dark:text-text-muted-dark text-xs mt-1">
                       {testimonials[activeIndex].business} • {testimonials[activeIndex].industry}
                     </p>
                   </div>
@@ -100,13 +100,13 @@ export function Testimonials() {
           </div>
 
           {/* Controls */}
-          <div className="flex justify-center items-center space-x-6 mt-12">
+          <div className="flex justify-center items-center space-x-6 mt-8">
             <button
               onClick={prev}
               aria-label="Previous testimonial"
-              className="w-12 h-12 rounded-full border border-border-light dark:border-border-dark flex items-center justify-center hover:bg-primary-light dark:hover:bg-primary-dark hover:text-white transition-all"
+              className="w-10 h-10 rounded-full border border-border-light dark:border-border-dark flex items-center justify-center hover:bg-primary-light dark:hover:bg-primary-dark hover:text-white transition-all"
             >
-              <ChevronLeft className="w-6 h-6" aria-hidden="true" />
+              <ChevronLeft className="w-5 h-5" aria-hidden="true" />
             </button>
             <div className="flex space-x-2" role="tablist" aria-label="Testimonial navigation">
               {testimonials.map((_, i) => (
@@ -116,8 +116,8 @@ export function Testimonials() {
                   aria-selected={i === activeIndex}
                   aria-label={`Go to testimonial ${i + 1}`}
                   onClick={() => setActiveIndex(i)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    i === activeIndex ? "bg-primary-light dark:bg-primary-dark w-8" : "bg-border-light dark:bg-border-dark"
+                  className={`w-2.5 h-2.5 rounded-full transition-all ${
+                    i === activeIndex ? "bg-primary-light dark:bg-primary-dark w-6" : "bg-border-light dark:bg-border-dark"
                   }`}
                 />
               ))}
@@ -125,9 +125,9 @@ export function Testimonials() {
             <button
               onClick={next}
               aria-label="Next testimonial"
-              className="w-12 h-12 rounded-full border border-border-light dark:border-border-dark flex items-center justify-center hover:bg-primary-light dark:hover:bg-primary-dark hover:text-white transition-all"
+              className="w-10 h-10 rounded-full border border-border-light dark:border-border-dark flex items-center justify-center hover:bg-primary-light dark:hover:bg-primary-dark hover:text-white transition-all"
             >
-              <ChevronRight className="w-6 h-6" aria-hidden="true" />
+              <ChevronRight className="w-5 h-5" aria-hidden="true" />
             </button>
           </div>
         </div>

@@ -46,14 +46,14 @@ export function WorkShowcase() {
   };
 
   return (
-    <section className="py-20 bg-background-light dark:bg-background-dark overflow-hidden">
-      <div className="container mx-auto px-6 mb-16">
+    <section className="py-14 md:py-16 bg-background-light dark:bg-background-dark overflow-hidden">
+      <div className="container mx-auto px-6 mb-10">
         <div className="text-center">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-4"
+            className="text-primary-light dark:text-primary-dark font-mono text-[10px] font-bold uppercase tracking-[0.25em] block mb-3"
           >
             Our Work
           </motion.span>
@@ -62,7 +62,7 @@ export function WorkShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-display font-bold mb-6"
+            className="text-3xl md:text-4xl font-display font-bold mb-4 tracking-tight"
           >
             Real Projects. Real Results.
           </motion.h2>
@@ -71,7 +71,7 @@ export function WorkShowcase() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-text-muted-light dark:text-text-muted-dark max-w-2xl mx-auto"
+            className="text-sm text-text-muted-light dark:text-text-muted-dark max-w-xl mx-auto"
           >
             We don&apos;t just build websites — we build business tools that
             convert visitors into customers.
@@ -82,14 +82,14 @@ export function WorkShowcase() {
       <div className="relative overflow-hidden">
         <div
           ref={trackRef}
-          className="flex space-x-8 px-4 w-max"
+          className="flex space-x-6 px-4 w-max"
         >
           {[...projects, ...projects].map((project, index) => (
             <div
               key={index}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              className="relative flex-shrink-0 w-[380px] h-[260px] rounded-2xl overflow-hidden group/card transition-transform duration-300 hover:scale-[1.06] bg-surface-dark"
+              className="relative flex-shrink-0 w-[320px] h-[220px] rounded-2xl overflow-hidden group/card transition-transform duration-300 hover:scale-[1.04] bg-surface-dark"
             >
               {project.video ? (
                 <video
@@ -109,26 +109,26 @@ export function WorkShowcase() {
                   className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover/card:opacity-80 transition-opacity duration-300"
                 />
               ) : (
-                <div className="absolute inset-0 flex items-center justify-center text-text-muted-dark italic text-sm">
+                <div className="absolute inset-0 flex items-center justify-center text-text-muted-dark italic text-xs">
                   [Project Preview]
                 </div>
               )}
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
 
-              <div className="absolute bottom-0 left-0 w-full p-6 transform translate-y-2 group-hover/card:translate-y-0 transition-transform duration-300">
-                <span className="text-primary-dark font-mono text-[10px] uppercase tracking-widest mb-2 block">
+              <div className="absolute bottom-0 left-0 w-full p-5 transform translate-y-2 group-hover/card:translate-y-0 transition-transform duration-300">
+                <span className="text-primary-dark font-mono text-[9px] uppercase tracking-widest mb-1.5 block">
                   {project.industry}
                 </span>
-                <h3 className="text-white text-xl font-display font-bold mb-4">
+                <h3 className="text-white text-lg font-display font-bold mb-3">
                   {project.name}
                 </h3>
                 <Link
                   href={`/portfolio/${project.slug}`}
-                  className="inline-flex items-center space-x-2 text-white text-sm font-bold opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
+                  className="inline-flex items-center space-x-2 text-white text-xs font-bold opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
                 >
                   <span>View Project</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
@@ -136,10 +136,10 @@ export function WorkShowcase() {
         </div>
       </div>
 
-      <div className="mt-16 text-center">
+      <div className="mt-10 text-center">
         <Link
           href="/portfolio"
-          className="px-8 py-3 rounded-full border-2 border-primary-light dark:border-primary-dark text-primary-light dark:text-primary-dark font-bold hover:bg-primary-light hover:text-white dark:hover:bg-primary-dark transition-all"
+          className="px-6 py-2.5 rounded-full border-2 border-primary-light dark:border-primary-dark text-primary-light dark:text-primary-dark text-xs font-bold hover:bg-primary-light hover:text-white dark:hover:bg-primary-dark transition-all"
         >
           View All Projects
         </Link>

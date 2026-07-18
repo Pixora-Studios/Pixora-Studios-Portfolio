@@ -51,14 +51,14 @@ export function ProcessTimeline() {
   });
 
   return (
-    <section ref={containerRef} className="py-20 bg-background-light dark:bg-background-dark relative overflow-hidden">
+    <section ref={containerRef} className="py-14 md:py-16 bg-background-light dark:bg-background-dark relative overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-24">
+        <div className="text-center mb-14">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-4"
+            className="text-primary-light dark:text-primary-dark font-mono text-[10px] font-bold uppercase tracking-[0.25em] block mb-3"
           >
             Our Process
           </motion.span>
@@ -66,23 +66,23 @@ export function ProcessTimeline() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold"
+            className="text-3xl md:text-4xl font-display font-bold tracking-tight"
           >
             From Discovery to Launch in 2–4 Weeks
           </motion.h2>
         </div>
 
-        <div className="relative max-w-6xl mx-auto">
+        <div className="relative max-w-5xl mx-auto">
           {/* Background Line */}
-          <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-border-light dark:bg-border-dark/30" />
+          <div className="absolute left-5 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-border-light dark:bg-border-dark/30" />
 
           {/* Animated Progress Line */}
           <motion.div
             style={{ scaleY }}
-            className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary-light via-secondary-light to-pink-500 dark:from-primary-dark dark:via-secondary-dark origin-top z-10"
+            className="absolute left-5 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary-light via-secondary-light to-pink-500 dark:from-primary-dark dark:via-secondary-dark origin-top z-10"
           />
 
-          <div className="space-y-16 md:space-y-24">
+          <div className="space-y-8 md:space-y-10">
             {steps.map((step, index) => {
               const Icon = step.icon;
               const isEven = index % 2 === 0;
@@ -90,27 +90,27 @@ export function ProcessTimeline() {
                 <div key={step.title} className="relative">
                   <div className={`flex flex-col md:flex-row items-center ${isEven ? "" : "md:flex-row-reverse"}`}>
                     {/* Circle Indicator with Icon */}
-                    <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-background-light dark:bg-background-dark border-2 border-primary-light dark:border-primary-dark flex items-center justify-center z-20 shadow-[0_0_20px_rgba(108,99,255,0.2)]">
-                      <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary-light dark:text-primary-dark" />
+                    <div className="absolute left-5 md:left-1/2 -translate-x-1/2 w-9 h-9 md:w-10 md:h-10 rounded-full bg-background-light dark:bg-background-dark border-2 border-primary-light dark:border-primary-dark flex items-center justify-center z-20 shadow-[0_0_15px_rgba(108,99,255,0.15)]">
+                      <Icon className="w-4.5 h-4.5 text-primary-light dark:text-primary-dark" />
                     </div>
 
                     {/* Content Block */}
                     <motion.div
-                      initial={{ opacity: 0, x: isEven ? -50 : 50 }}
+                      initial={{ opacity: 0, x: isEven ? -40 : 40 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      className={`flex-1 md:w-1/2 ml-16 md:ml-0 ${
+                      viewport={{ once: true, margin: "-80px" }}
+                      className={`flex-1 md:w-1/2 ml-14 md:ml-0 ${
                         isEven
-                          ? "md:pr-32 lg:pr-48 md:text-right"
-                          : "md:pl-32 lg:pl-48 md:text-left"
+                          ? "md:pr-16 lg:pr-24 md:text-right"
+                          : "md:pl-16 lg:pl-24 md:text-left"
                       }`}
                     >
-                      <div className="group relative glass p-8 rounded-3xl border border-white/10 hover:border-primary-light/50 dark:hover:border-primary-dark/50 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_20px_40px_rgba(108,99,255,0.05)]">
-                        <span className="text-primary-light dark:text-primary-dark font-mono text-sm font-bold mb-3 block">Step 0{index + 1}</span>
-                        <h3 className="text-2xl font-display font-bold mb-4 group-hover:text-primary-light dark:group-hover:text-primary-dark transition-colors">
+                      <div className="group relative glass p-5 rounded-2xl border border-white/10 hover:border-primary-light/40 dark:hover:border-primary-dark/40 transition-all duration-300 hover:shadow-lg">
+                        <span className="text-primary-light dark:text-primary-dark font-mono text-[10px] font-bold mb-1.5 block">Step 0{index + 1}</span>
+                        <h3 className="text-lg font-display font-bold mb-2 group-hover:text-primary-light dark:group-hover:text-primary-dark transition-colors">
                           {step.title}
                         </h3>
-                        <p className="text-text-muted-light dark:text-text-muted-dark leading-relaxed text-base md:text-lg">
+                        <p className="text-text-muted-light dark:text-text-muted-dark leading-relaxed text-xs">
                           {step.description}
                         </p>
                       </div>

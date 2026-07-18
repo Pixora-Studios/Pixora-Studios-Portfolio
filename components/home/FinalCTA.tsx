@@ -7,7 +7,7 @@ import { MagneticButton } from "@/components/shared/MagneticButton";
 
 export function FinalCTA() {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-14 md:py-16 relative overflow-hidden">
       {/* Background Mesh */}
       <div className="absolute inset-0 bg-gradient-light dark:bg-gradient-primary" />
       <div className="absolute inset-0 opacity-20">
@@ -19,7 +19,7 @@ export function FinalCTA() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-7xl font-display font-bold mb-8"
+          className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-4"
         >
           Ready to Get More Customers Online?
         </motion.h2>
@@ -28,26 +28,26 @@ export function FinalCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-xl md:text-2xl mb-12 opacity-90 max-w-2xl mx-auto"
+          className="text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto"
         >
           Join local businesses in Bhubaneswar and across Odisha who trust Pixora
           Studios.
         </motion.p>
 
-        <div className="flex flex-wrap justify-center gap-6">
+        <div className="flex flex-wrap justify-center gap-4">
           <MagneticButton>
             <Link
               href="/contact"
-              className="px-10 py-5 rounded-full bg-white text-primary-dark font-bold text-xl hover:scale-105 transition-transform inline-block"
+              className="px-6 py-3 md:px-8 md:py-4 rounded-full bg-white text-primary-dark font-bold text-base md:text-lg hover:scale-105 transition-transform inline-block"
             >
               Book Free Consultation
             </Link>
           </MagneticButton>
           <Link
             href={`https://wa.me/+91${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`}
-            className="px-10 py-5 rounded-full bg-emerald-600 text-white font-bold text-xl hover:scale-105 transition-transform flex items-center space-x-3"
+            className="px-6 py-3 md:px-8 md:py-4 rounded-full bg-emerald-600 text-white font-bold text-base md:text-lg hover:scale-105 transition-transform flex items-center space-x-3"
           >
-            <WhatsApp className="w-6 h-6" />
+            <WhatsApp className="w-5 h-5 md:w-6 md:h-6" />
             <span>Chat on WhatsApp</span>
           </Link>
         </div>

@@ -11,14 +11,14 @@ const teaserPlans = [
 
 export function PricingTeaser() {
   return (
-    <section className="py-20 bg-surface-light/30 dark:bg-surface-dark/30">
+    <section className="py-14 md:py-16 bg-surface-light/30 dark:bg-surface-dark/30">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto text-center">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-primary-light dark:text-primary-dark font-mono text-xs uppercase tracking-widest mb-4"
+            className="inline-block text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest mb-3"
           >
             Pricing
           </motion.span>
@@ -27,7 +27,7 @@ export function PricingTeaser() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-3xl md:text-5xl font-display font-bold mb-6"
+            className="text-3xl md:text-4xl font-display font-bold tracking-tight mb-4"
           >
             One-time investment. No monthly fees.
           </motion.h2>
@@ -36,7 +36,7 @@ export function PricingTeaser() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-text-muted-light dark:text-text-muted-dark mb-12 max-w-2xl mx-auto"
+            className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark mb-8 max-w-2xl mx-auto"
           >
             Every website is quoted once — domain and hosting aside, there&apos;s nothing recurring.
             Support is included for 6 months.
@@ -47,16 +47,16 @@ export function PricingTeaser() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+            className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"
           >
             {teaserPlans.map((plan) => (
               <div
                 key={plan.name}
-                className="p-6 rounded-2xl glass border-white/10 flex flex-col items-center justify-center space-y-2"
+                className="p-5 rounded-2xl glass border-white/10 flex flex-col items-center justify-center space-y-2"
               >
-                <span className="text-xl font-bold">{plan.name}</span>
+                <span className="text-lg font-bold">{plan.name}</span>
                 <span className="text-text-muted-light dark:text-text-muted-dark uppercase tracking-tighter text-xs">from</span>
-                <span className="text-2xl font-display font-bold text-primary-light dark:text-primary-dark">
+                <span className="text-xl md:text-2xl font-display font-bold text-primary-light dark:text-primary-dark">
                   {plan.price}
                 </span>
               </div>

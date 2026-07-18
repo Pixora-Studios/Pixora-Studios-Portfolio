@@ -58,14 +58,14 @@ const features = [
 
 export function WhyChooseUs() {
   return (
-    <section className="py-20 bg-surface-light dark:bg-surface-dark">
+    <section className="py-14 md:py-16 bg-surface-light dark:bg-surface-dark">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-4"
+            className="text-primary-light dark:text-primary-dark font-mono text-[10px] font-bold uppercase tracking-[0.25em] block mb-3"
           >
             Our Edge
           </motion.span>
@@ -74,13 +74,13 @@ export function WhyChooseUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-display font-bold"
+            className="text-3xl md:text-4xl font-display font-bold tracking-tight"
           >
             Why Local Businesses Choose Us
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
@@ -91,14 +91,14 @@ export function WhyChooseUs() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <GlassCard className="h-full group hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl hover:shadow-primary-light/10 dark:hover:shadow-primary-dark/20 border-transparent hover:border-primary-light/30 dark:hover:border-primary-dark/30">
-                  <div className="mb-6 inline-flex p-3 rounded-xl bg-primary-light/10 dark:bg-primary-dark/10 text-primary-light dark:text-primary-dark group-hover:rotate-[15deg] transition-transform duration-500">
-                    <Icon className="w-8 h-8" />
+                <GlassCard className="h-full group hover:-translate-y-1.5 transition-all duration-300 hover:shadow-xl hover:shadow-primary-light/5 dark:hover:shadow-primary-dark/10 border-transparent hover:border-primary-light/20 dark:hover:border-primary-dark/20 p-5">
+                  <div className="mb-4 inline-flex p-2.5 rounded-xl bg-primary-light/10 dark:bg-primary-dark/10 text-primary-light dark:text-primary-dark group-hover:rotate-[12deg] transition-transform duration-300">
+                    <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-display font-bold mb-3">
+                  <h3 className="text-lg font-display font-bold mb-2">
                     {feature.title}
                   </h3>
-                  <p className="text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+                  <p className="text-xs text-text-muted-light dark:text-text-muted-dark leading-relaxed">
                     {feature.description}
                   </p>
                 </GlassCard>

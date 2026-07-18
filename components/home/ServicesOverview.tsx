@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Globe, Calendar, Utensils, Search, ShieldCheck, Palette, Mail, Smartphone } from "lucide-react";
 
@@ -59,14 +58,14 @@ const services = [
 
 export function ServicesOverview() {
   return (
-    <section className="py-20 bg-background-light dark:bg-background-dark">
+    <section className="py-14 md:py-16 bg-background-light dark:bg-background-dark">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-20">
+        <div className="text-center mb-10">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-4"
+            className="text-primary-light dark:text-primary-dark font-mono text-[10px] font-bold uppercase tracking-[0.25em] block mb-3"
           >
             Services
           </motion.span>
@@ -74,58 +73,42 @@ export function ServicesOverview() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold"
+            className="text-3xl md:text-4xl font-display font-bold tracking-tight"
           >
             What We Build For You
           </motion.h2>
         </div>
 
-        <div className="space-y-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {services.map((service, index) => {
             const Icon = service.icon;
-            const isEven = index % 2 === 0;
             return (
               <motion.div
                 key={service.title}
-                initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12`}
+                transition={{ delay: index * 0.05 }}
               >
-                <div className="flex-1">
-                   <div className="w-16 h-16 rounded-2xl bg-primary-light/10 dark:bg-primary-dark/10 flex items-center justify-center text-primary-light dark:text-primary-dark mb-6">
-                      <Icon className="w-8 h-8" />
-                   </div>
-                   <h3 className="text-3xl md:text-4xl font-display font-bold mb-6">{service.title}</h3>
-                   <p className="text-lg text-text-muted-light dark:text-text-muted-dark mb-8 max-w-xl">
-                      {service.description}
-                   </p>
-                   <Link href={service.link || "/services"} className="group inline-flex items-center space-x-2 font-bold text-primary-light dark:text-primary-dark">
-                      <span>Learn More</span>
-                      <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
-                   </Link>
-                </div>
-                <div className="flex-1 w-full aspect-video glass rounded-3xl overflow-hidden border border-primary-light/10 dark:border-primary-dark/10">
-                  {service.image ? (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      className="relative w-full h-full"
-                    >
-                      <Image
-                        src={service.image}
-                        alt={`${service.title} preview`}
-                        fill
-                        className="object-cover"
-                        priority={index === 0}
-                      />
-                    </motion.div>
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-text-muted-dark italic">
-                      [Service Illustration/Mockup]
+                <div className="group h-full flex flex-col justify-between bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-2xl p-5 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:border-primary-light/20 dark:hover:border-primary-dark/20 shadow-sm">
+                  <div>
+                    <div className="w-10 h-10 rounded-xl bg-primary-light/10 dark:bg-primary-dark/10 flex items-center justify-center text-primary-light dark:text-primary-dark mb-4 group-hover:scale-105 transition-transform">
+                      <Icon className="w-5 h-5" />
                     </div>
-                  )}
+                    <h3 className="text-base font-display font-bold mb-2 tracking-tight text-text-primary-light dark:text-text-primary-dark">
+                      {service.title}
+                    </h3>
+                    <p className="text-xs text-text-muted-light dark:text-text-muted-dark mb-4 leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
+                  <Link
+                    href={service.link || "/services"}
+                    className="group/link inline-flex items-center space-x-1.5 font-mono text-[9px] font-bold uppercase tracking-wider text-primary-light dark:text-primary-dark hover:underline mt-auto"
+                  >
+                    <span>Learn More</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
+                  </Link>
                 </div>
               </motion.div>
             );

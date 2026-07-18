@@ -49,15 +49,15 @@ export function FAQSection() {
   };
 
   return (
-    <section className="py-20 bg-background-light dark:bg-background-dark">
+    <section className="py-14 md:py-16 bg-background-light dark:bg-background-dark">
       <JsonLd data={faqSchema} />
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-4"
+            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-3"
           >
             FAQ
           </motion.span>
@@ -65,13 +65,13 @@ export function FAQSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold"
+            className="text-3xl md:text-4xl font-display font-bold tracking-tight"
           >
             Common Questions
           </motion.h2>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-3">
           {faqs.map((faq, index) => (
             <div
               key={index}
@@ -79,13 +79,13 @@ export function FAQSection() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-6 flex items-center justify-between text-left hover:bg-surface-light dark:hover:bg-surface-dark transition-colors"
+                className="w-full px-5 py-5 flex items-center justify-between text-left hover:bg-surface-light dark:hover:bg-surface-dark transition-colors"
               >
-                <span className="text-lg font-bold">{faq.q}</span>
+                <span className="text-base md:text-lg font-bold">{faq.q}</span>
                 {openIndex === index ? (
-                  <Minus className="w-5 h-5 text-primary-light dark:text-primary-dark" />
+                  <Minus className="w-5 h-5 text-primary-light dark:text-primary-dark flex-shrink-0 ml-4" />
                 ) : (
-                  <Plus className="w-5 h-5 text-text-muted-dark" />
+                  <Plus className="w-5 h-5 text-text-muted-dark flex-shrink-0 ml-4" />
                 )}
               </button>
               <AnimatePresence>
@@ -96,7 +96,7 @@ export function FAQSection() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="px-6 pb-6 text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+                    <div className="px-5 pb-5 text-sm md:text-base text-text-muted-light dark:text-text-muted-dark leading-relaxed">
                       {faq.a}
                     </div>
                   </motion.div>

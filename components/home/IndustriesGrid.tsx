@@ -22,14 +22,14 @@ const industries = [
 
 export function IndustriesGrid() {
   return (
-    <section className="py-20 bg-surface-light dark:bg-surface-dark overflow-hidden">
+    <section className="py-14 md:py-16 bg-surface-light dark:bg-surface-dark overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-4"
+            className="text-primary-light dark:text-primary-dark font-mono text-[10px] font-bold uppercase tracking-[0.25em] block mb-3"
           >
             Industries
           </motion.span>
@@ -37,26 +37,26 @@ export function IndustriesGrid() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold"
+            className="text-3xl md:text-4xl font-display font-bold tracking-tight"
           >
             Every Business Deserves a Great Website
           </motion.h2>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-3">
           {industries.map((industry, index) => (
             <motion.div
               key={industry.name}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
+              transition={{ delay: index * 0.03 }}
               whileHover={{
-                scale: 1.05,
+                scale: 1.04,
                 background: "var(--accent-gradient)",
                 color: "white"
               }}
-              className="px-6 py-4 rounded-xl glass cursor-default transition-all duration-300 font-display font-bold text-lg flex items-center gap-3"
+              className="px-4 py-2.5 rounded-xl glass cursor-default transition-all duration-300 font-display font-bold text-sm flex items-center gap-2.5"
             >
               <span>{industry.icon}</span>
               <span>{industry.name}</span>
