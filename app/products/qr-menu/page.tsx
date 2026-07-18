@@ -7,6 +7,15 @@ export const metadata = constructMetadata({
   description:
     "Build a modern digital restaurant experience with QR menus, ordering workflows, payments, dashboards and flexible POS integrations designed around your restaurant.",
   canonical: "/products/qr-menu",
+  keywords: [
+    "digital QR menu India",
+    "contactless menu restaurant",
+    "QR code menu system",
+    "restaurant ordering system India",
+    "digital menu Bhubaneswar",
+    "POS integration restaurant",
+    "online menu ordering Odisha",
+  ],
 });
 
 export default function QRMenuPage() {

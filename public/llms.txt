@@ -1,50 +1,73 @@
 # Pixora Studios
 
-Pixora Studios is a premier web design, development, and software agency based in Bhubaneswar, Odisha, India. We build high-performance, SEO-optimized custom web assets and digital solutions for local business verticals including clinics, restaurants, cafes, gyms, salons, hotels, and schools.
+> Pixora Studios is a custom web design and digital solutions studio based in Bhubaneswar, Odisha, India.
+> We build high-performance, SEO/AEO-optimized websites, booking systems, and business software for local business verticals.
+> Last updated: 2026-07-19
 
-## Core Structure: Services vs Products
+## Contact & Location
 
-We differentiate bespoke/custom workflows (Services) from repeatable fixed solutions (Products):
+- **Location**: Patia, Bhubaneswar, Odisha, India — 751024
+- **Phone**: +91 8455018992
+- **Email**: hello@pixorastudios.com
+- **Website**: https://pixorastudios.com
+- **Working Hours**: Monday–Saturday, 9:00 AM – 7:00 PM IST
 
-### 1. Custom Services (Quote-Based)
+## Core Business Model: Services vs Products
+
+Pixora Studios differentiates bespoke/custom workflows (Services) from repeatable fixed solutions (Products):
+
+### 1. Custom Services (Quote-Based, Project-Scoped)
+
 Tailor-made projects priced dynamically based on scoped parameters and delivery tracks.
-- **Website Design & Development**: High-converting responsive builds. Clinics track starts from ₹5,999; Restaurants track starts from ₹15,000.
-- **Appointment Booking Systems**: Frictionless reservation and appointment workflows with real-time calendars.
+
+- **Website Design & Development**: High-converting responsive builds. Clinics & Services track starts from ₹5,999. Restaurants & Hospitality track starts from ₹15,000.
+- **Appointment & Booking Systems**: Frictionless reservation and appointment workflows with real-time calendars.
 - **Brand Identity & UI/UX Design**: Elegant logos, styled assets, typography guidelines.
-- **SEO & Google Ranking**: Technical optimization, target local mapping, schema markup.
-- **Hosting & Maintenance Support**: Fully managed Cloud VPS setup, speed tune-ups, uptime checks.
+- **Local SEO & Google Ranking**: Technical optimization, Google Maps targeting, schema markup.
+- **Hosting & Maintenance Support**: Fully managed Cloud VPS setup, speed tune-ups, uptime monitoring.
 - **Payment Gateway & POS Integration**: Seamless checkouts synced directly with registers (e.g. Petpooja POS).
 
-### 2. Standalone Products (Tiered Plans)
-Repeatable SaaS platforms sold under structured subscription packages.
-- **Digital QR Menu**: Contactless dining experience. Includes View Only, View + Update (Bundled at ₹999), Standalone (₹1,499), Order + Payment checkout, and POS synchronization. Also ideal for hotel rooms, lounges, movie halls, gyms, and salons.
-- **Gym Management Software**: Subscriptions, member logs, attendance tracking (Coming Soon).
-- **School & Coaching Software**: Fee schedules, program registrations, student rosters (Coming Soon).
+### 2. Standalone Products (Tiered Plans, Fixed Pricing)
+
+Repeatable SaaS-style platforms sold under structured subscription packages.
+
+- **Digital QR Menu System**: Contactless dining experience. View Only plan (Bundled at ₹999), Standalone (₹1,499), Order + Payment checkout, and POS synchronization. Also ideal for hotel rooms, lounges, movie halls, gyms, and salons.
+- **Gym Management Software**: Subscriptions, member logs, attendance tracking. (Coming Soon)
+- **School & Coaching Software**: Fee schedules, program registrations, student rosters. (Coming Soon)
 
 ## Featured Industry Verticals
 
-We build industry-specific SEO-optimized local landing assets:
-- **Restaurants & Hospitality** (table bookings, contactless checkouts)
-- **Dental & General Clinics** (doctor calendars, trust reviews)
-- **Gyms & Fitness Clubs** (class scheduling, tier options)
-- **Salons & Spas** (stylist booking, portfolios)
-- **Hotels & PGs** (room registration, checklists)
-- **Schools & Coaching Centers** (enrollment lists, curriculums)
-- **Real Estate & Property** (lead flows, map markers)
+Pixora Studios builds industry-specific SEO-optimized digital solutions for local businesses:
+
+- **Restaurants & Cafes**: Table bookings, contactless QR menus, commission-free ordering
+- **Dental & General Clinics**: Doctor calendars, patient review funnels, local SEO
+- **Gyms & Fitness Clubs**: Class scheduling, membership tiers, trainer showcases
+- **Salons & Beauty Spas**: Stylist booking, service portfolios, automated alerts
+- **Hotels & PGs**: Room reservation systems, contactless guest checklists
+- **Schools & Coaching Centers**: Enrollment pages, faculty directories, batch scheduling
+- **Real Estate & Property**: Lead capture funnels, property feature maps
+- **Clubs & Lounges**: Brand identity, reservation systems, event showcases
+- **Travel Agencies, Pharmacies, Interior Designers, Personal Brands, Local E-commerce, Logistics, Event Organizers**
 
 ## Featured Portfolio Projects
 
-- **Bangalore Express**: Restaurant/Cafe website near KIIT, Bhubaneswar built with Next.js and Tailwind CSS featuring dynamic menu, booking form, and AEO. Live at `https://bangalore-express.pixorastudios.com`
-- **SOVEREIGN**: Premium nightlife brand and lounge website in Patia, Bhubaneswar featuring elegant dark-aesthetic multi-page architecture. Live at `https://sovereign.pixorastudios.com`
+- **Bangalore Express**: Restaurant and Chinese café website near KIIT University, Bhubaneswar. Built with Next.js and Tailwind CSS featuring interactive digital menus, table reservation inquiry forms, AEO FAQ blocks, and Google Reviews integration. Live at: https://bangalore-express.pixorastudios.com — Case study: https://pixorastudios.com/portfolio/bangalore-express
 
-## Key Links
+- **SOVEREIGN**: Premium nightlife lounge and nightclub brand website in Patia, Bhubaneswar. Multi-page dark-luxe architecture with table reservation funnel, weekly night rituals showcase, premium cocktail menus, and interactive gallery. Live at: https://sovereign.pixorastudios.com — Case study: https://pixorastudios.com/portfolio/sovereign
+
+## Key Site Links
 
 - [Home](https://pixorastudios.com/)
 - [Services](https://pixorastudios.com/services)
 - [Products Hub](https://pixorastudios.com/products)
-- [Digital QR Menu](https://pixorastudios.com/products/qr-menu)
+- [Digital QR Menu Product](https://pixorastudios.com/products/qr-menu)
 - [Industries Directory](https://pixorastudios.com/industries)
-- [Portfolio](https://pixorastudios.com/portfolio)
-- [Pricing Breakdown](https://pixorastudios.com/pricing)
+- [Portfolio & Case Studies](https://pixorastudios.com/portfolio)
+- [Pricing](https://pixorastudios.com/pricing)
 - [About Us](https://pixorastudios.com/about)
 - [Contact & Bookings](https://pixorastudios.com/contact)
+- [Sitemap](https://pixorastudios.com/sitemap.xml)
+
+## AI & Crawler Access
+
+This site explicitly allows crawling by all major search and AI engines including Googlebot, GPTBot, ClaudeBot, PerplexityBot, Bingbot, and others. See: https://pixorastudios.com/robots.txt

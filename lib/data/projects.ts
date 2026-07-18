@@ -85,7 +85,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "Tailwind CSS", "Framer Motion", "AEO Schema"],
     image:
       "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070&auto=format&fit=crop",
-    updatedAt: "2026-05-15",
+    updatedAt: "2026-07-19",
     link: "https://bangalore-express.pixorastudios.com",
     gallery: [
       "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop",
@@ -132,7 +132,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "Tailwind CSS", "Framer Motion", "Multi-page Architecture"],
     image:
       "https://images.unsplash.com/photo-1543007630-9710e4a00a20?q=80&w=2070&auto=format&fit=crop",
-    updatedAt: "2026-04-20",
+    updatedAt: "2026-07-19",
     link: "https://sovereign.pixorastudios.com",
     gallery: [
       "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070&auto=format&fit=crop",
