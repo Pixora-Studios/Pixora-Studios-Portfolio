@@ -2,57 +2,45 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Globe, Calendar, Utensils, Search, ShieldCheck, Palette, Mail, Smartphone } from "lucide-react";
+import { ArrowRight, Globe, Calendar, Search, ShieldCheck, Palette } from "lucide-react";
 
 const services = [
   {
     title: "Website Design & Development",
     description: "Custom websites built for your brand — fast, mobile-first, and made to convert.",
     icon: Globe,
-    image: "https://images.pexels.com/photos/8128192/pexels-photo-8128192.jpeg",
+    link: "/services#websites",
   },
   {
     title: "Appointment Booking Systems",
-    description: "Let your patients or clients book online, 24/7 — no calls, no friction.",
+    description: "Let your patients or clients book online 24/7 with zero friction.",
     icon: Calendar,
-    image: "https://images.pexels.com/photos/4266932/pexels-photo-4266932.jpeg",
-  },
-  {
-    title: "Restaurant & Table Booking Systems",
-    description: "Accept reservations directly on your site. Zero third-party commissions.",
-    icon: Utensils,
-    image: "https://images.pexels.com/photos/16345589/pexels-photo-16345589.jpeg",
-  },
-  {
-    title: "Email Notification & CRM Integration",
-    description: "Instant appointment alerts and client notifications — no manual follow-up needed.",
-    icon: Mail,
-    image: "https://images.pexels.com/photos/8284722/pexels-photo-8284722.jpeg",
-  },
-  {
-    title: "SEO & Google Ranking",
-    description: "Get found when local customers search for your services. Show up. Stand out.",
-    icon: Search,
-    image: "https://images.pexels.com/photos/16629436/pexels-photo-16629436.jpeg",
+    link: "/services#booking",
   },
   {
     title: "Brand Identity & UI/UX Design",
-    description: "Logos, color systems, and interfaces that make your business look like it means business.",
+    description: "Logos, color systems, and designs that build trust and capture attention.",
     icon: Palette,
-    image: "https://images.pexels.com/photos/4463588/pexels-photo-4463588.jpeg",
+    link: "/services#branding",
+  },
+  {
+    title: "SEO & Google Ranking",
+    description: "Show up where local customers are searching. Rank higher, win clients.",
+    icon: Search,
+    link: "/services#seo",
   },
   {
     title: "Hosting, Maintenance & Support",
-    description: "We handle the technical side so you never have to worry about downtime or updates.",
+    description: "We manage security, speed, and updates so you can focus on growth.",
     icon: ShieldCheck,
-    image: "https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg",
+    link: "/services#hosting",
   },
   {
-    title: "Digital QR Menu",
-    description: "Modern, contactless dining experiences for restaurants. Scan, browse, and order-ready.",
-    icon: Smartphone,
-    image: "https://images.pexels.com/photos/5932727/pexels-photo-5932727.jpeg",
-    link: "/services/qr-menu",
+    title: "See All Services",
+    description: "Explore our complete range of design, integration, and systems capabilities.",
+    icon: ArrowRight,
+    link: "/services",
+    isAction: true,
   },
 ];
 
@@ -67,7 +55,7 @@ export function ServicesOverview() {
             viewport={{ once: true }}
             className="text-primary-light dark:text-primary-dark font-mono text-[10px] font-bold uppercase tracking-[0.25em] block mb-3"
           >
-            Services
+            Capabilities
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -75,13 +63,15 @@ export function ServicesOverview() {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-display font-bold tracking-tight"
           >
-            What We Build For You
+            Services, Built Around Your Business
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {services.map((service, index) => {
             const Icon = service.icon;
+            const isAction = service.isAction;
+
             return (
               <motion.div
                 key={service.title}
@@ -90,26 +80,33 @@ export function ServicesOverview() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
               >
-                <div className="group h-full flex flex-col justify-between bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-2xl p-5 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg hover:border-primary-light/20 dark:hover:border-primary-dark/20 shadow-sm">
-                  <div>
-                    <div className="w-10 h-10 rounded-xl bg-primary-light/10 dark:bg-primary-dark/10 flex items-center justify-center text-primary-light dark:text-primary-dark mb-4 group-hover:scale-105 transition-transform">
-                      <Icon className="w-5 h-5" />
+                <Link href={service.link}>
+                  <div className={`group h-full flex flex-col justify-between border rounded-2xl p-6 hover:-translate-y-1 transition-all duration-300 hover:shadow-lg shadow-sm ${
+                    isAction
+                      ? "bg-primary-light/5 dark:bg-primary-dark/5 border-primary-light/20 dark:border-primary-dark/20 hover:border-primary-light dark:hover:border-primary-dark"
+                      : "bg-surface-light dark:bg-surface-dark border-border-light dark:border-border-dark hover:border-primary-light/20 dark:hover:border-primary-dark/20"
+                  }`}>
+                    <div>
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform ${
+                        isAction
+                          ? "bg-primary-light dark:bg-primary-dark text-white"
+                          : "bg-primary-light/10 dark:bg-primary-dark/10 text-primary-light dark:text-primary-dark"
+                      }`}>
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-base font-display font-bold mb-2 tracking-tight text-text-primary-light dark:text-text-primary-dark">
+                        {service.title}
+                      </h3>
+                      <p className="text-xs text-text-muted-light dark:text-text-muted-dark mb-4 leading-relaxed">
+                        {service.description}
+                      </p>
                     </div>
-                    <h3 className="text-base font-display font-bold mb-2 tracking-tight text-text-primary-light dark:text-text-primary-dark">
-                      {service.title}
-                    </h3>
-                    <p className="text-xs text-text-muted-light dark:text-text-muted-dark mb-4 leading-relaxed">
-                      {service.description}
-                    </p>
+                    <div className="group/link inline-flex items-center space-x-1.5 font-mono text-[9px] font-bold uppercase tracking-wider text-primary-light dark:text-primary-dark hover:underline mt-auto">
+                      <span>{isAction ? "View Service Suite" : "Explore"}</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
+                    </div>
                   </div>
-                  <Link
-                    href={service.link || "/services"}
-                    className="group/link inline-flex items-center space-x-1.5 font-mono text-[9px] font-bold uppercase tracking-wider text-primary-light dark:text-primary-dark hover:underline mt-auto"
-                  >
-                    <span>Learn More</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
-                  </Link>
-                </div>
+                </Link>
               </motion.div>
             );
           })}

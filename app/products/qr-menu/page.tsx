@@ -6,27 +6,27 @@ export const metadata = constructMetadata({
   title: "Digital Restaurant Experience & QR Ordering Solutions | Pixora Studios",
   description:
     "Build a modern digital restaurant experience with QR menus, ordering workflows, payments, dashboards and flexible POS integrations designed around your restaurant.",
-  canonical: "/services/qr-menu",
+  canonical: "/products/qr-menu",
 });
 
 export default function QRMenuPage() {
-  const serviceSchema = {
+  const productSchema = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    name: "Digital Restaurant Experience System",
-    provider: {
-      "@type": "Organization",
-      name: "Pixora Studios",
-      url: "https://pixorastudios.com",
+    "@type": "Product",
+    name: "Digital QR Menu System",
+    image: "https://pixorastudios.com/images/logo.png",
+    description: "Contactless QR menus, online ordering workflows, waiter-call routing, payment integrations, and POS synchronization for hospitality venues.",
+    brand: {
+      "@type": "Brand",
+      name: "Pixora Studios"
     },
-    serviceType: "Digital Restaurant Technology",
-    description:
-      "Pixora Studios designs and builds digital restaurant experience systems — from QR menus and ordering workflows to owner dashboards and flexible POS integrations.",
-    areaServed: {
-      "@type": "Country",
-      name: "India",
-    },
-    url: "https://pixorastudios.com/services/qr-menu",
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "INR",
+      lowPrice: "999",
+      highPrice: "1499",
+      offerCount: "6"
+    }
   };
 
   const breadcrumbSchema = {
@@ -42,21 +42,21 @@ export default function QRMenuPage() {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Services",
-        item: "https://pixorastudios.com/services",
+        name: "Products",
+        item: "https://pixorastudios.com/products",
       },
       {
         "@type": "ListItem",
         position: 3,
-        name: "Digital Restaurant Experience",
-        item: "https://pixorastudios.com/services/qr-menu",
+        name: "Digital QR Menu",
+        item: "https://pixorastudios.com/products/qr-menu",
       },
     ],
   };
 
   return (
     <>
-      <JsonLd data={serviceSchema} />
+      <JsonLd data={productSchema} />
       <JsonLd data={breadcrumbSchema} />
       <QRMenuClient />
     </>

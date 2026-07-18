@@ -2,12 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-
-const teaserPlans = [
-  { name: "Starter", price: "₹9,999" },
-  { name: "Standard", price: "₹17,999" },
-  { name: "Advanced", price: "₹29,999" },
-];
+import { ArrowRight } from "lucide-react";
+import { websiteTracks } from "@/lib/pricing-data";
 
 export function PricingTeaser() {
   return (
@@ -18,7 +14,7 @@ export function PricingTeaser() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest mb-3"
+            className="inline-block text-primary-light dark:text-primary-dark font-mono text-[10px] font-bold uppercase tracking-widest mb-3"
           >
             Pricing
           </motion.span>
@@ -36,10 +32,10 @@ export function PricingTeaser() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark mb-8 max-w-2xl mx-auto"
+            className="text-sm md:text-base text-text-muted-light dark:text-text-muted-dark mb-10 max-w-xl mx-auto"
           >
             Every website is quoted once — domain and hosting aside, there&apos;s nothing recurring.
-            Support is included for 6 months.
+            Free support is included for 6 months.
           </motion.p>
 
           <motion.div
@@ -47,35 +43,67 @@ export function PricingTeaser() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-10"
           >
-            {teaserPlans.map((plan) => (
+            {websiteTracks.map((track) => (
               <div
-                key={plan.name}
-                className="p-5 rounded-2xl glass border-white/10 flex flex-col items-center justify-center space-y-2"
+                key={track.id}
+                className="p-6 rounded-2xl glass border-white/10 flex flex-col justify-between items-center text-center space-y-4 hover:border-primary-light/20 dark:hover:border-primary-dark/20 transition-all"
               >
-                <span className="text-lg font-bold">{plan.name}</span>
-                <span className="text-text-muted-light dark:text-text-muted-dark uppercase tracking-tighter text-xs">from</span>
-                <span className="text-xl md:text-2xl font-display font-bold text-primary-light dark:text-primary-dark">
-                  {plan.price}
-                </span>
+                <div>
+                  <span className="text-xs font-mono text-primary-light dark:text-primary-dark font-bold uppercase tracking-wider block mb-1">
+                    Website Track
+                  </span>
+                  <h3 className="text-lg font-bold font-display">{track.name}</h3>
+                  <p className="text-xs text-text-muted-light dark:text-text-muted-dark leading-relaxed mt-2 max-w-[280px]">
+                    {track.description}
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">from</span>
+                  <span className="text-2xl md:text-3xl font-display font-black text-primary-light dark:text-primary-dark">
+                    {track.startingPrice}
+                  </span>
+                </div>
+
+                <Link
+                  href="/pricing"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark group"
+                >
+                  <span>See full breakdown</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                </Link>
               </div>
             ))}
           </motion.div>
 
+          {/* Note linking to Products */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
+            className="space-y-3"
           >
-            <Link
-              href="/pricing"
-              className="group inline-flex items-center space-x-2 text-primary-light dark:text-primary-dark font-medium hover:underline"
-            >
-              <span>See full pricing breakdown</span>
-              <span className="transition-transform group-hover:translate-x-1">→</span>
-            </Link>
+            <div>
+              <Link
+                href="/pricing"
+                className="group inline-flex items-center space-x-2 text-sm font-semibold hover:underline text-primary-light dark:text-primary-dark"
+              >
+                <span>Compare website tiers & detailed options</span>
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </Link>
+            </div>
+            <div>
+              <Link
+                href="/products"
+                className="group inline-flex items-center space-x-2 text-xs text-text-muted-light dark:text-text-muted-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"
+              >
+                <span>Looking for QR Menu or business software pricing?</span>
+                <span className="transition-transform group-hover:translate-x-1">→ /products</span>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </div>

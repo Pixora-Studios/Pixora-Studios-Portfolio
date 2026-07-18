@@ -1,36 +1,50 @@
 # Pixora Studios
 
-Pixora Studios is a premier web design and development agency based in Bhubaneswar, Odisha, India. We specialize in building high-performance, SEO-optimized websites and digital solutions for local businesses including clinics, restaurants, cafes, gyms, and salons.
+Pixora Studios is a premier web design, development, and software agency based in Bhubaneswar, Odisha, India. We build high-performance, SEO-optimized custom web assets and digital solutions for local business verticals including clinics, restaurants, cafes, gyms, salons, hotels, and schools.
 
-## Core Offerings
+## Core Structure: Services vs Products
 
-- **Custom Web Development**: Tailor-made websites built with modern technologies like Next.js, TypeScript, and Tailwind CSS.
-- **Digital QR Menu**: A contactless, mobile-optimized menu solution for restaurants and cafes with instant update capabilities.
-- **Booking Systems**: Integrated appointment and reservation systems for healthcare and hospitality sectors.
-- **SEO & Speed Optimization**: Every project includes comprehensive on-page SEO and performance tuning.
+We differentiate bespoke/custom workflows (Services) from repeatable fixed solutions (Products):
+
+### 1. Custom Services (Quote-Based)
+Tailor-made projects priced dynamically based on scoped parameters and delivery tracks.
+- **Website Design & Development**: High-converting responsive builds. Clinics track starts from ₹5,999; Restaurants track starts from ₹15,000.
+- **Appointment Booking Systems**: Frictionless reservation and appointment workflows with real-time calendars.
+- **Brand Identity & UI/UX Design**: Elegant logos, styled assets, typography guidelines.
+- **SEO & Google Ranking**: Technical optimization, target local mapping, schema markup.
+- **Hosting & Maintenance Support**: Fully managed Cloud VPS setup, speed tune-ups, uptime checks.
+- **Payment Gateway & POS Integration**: Seamless checkouts synced directly with registers (e.g. Petpooja POS).
+
+### 2. Standalone Products (Tiered Plans)
+Repeatable SaaS platforms sold under structured subscription packages.
+- **Digital QR Menu**: Contactless dining experience. Includes View Only, View + Update (Bundled at ₹999), Standalone (₹1,499), Order + Payment checkout, and POS synchronization. Also ideal for hotel rooms, lounges, movie halls, gyms, and salons.
+- **Gym Management Software**: Subscriptions, member logs, attendance tracking (Coming Soon).
+- **School & Coaching Software**: Fee schedules, program registrations, student rosters (Coming Soon).
+
+## Featured Industry Verticals
+
+We build industry-specific SEO-optimized local landing assets:
+- **Restaurants & Hospitality** (table bookings, contactless checkouts)
+- **Dental & General Clinics** (doctor calendars, trust reviews)
+- **Gyms & Fitness Clubs** (class scheduling, tier options)
+- **Salons & Spas** (stylist booking, portfolios)
+- **Hotels & PGs** (room registration, checklists)
+- **Schools & Coaching Centers** (enrollment lists, curriculums)
+- **Real Estate & Property** (lead flows, map markers)
 
 ## Featured Portfolio Projects
 
 - **Bangalore Express**: Restaurant/Cafe website near KIIT, Bhubaneswar built with Next.js and Tailwind CSS featuring dynamic menu, booking form, and AEO. Live at `https://bangalore-express.pixorastudios.com`
 - **SOVEREIGN**: Premium nightlife brand and lounge website in Patia, Bhubaneswar featuring elegant dark-aesthetic multi-page architecture. Live at `https://sovereign.pixorastudios.com`
 
-## Location & Service Area
-
-- **Primary Base**: Bhubaneswar, Odisha, India.
-- **Service Area**: Serving businesses locally in Bhubaneswar and across Odisha, as well as remote clients throughout India.
-
-## Key Information
-
-- **Pricing Model**: Transparent, one-time investment with 6 months of free support. No recurring monthly retainers for website builds.
-- **Turnaround Time**: Standard business websites are typically delivered within 2-4 weeks.
-- **Founder**: Debidutta Acharya.
-
 ## Key Links
 
 - [Home](https://pixorastudios.com/)
 - [Services](https://pixorastudios.com/services)
-- [Digital QR Menu](https://pixorastudios.com/services/qr-menu)
+- [Products Hub](https://pixorastudios.com/products)
+- [Digital QR Menu](https://pixorastudios.com/products/qr-menu)
+- [Industries Directory](https://pixorastudios.com/industries)
 - [Portfolio](https://pixorastudios.com/portfolio)
-- [Pricing](https://pixorastudios.com/pricing)
-- [About](https://pixorastudios.com/about)
-- [Contact](https://pixorastudios.com/contact)
+- [Pricing Breakdown](https://pixorastudios.com/pricing)
+- [About Us](https://pixorastudios.com/about)
+- [Contact & Bookings](https://pixorastudios.com/contact)

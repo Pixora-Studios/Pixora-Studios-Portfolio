@@ -8,19 +8,19 @@ import { JsonLd } from "@/components/seo/JsonLd";
 const faqs = [
   {
     question: "How does Pixora price projects?",
-    answer: "We price projects based on scope, complexity, and custom design requirements rather than rigid package tiers. We outline the precise scope first, then provide a transparent project-based proposal so you know exactly what is included.",
+    answer: "We price custom projects based on scope, complexity, and custom design requirements rather than rigid package tiers. We outline the precise scope first, then provide a transparent project-based proposal so you know exactly what is included.",
   },
   {
     question: "Does Pixora offer fixed website packages?",
-    answer: "No. We believe fixed website packages lead to generic, templated outcomes. We build fully custom digital experiences tailored to your business problems, pricing each project around its actual scope.",
+    answer: "No. We believe fixed website packages lead to generic, templated outcomes. We build fully custom digital experiences tailored to your business problems, pricing each custom project around its actual scope.",
   },
   {
     question: "How much does a custom website cost?",
-    answer: "Our custom website builds typically start at ₹15,000+. The final price depends on the number of pages, custom features, animations, and database integrations required.",
+    answer: "Our website tracks start at ₹5,999+ for clinics and local services, and ₹15,000+ for restaurants and hospitality. The final price depends on the number of pages, custom features, animations, and database integrations required.",
   },
   {
     question: "How much does a digital restaurant experience cost?",
-    answer: "Our digital restaurant experiences and ordering workflows start at ₹20,000+. This includes features like custom digital menus, WhatsApp/QR ordering, or dashboard integration.",
+    answer: "Our restaurant websites with booking tables and alerts start at ₹15,000+. If you are looking for our standalone QR Menu SaaS subscription product, prices range from ₹999 to ₹1,499+ per year.",
   },
   {
     question: "Can Pixora build custom business software?",
@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     question: "Do you offer one-time project pricing?",
-    answer: "Yes. All our initial design and development phases are priced as a one-time project fee. We do not charge hidden monthly software subscription costs for our custom solutions.",
+    answer: "Yes. All our initial custom design and development phases are priced as a one-time project fee. We do not charge hidden monthly software subscription costs for our custom solutions.",
   },
   {
     question: "Can I contact Pixora if I am not sure what I need?",

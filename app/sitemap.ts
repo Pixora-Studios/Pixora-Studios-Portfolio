@@ -9,6 +9,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(project.updatedAt),
   }));
 
+  const industriesSlugs = [
+    "restaurants",
+    "clinics",
+    "gyms",
+    "salons",
+    "hotels-pgs",
+    "schools-coaching",
+    "real-estate"
+  ];
+
+  const industryUrls = industriesSlugs.map((slug) => ({
+    url: `${baseUrl}/industries/${slug}`,
+    lastModified: new Date("2026-07-16")
+  }));
+
   const staticPages = [
     {
       url: baseUrl,
@@ -23,7 +38,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date("2026-07-16"),
     },
     {
-      url: `${baseUrl}/services/qr-menu`,
+      url: `${baseUrl}/products`,
+      lastModified: new Date("2026-07-16"),
+    },
+    {
+      url: `${baseUrl}/products/qr-menu`,
+      lastModified: new Date("2026-07-16"),
+    },
+    {
+      url: `${baseUrl}/industries`,
       lastModified: new Date("2026-07-16"),
     },
     {
@@ -40,5 +63,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  return [...staticPages, ...projectUrls];
+  return [...staticPages, ...industryUrls, ...projectUrls];
 }

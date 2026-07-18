@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
@@ -18,37 +17,84 @@ import {
   Layers,
   Database,
   Mail,
-  Zap
+  Zap,
+  CheckCircle2,
+  Lock,
+  Search,
+  Palette,
+  ShieldCheck,
+  CreditCard
 } from "lucide-react";
-import { services } from "@/lib/data/services";
 import { projects } from "@/lib/data/projects";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { JsonLd } from "@/components/seo/JsonLd";
 
-// Mapping icons for capabilities grid
-const capabilityIcons = {
-  Websites: Globe,
-  Dashboards: Layout,
-  "Custom Software": Database,
-  "Digital Menus": Smartphone,
-  "Ordering Experiences": Zap,
-  "Booking Workflows": Workflow,
-  "Mobile Products": Layers,
-  Automation: Cpu,
-  Integrations: Mail,
-};
+interface ServiceItem {
+  id: string;
+  title: string;
+  description: string;
+  chips: string[];
+  icon: any;
+  slugId: string;
+}
 
-const capabilities = [
-  { name: "Websites", desc: "High-performance, custom digital presences designed to convert." },
-  { name: "Dashboards", desc: "Centralized data views built to track and optimize your operations." },
-  { name: "Custom Software", desc: "Custom-built applications tailored to your exact business operations." },
-  { name: "Digital Menus", desc: "Contactless, fast-loading digital dining menus for food businesses." },
-  { name: "Ordering Experiences", desc: "Frictionless digital shopping and ordering flows for customers." },
-  { name: "Booking Workflows", desc: "Automated reservation and appointment engines that run 24/7." },
-  { name: "Mobile Products", desc: "Native and web-based applications built for on-the-go utility." },
-  { name: "Automation", desc: "Automating repetitive daily tasks so your team can focus on growth." },
-  { name: "Integrations", desc: "Seamlessly connecting your website, booking system, and internal tools." }
+const buildAndDesignServices: ServiceItem[] = [
+  {
+    id: "websites",
+    title: "Website Design & Development",
+    description: "Custom UI/UX and super-fast, responsive web builds tailored for conversions, client trust, and flawless screen layouts.",
+    chips: ["Custom UI/UX", "Next.js", "Tailwind CSS", "SEO Architecture", "Fast LCP Scores"],
+    icon: Globe,
+    slugId: "websites"
+  },
+  {
+    id: "branding",
+    title: "Brand Identity & Design",
+    description: "High-fidelity modern brand identity packages, fully custom vector logos, strict typography scales, and elegant color systems.",
+    chips: ["Logo Design", "Styleguides", "Typography Systems", "Color Palettes", "Marketing Assets"],
+    icon: Palette,
+    slugId: "branding"
+  }
 ];
+
+const runAndGrowServices: ServiceItem[] = [
+  {
+    id: "booking",
+    title: "Appointment Booking Systems",
+    description: "Automated direct booking engines that run 24/7. Minimize calendar friction and eliminate platform fees completely.",
+    chips: ["Real-time Slots", "Calendar Sync", "WhatsApp Alerts", "Admin Dashboard"],
+    icon: CalendarIcon,
+    slugId: "booking"
+  },
+  {
+    id: "seo",
+    title: "SEO & Google Ranking",
+    description: "Data-driven local search dominance. Optimization of technical crawls, structured rich schema layouts, and copy targeting.",
+    chips: ["Local SEO", "JSON-LD Schemas", "Google Business Profile", "Content Mapping"],
+    icon: Search,
+    slugId: "seo"
+  },
+  {
+    id: "hosting",
+    title: "Hosting & Maintenance",
+    description: "Secure, high-availability hosting management. Real-time scanning, automatic offsite backups, and monthly layout tune-ups.",
+    chips: ["Cloud VPS", "Daily Backups", "Uptime Monitoring", "Core Updates", "Support SLA"],
+    icon: ShieldCheck,
+    slugId: "hosting"
+  },
+  {
+    id: "pos-payment",
+    title: "Payment Gateway & POS Integration",
+    description: "Direct customer transactions and payment flows linked to your local register. Setup of POS terminals and order printers.",
+    chips: ["UPI Gateway", "Stripe / Razorpay", "Petpooja POS Sync", "Kitchen Ticket Printers"],
+    icon: CreditCard,
+    slugId: "pos"
+  }
+];
+
+function CalendarIcon(props: any) {
+  return <Workflow {...props} />;
+}
 
 const faqs = [
   {
@@ -62,18 +108,6 @@ const faqs = [
   {
     q: "Can Pixora build a custom business system?",
     a: "Yes. We build custom dashboards, internal tools, and management systems that align with how your team already operates, helping you track data and manage workflows without the overhead of generic software."
-  },
-  {
-    q: "Can Pixora build restaurant digital experiences?",
-    a: "Yes. We create complete digital systems for dining venues, including contactless QR menus, direct commission-free reservation engines, and customer engagement platforms."
-  },
-  {
-    q: "What is included in a digital experience?",
-    a: "It depends on your needs, but it typically includes custom user interface (UI/UX) design, fast frontend development, database integrations, analytics tracking, and secure backend operations."
-  },
-  {
-    q: "Can Pixora work on a project if I am not sure what technology I need?",
-    a: "Absolutely. You do not need to know the stack or vocabulary. You bring the business problem or target goal, and we will figure out the right technical direction and build it for you."
   },
   {
     q: "Does Pixora build custom dashboards?",
@@ -94,7 +128,6 @@ const faqs = [
 ];
 
 export default function ServicesPage() {
-  const [hoveredDirIdx, setHoveredDirIdx] = useState<number | null>(null);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
 
   // Filter ONLY Bangalore Express and SOVEREIGN
@@ -115,344 +148,157 @@ export default function ServicesPage() {
     }))
   };
 
-  // SVGMotion line tracing setup
-  const lineVariants = {
-    hidden: { pathLength: 0, opacity: 0 },
-    visible: (custom: number) => ({
-      pathLength: 1,
-      opacity: 1,
-      transition: {
-        pathLength: { duration: 1.5, ease: "easeInOut", delay: custom * 0.2 },
-        opacity: { duration: 0.3, delay: custom * 0.2 }
-      }
-    })
-  };
-
-  const nodeVariants = {
-    hidden: { scale: 0, opacity: 0 },
-    visible: (custom: number) => ({
-      scale: 1,
-      opacity: 1,
-      transition: { duration: 0.5, type: "spring", stiffness: 100, delay: 1.2 + custom * 0.2 }
-    })
-  };
-
   return (
     <PageTransition>
       <JsonLd data={faqSchema} />
-      <div className="pt-28 md:pt-36 pb-20 min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark">
+      <div className="pt-24 md:pt-28 pb-16 min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark">
         
         {/* HERO SECTION */}
-        <section className="container mx-auto px-6 mb-20 md:mb-28">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            
-            {/* Hero Content */}
-            <div className="lg:col-span-7 space-y-6">
-              <span className="text-primary-light dark:text-primary-dark font-mono text-xs md:text-sm uppercase tracking-widest block font-bold">
-                WHAT PIXORA BUILDS
-              </span>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold leading-tight max-w-2xl">
-                Your Business Has a Problem. <br className="hidden md:inline" />
-                <span className="bg-clip-text text-transparent bg-gradient-light dark:bg-gradient-primary">
-                  We Build the Digital Fix.
-                </span>
-              </h1>
-              <p className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark max-w-xl leading-relaxed">
-                Websites, digital experiences and custom systems built around how your business actually works.
+        <section className="container mx-auto px-6 mb-16 md:mb-20 text-center max-w-4xl pt-8">
+          <span className="text-primary-light dark:text-primary-dark font-mono text-[10px] font-bold uppercase tracking-widest block mb-3">
+            WHAT PIXORA BUILDS
+          </span>
+          <h1 className="text-3xl md:text-5xl font-display font-bold leading-tight mb-4">
+            Services Built Around Your Business.
+          </h1>
+          <p className="text-sm md:text-base text-text-muted-light dark:text-text-muted-dark max-w-xl mx-auto leading-relaxed">
+            We build custom digital assets that solve operational friction, capture local attention, and fuel real conversion.
+          </p>
+        </section>
+
+        {/* SERVICES LISTING GROUPED BY FUNCTION */}
+        <section className="container mx-auto px-6 space-y-20 mb-24 max-w-5xl">
+
+          {/* GROUP 1: BUILD & DESIGN */}
+          <div className="space-y-8">
+            <div className="border-b border-border-light dark:border-border-dark/80 pb-3">
+              <h2 className="text-xl md:text-2xl font-display font-bold tracking-tight">
+                Build & Design
+              </h2>
+              <p className="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">
+                Establish high-converting presence and branding.
               </p>
             </div>
 
-            {/* Hero SVG Animation */}
-            <div className="lg:col-span-5 relative flex items-center justify-center py-6">
-              <div className="absolute inset-0 bg-primary-light/5 dark:bg-primary-dark/5 blur-3xl rounded-full" />
-              
-              <svg
-                viewBox="0 0 420 300"
-                className="w-full max-w-[420px] h-auto overflow-visible relative z-10"
-              >
-                <defs>
-                  <linearGradient id="svgLineGrad" x1="60" y1="150" x2="340" y2="150" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="var(--primary, #5B52E8)" />
-                    <stop offset="100%" stopColor="var(--secondary, #8B5CF6)" />
-                  </linearGradient>
-                </defs>
-
-                {/* Connection Lines */}
-                {/* To Websites */}
-                <motion.path
-                  d="M 60 150 C 180 150, 180 60, 280 60"
-                  fill="none"
-                  stroke="url(#svgLineGrad)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  variants={lineVariants}
-                  custom={1}
-                  initial="hidden"
-                  animate="visible"
-                />
-                {/* To Digital Experiences */}
-                <motion.path
-                  d="M 60 150 L 280 150"
-                  fill="none"
-                  stroke="url(#svgLineGrad)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  variants={lineVariants}
-                  custom={2}
-                  initial="hidden"
-                  animate="visible"
-                />
-                {/* To Custom Systems */}
-                <motion.path
-                  d="M 60 150 C 180 150, 180 240, 280 240"
-                  fill="none"
-                  stroke="url(#svgLineGrad)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  variants={lineVariants}
-                  custom={3}
-                  initial="hidden"
-                  animate="visible"
-                />
-
-                {/* Nodes */}
-                {/* Center Problem Node */}
-                <g>
-                  <circle cx="60" cy="150" r="12" className="fill-primary-light dark:fill-primary-dark" />
-                  <circle
-                    cx="60"
-                    cy="150"
-                    r="24"
-                    className="stroke-primary-light/30 dark:stroke-primary-dark/30 stroke-2 fill-none animate-pulse"
-                  />
-                  <text
-                    x="60"
-                    y="185"
-                    textAnchor="middle"
-                    className="text-[10px] font-mono font-bold fill-text-primary-light dark:fill-text-primary-dark tracking-wider"
-                  >
-                    PROBLEM
-                  </text>
-                </g>
-
-                {/* Websites Solution Node */}
-                <motion.g variants={nodeVariants} custom={1} initial="hidden" animate="visible">
-                  <circle cx="280" cy="60" r="8" className="fill-secondary-light dark:fill-secondary-dark" />
-                  <text
-                    x="298"
-                    y="64"
-                    textAnchor="start"
-                    className="text-xs md:text-sm font-display font-bold fill-text-primary-light dark:fill-text-primary-dark"
-                  >
-                    Websites
-                  </text>
-                </motion.g>
-
-                {/* Digital Experiences Solution Node */}
-                <motion.g variants={nodeVariants} custom={2} initial="hidden" animate="visible">
-                  <circle cx="280" cy="150" r="8" className="fill-primary-light dark:fill-primary-dark" />
-                  <text
-                    x="298"
-                    y="154"
-                    textAnchor="start"
-                    className="text-xs md:text-sm font-display font-bold fill-text-primary-light dark:fill-text-primary-dark"
-                  >
-                    Digital Experiences
-                  </text>
-                </motion.g>
-
-                {/* Custom Systems Solution Node */}
-                <motion.g variants={nodeVariants} custom={3} initial="hidden" animate="visible">
-                  <circle cx="280" cy="240" r="8" className="fill-secondary-light dark:fill-secondary-dark" />
-                  <text
-                    x="298"
-                    y="244"
-                    textAnchor="start"
-                    className="text-xs md:text-sm font-display font-bold fill-text-primary-light dark:fill-text-primary-dark"
-                  >
-                    Custom Systems
-                  </text>
-                </motion.g>
-              </svg>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 2: WHAT WE BUILD */}
-        <section className="container mx-auto px-6 mb-24 md:mb-32">
-          <div className="max-w-3xl mb-16">
-            <h2 className="text-2xl md:text-4xl font-display font-bold mb-4">
-              Different Problems. Different Builds.
-            </h2>
-            <p className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark leading-relaxed">
-              Some businesses need a better digital front door. Others need a system that makes the work behind the scenes less painful.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {services.map((category) => (
-              <motion.div
-                key={category.id}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="flex flex-col lg:flex-row items-start lg:items-center justify-between p-6 md:p-8 rounded-2xl border border-border-light dark:border-border-dark bg-surface-light/30 dark:bg-surface-dark/30 backdrop-blur-md transition-all duration-300 hover:border-primary-light/50 dark:hover:border-primary-dark/50 hover:bg-surface-light/50 dark:hover:bg-surface-dark/50 group gap-6"
-              >
-                {/* Index & Name */}
-                <div className="w-full lg:w-1/4 flex items-center gap-3 shrink-0">
-                  <span className="text-sm font-mono text-primary-light dark:text-primary-dark font-bold">
-                    {category.number}
-                  </span>
-                  <span className="text-xs font-bold uppercase tracking-widest text-text-muted-light dark:text-text-muted-dark font-mono">
-                    {category.id === "experiences" ? "Digital Experiences" : category.id === "systems" ? "Custom Systems" : category.id}
-                  </span>
-                </div>
-
-                {/* Title & Description */}
-                <div className="w-full lg:w-1/2 space-y-2">
-                  <h3 className="text-lg md:text-xl font-display font-bold group-hover:text-primary-light dark:group-hover:text-primary-dark transition-colors duration-200">
-                    {category.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-text-muted-light dark:text-text-muted-dark leading-relaxed">
-                    {category.description}
-                  </p>
-                </div>
-
-                {/* Semantic tags */}
-                <div className="w-full lg:w-1/4 flex flex-wrap gap-2 justify-start lg:justify-end shrink-0">
-                  {category.semanticTags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 rounded-full text-[11px] font-mono bg-border-light/40 dark:bg-border-dark/40 border border-border-light/80 dark:border-border-dark/80 text-text-muted-light dark:text-text-muted-dark group-hover:border-primary-light/20 dark:group-hover:border-primary-dark/20 transition-all duration-200"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* SECTION 3: SERVICE CAPABILITIES */}
-        <section className="container mx-auto px-6 mb-24 md:mb-32">
-          <div className="max-w-3xl mb-16 text-center mx-auto">
-            <h2 className="text-2xl md:text-4xl font-display font-bold mb-4">
-              Built Around the Problem. Not a Service Menu.
-            </h2>
-            <p className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark leading-relaxed max-w-xl mx-auto">
-              We do not force every business into the same stack or workflow. We figure out what needs to work better, then build from there.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {capabilities.map((cap) => {
-              const Icon = capabilityIcons[cap.name as keyof typeof capabilityIcons] || Sparkles;
-              return (
-                <motion.div
-                  key={cap.name}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -4 }}
-                  className="p-6 rounded-2xl border border-border-light dark:border-border-dark bg-surface-light/20 dark:bg-surface-dark/20 backdrop-blur-sm transition-all duration-300 hover:border-primary-light/35 dark:hover:border-primary-dark/35 hover:bg-surface-light/40 dark:hover:bg-surface-dark/40"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-primary-light/10 dark:bg-primary-dark/10 flex items-center justify-center text-primary-light dark:text-primary-dark mb-4">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-lg font-display font-bold mb-2">{cap.name}</h3>
-                  <p className="text-xs md:text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed">
-                    {cap.desc}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* SECTION 4: HOW TO CHOOSE THE RIGHT DIRECTION */}
-        <section className="container mx-auto px-6 mb-24 md:mb-32">
-          <div className="max-w-3xl mb-16 text-center mx-auto">
-            <h2 className="text-2xl md:text-4xl font-display font-bold mb-4">
-              You Don&apos;t Need to Know What to Call It Yet.
-            </h2>
-            <p className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark leading-relaxed max-w-xl mx-auto">
-              Website? Dashboard? App? Custom system? Start with the problem. We can figure out the digital direction with you.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {[
-              {
-                title: "I NEED A BETTER DIGITAL PRESENCE",
-                description: "I want my business to look and work better online.",
-                eyebrow: "01 — PRESENCE",
-                icon: Globe,
-              },
-              {
-                title: "I NEED A BETTER CUSTOMER EXPERIENCE",
-                description: "I want customers to discover, interact or order more easily.",
-                eyebrow: "02 — EXPERIENCE",
-                icon: Smartphone,
-              },
-              {
-                title: "I NEED A BETTER BUSINESS WORKFLOW",
-                description: "I want my team to manage, automate or operate more efficiently.",
-                eyebrow: "03 — WORKFLOW",
-                icon: Cpu,
-              },
-            ].map((option, idx) => {
-              const Icon = option.icon;
-              const isDimmed = hoveredDirIdx !== null && hoveredDirIdx !== idx;
-              return (
-                <Link key={idx} href="/contact" className="block">
-                  <motion.div
-                    onHoverStart={() => setHoveredDirIdx(idx)}
-                    onHoverEnd={() => setHoveredDirIdx(null)}
-                    animate={{ opacity: isDimmed ? 0.45 : 1 }}
-                    transition={{ duration: 0.2 }}
-                    className="h-full p-8 rounded-3xl border border-border-light dark:border-border-dark bg-surface-light/20 dark:bg-surface-dark/20 backdrop-blur-md flex flex-col justify-between transition-all duration-300 hover:border-primary-light dark:hover:border-primary-dark hover:bg-surface-light/40 dark:hover:bg-surface-dark/40 cursor-pointer group"
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {buildAndDesignServices.map((service) => {
+                const Icon = service.icon;
+                return (
+                  <div
+                    key={service.id}
+                    id={service.slugId}
+                    className="p-6 md:p-8 rounded-3xl border border-border-light dark:border-border-dark bg-surface-light/30 dark:bg-surface-dark/30 backdrop-blur-md hover:border-primary-light/40 dark:hover:border-primary-dark/40 transition-all duration-300 flex flex-col justify-between"
                   >
                     <div>
-                      <span className="text-[10px] font-mono font-bold tracking-widest text-text-muted-light dark:text-text-muted-dark block mb-6">
-                        {option.eyebrow}
-                      </span>
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-light dark:bg-gradient-primary p-[1px] mb-6">
-                        <div className="w-full h-full rounded-[15px] bg-background-light dark:bg-background-dark flex items-center justify-center text-text-primary-light dark:text-text-primary-dark">
-                          <Icon className="w-5 h-5" />
-                        </div>
+                      <div className="w-10 h-10 rounded-xl bg-primary-light/10 dark:bg-primary-dark/10 flex items-center justify-center text-primary-light dark:text-primary-dark mb-4">
+                        <Icon className="w-5 h-5" />
                       </div>
-                      <h3 className="text-xl font-display font-bold mb-3 leading-tight group-hover:text-primary-light dark:group-hover:text-primary-dark transition-colors duration-200">
-                        {option.title}
+
+                      <h3 className="text-lg md:text-xl font-display font-bold mb-2">
+                        {service.title}
                       </h3>
-                      <p className="text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed">
-                        {option.description}
+
+                      <p className="text-xs md:text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed mb-6">
+                        {service.description}
                       </p>
+
+                      {/* Tags/Chips row */}
+                      <div className="flex flex-wrap gap-1.5 mb-6">
+                        {service.chips.map((chip) => (
+                          <span
+                            key={chip}
+                            className="px-2.5 py-1 rounded-full text-[10px] font-mono bg-border-light/40 dark:bg-border-dark/40 border border-border-light/80 dark:border-border-dark/80 text-text-muted-light dark:text-text-muted-dark"
+                          >
+                            {chip}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
-                    <div className="mt-8 flex items-center gap-2 font-mono text-xs font-bold text-primary-light dark:text-primary-dark">
-                      <span>EXPLORE DIRECTION</span>
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1.5" />
+                    {/* Compact Labeled Visual Slot */}
+                    <div className="mt-auto pt-4 border-t border-border-light dark:border-border-dark/40">
+                      <div className="text-[10px] font-mono p-3 rounded bg-surface-light/50 dark:bg-surface-dark/50 border border-dashed border-border-light dark:border-border-dark text-text-muted-light dark:text-text-muted-dark text-center select-none">
+                        {`{/* VISUAL SLOT: ${service.id} — custom illustration, add later */}`}
+                      </div>
                     </div>
-                  </motion.div>
-                </Link>
-              );
-            })}
+                  </div>
+                );
+              })}
+            </div>
           </div>
+
+          {/* GROUP 2: RUN & GROW */}
+          <div className="space-y-8">
+            <div className="border-b border-border-light dark:border-border-dark/80 pb-3">
+              <h2 className="text-xl md:text-2xl font-display font-bold tracking-tight">
+                Run & Grow
+              </h2>
+              <p className="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">
+                Automate operations, accept payments, and drive customer traffic.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {runAndGrowServices.map((service) => {
+                const Icon = service.icon;
+                return (
+                  <div
+                    key={service.id}
+                    id={service.slugId}
+                    className="p-6 md:p-8 rounded-3xl border border-border-light dark:border-border-dark bg-surface-light/30 dark:bg-surface-dark/30 backdrop-blur-md hover:border-primary-light/40 dark:hover:border-primary-dark/40 transition-all duration-300 flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="w-10 h-10 rounded-xl bg-primary-light/10 dark:bg-primary-dark/10 flex items-center justify-center text-primary-light dark:text-primary-dark mb-4">
+                        <Icon className="w-5 h-5" />
+                      </div>
+
+                      <h3 className="text-lg md:text-xl font-display font-bold mb-2">
+                        {service.title}
+                      </h3>
+
+                      <p className="text-xs md:text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed mb-6">
+                        {service.description}
+                      </p>
+
+                      {/* Tags/Chips row */}
+                      <div className="flex flex-wrap gap-1.5 mb-6">
+                        {service.chips.map((chip) => (
+                          <span
+                            key={chip}
+                            className="px-2.5 py-1 rounded-full text-[10px] font-mono bg-border-light/40 dark:bg-border-dark/40 border border-border-light/80 dark:border-border-dark/80 text-text-muted-light dark:text-text-muted-dark"
+                          >
+                            {chip}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Compact Labeled Visual Slot */}
+                    <div className="mt-auto pt-4 border-t border-border-light dark:border-border-dark/40">
+                      <div className="text-[10px] font-mono p-3 rounded bg-surface-light/50 dark:bg-surface-dark/50 border border-dashed border-border-light dark:border-border-dark text-text-muted-light dark:text-text-muted-dark text-center select-none">
+                        {`{/* VISUAL SLOT: ${service.id} — custom illustration, add later */}`}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
         </section>
 
         {/* SECTION 5: REAL WORK */}
-        <section className="container mx-auto px-6 mb-24 md:mb-32">
-          <div className="max-w-3xl mb-16">
-            <h2 className="text-2xl md:text-4xl font-display font-bold mb-4">
-              A Couple of Things We&apos;ve Actually Built.
+        <section className="container mx-auto px-6 mb-24 max-w-5xl">
+          <div className="max-w-3xl mb-12">
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-3">
+              Real Work We&apos;ve Developed
             </h2>
-            <p className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark">
-              No hypothetical stats, fake numbers, or unverified case studies. Just real software we developed.
+            <p className="text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+              No hypothetical stats or fake templates. Just real client projects built in Bhubaneswar.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {realProjects.map((project) => {
               const isBangalore = project.slug === "bangalore-express";
               const category = isBangalore
@@ -472,11 +318,10 @@ export default function ServicesPage() {
                 >
                   {/* Image container */}
                   <div className="relative aspect-[16/10] overflow-hidden w-full bg-border-light dark:bg-border-dark">
-                    <Image
+                    <img
                       src={project.image}
                       alt={project.name}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background-light/40 dark:from-background-dark/40 to-transparent pointer-events-none" />
                   </div>
@@ -487,10 +332,10 @@ export default function ServicesPage() {
                       <span className="text-[10px] font-mono font-bold tracking-widest text-primary-light dark:text-primary-dark uppercase mb-2 block">
                         {category}
                       </span>
-                      <h3 className="text-xl md:text-2xl font-display font-bold mb-3">
+                      <h3 className="text-xl font-display font-bold mb-3">
                         {project.name}
                       </h3>
-                      <p className="text-sm md:text-base text-text-muted-light dark:text-text-muted-dark leading-relaxed mb-6">
+                      <p className="text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed mb-6">
                         {description}
                       </p>
                     </div>
@@ -525,12 +370,12 @@ export default function ServicesPage() {
         </section>
 
         {/* SECTION 6: FAQ ACCORDION */}
-        <section className="container mx-auto px-6 mb-24 md:mb-32">
-          <div className="max-w-3xl mb-16 text-center mx-auto">
-            <span className="text-primary-light dark:text-primary-dark font-mono text-xs md:text-sm uppercase tracking-widest block mb-4 font-bold">
+        <section className="container mx-auto px-6 mb-24 max-w-4xl">
+          <div className="max-w-3xl mb-12 text-center mx-auto">
+            <span className="text-primary-light dark:text-primary-dark font-mono text-xs uppercase tracking-widest block mb-3 font-bold">
               FAQ
             </span>
-            <h2 className="text-2xl md:text-4xl font-display font-bold mb-4">
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-2">
               Common Questions
             </h2>
           </div>
@@ -543,9 +388,9 @@ export default function ServicesPage() {
               >
                 <button
                   onClick={() => setOpenFaqIdx(openFaqIdx === index ? null : index)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-surface-light/20 dark:hover:bg-surface-dark/20 transition-colors"
+                  className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-surface-light/20 dark:hover:bg-surface-dark/20 transition-colors"
                 >
-                  <span className="text-base md:text-lg font-bold pr-4">{faq.q}</span>
+                  <span className="text-sm md:text-base font-bold pr-4">{faq.q}</span>
                   {openFaqIdx === index ? (
                     <Minus className="w-4 h-4 text-primary-light dark:text-primary-dark shrink-0" />
                   ) : (
@@ -560,7 +405,7 @@ export default function ServicesPage() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25 }}
                     >
-                      <div className="px-6 pb-5 text-sm md:text-base text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+                      <div className="px-6 pb-5 text-xs md:text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed">
                         {faq.a}
                       </div>
                     </motion.div>
@@ -572,27 +417,27 @@ export default function ServicesPage() {
         </section>
 
         {/* SECTION 7: FINAL CTA */}
-        <section className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto rounded-3xl p-8 md:p-16 border border-border-light dark:border-border-dark bg-surface-light/20 dark:bg-surface-dark/20 backdrop-blur-md text-center relative overflow-hidden">
+        <section className="container mx-auto px-6 max-w-5xl">
+          <div className="rounded-3xl p-8 md:p-14 border border-border-light dark:border-border-dark bg-surface-light/20 dark:bg-surface-dark/20 backdrop-blur-md text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary-light/5 via-transparent to-secondary-light/5 dark:from-primary-dark/5 dark:to-secondary-dark/5 pointer-events-none" />
             
-            <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 leading-tight">
-              Not Sure What You Need Yet?
+            <h2 className="text-2xl md:text-4xl font-display font-bold mb-4 leading-tight">
+              Get a Custom Quote
             </h2>
-            <p className="text-base md:text-lg text-text-muted-light dark:text-text-muted-dark mb-10 max-w-xl mx-auto leading-relaxed">
-              That&apos;s okay. Start with the problem, the idea or the thing that is not working. We&apos;ll figure out the digital direction with you.
+            <p className="text-sm md:text-base text-text-muted-light dark:text-text-muted-dark mb-8 max-w-lg mx-auto leading-relaxed">
+              Every custom design and development build starts with a scope assessment. Tell us what you want to achieve, and we&apos;ll design the plan.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/contact"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-sm md:text-base hover:scale-105 transition-transform text-center shadow-lg"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-light dark:bg-gradient-primary text-white font-bold text-sm hover:scale-105 transition-transform text-center shadow-lg"
               >
-                Talk to Pixora
+                Book a Call
               </Link>
               <Link
                 href="/portfolio"
-                className="w-full sm:w-auto px-8 py-4 rounded-full border border-border-light dark:border-border-dark hover:border-primary-light dark:hover:border-primary-dark text-text-primary-light dark:text-text-primary-dark font-bold text-sm md:text-base hover:bg-surface-light/40 dark:hover:bg-surface-dark/40 transition-colors text-center"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full border border-border-light dark:border-border-dark hover:border-primary-light dark:hover:border-primary-dark text-text-primary-light dark:text-text-primary-dark font-bold text-sm hover:bg-surface-light/40 dark:hover:bg-surface-dark/40 transition-colors text-center"
               >
                 View Our Work
               </Link>

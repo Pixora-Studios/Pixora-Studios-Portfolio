@@ -6,6 +6,7 @@ import { TrustBar } from "@/components/home/TrustBar";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { IndustriesGrid } from "@/components/home/IndustriesGrid";
 import { ServicesOverview } from "@/components/home/ServicesOverview";
+import { QRMenuSection } from "@/components/home/QRMenuSection";
 import { ComparisonSection } from "@/components/home/ComparisonSection";
 import { FAQSection } from "@/components/home/FAQSection";
 import { PricingTeaser } from "@/components/home/PricingTeaser";
@@ -28,6 +29,7 @@ export default function HomeClient() {
       <WorkShowcase />
       <IndustriesGrid />
       <ServicesOverview />
+      <QRMenuSection />
       <ProcessTimeline />
       <ComparisonSection />
       <Testimonials />

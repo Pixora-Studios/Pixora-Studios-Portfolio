@@ -9,8 +9,9 @@ import { Instagram, Linkedin, Github, MapPin, Mail } from "lucide-react";
 const exploreLinks = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/services" },
+  { name: "Products", href: "/products" },
+  { name: "Industries", href: "/industries" },
   { name: "Portfolio", href: "/portfolio" },
-  { name: "QR Menu", href: "/services/qr-menu" },
   { name: "Pricing", href: "/pricing" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
