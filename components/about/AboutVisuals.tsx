@@ -245,10 +245,10 @@ export function ProblemTransformationVisual() {
 // --- WHY PIXORA EXISTS PIPELINE VISUAL ---
 export function ExistsPipelineVisual() {
   const steps = [
-    { label: "PROBLEM", icon: AlertCircle, color: "text-red-500 bg-red-500/10" },
-    { label: "UNDERSTAND", icon: Search, color: "text-primary-light dark:text-primary-dark bg-primary-light/10 dark:bg-primary-dark/10" },
-    { label: "BUILD", icon: Terminal, color: "text-secondary-light dark:text-secondary-dark bg-secondary-light/10 dark:bg-secondary-dark/10" },
-    { label: "USEFUL SYSTEM", icon: CheckCircle2, color: "text-green-500 bg-green-500/10" },
+    { label: "PROBLEM", icon: AlertCircle, textColor: "text-red-500", bgTint: "bg-red-500/10" },
+    { label: "UNDERSTAND", icon: Search, textColor: "text-primary-light dark:text-primary-dark", bgTint: "bg-primary-light/10 dark:bg-primary-dark/10" },
+    { label: "BUILD", icon: Terminal, textColor: "text-secondary-light dark:text-secondary-dark", bgTint: "bg-secondary-light/10 dark:bg-secondary-dark/10" },
+    { label: "USEFUL SYSTEM", icon: CheckCircle2, textColor: "text-green-500", bgTint: "bg-green-500/10" },
   ];
 
   return (
@@ -271,9 +271,10 @@ export function ExistsPipelineVisual() {
             <div key={step.label} className="flex flex-col items-center gap-3 relative z-10 w-24">
               <motion.div
                 whileHover={{ scale: 1.08 }}
-                className={`w-12 h-12 rounded-2xl flex items-center justify-center ${step.color} border border-border-light dark:border-border-dark shadow-md`}
+                className="w-12 h-12 rounded-2xl flex items-center justify-center bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-md relative z-10 overflow-hidden"
               >
-                <Icon className="w-5 h-5" />
+                <div className={`absolute inset-0 ${step.bgTint}`} />
+                <Icon className={`w-5 h-5 relative z-10 ${step.textColor}`} />
               </motion.div>
               <span className="text-[10px] font-mono font-bold tracking-wider text-text-primary-light dark:text-text-primary-dark text-center">
                 {step.label}
@@ -290,8 +291,9 @@ export function ExistsPipelineVisual() {
           const Icon = step.icon;
           return (
             <div key={step.label} className="flex items-center gap-4 relative">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${step.color} border border-border-light dark:border-border-dark shadow-sm relative z-10`}>
-                <Icon className="w-4.5 h-4.5" />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm relative z-10 overflow-hidden">
+                <div className={`absolute inset-0 ${step.bgTint}`} />
+                <Icon className={`w-4.5 h-4.5 relative z-10 ${step.textColor}`} />
               </div>
               <span className="text-[10px] font-mono font-bold tracking-wider text-text-primary-light dark:text-text-primary-dark">
                 {step.label}
