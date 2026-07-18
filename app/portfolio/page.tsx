@@ -4,8 +4,8 @@ import { projects } from "@/lib/data/projects";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 export const metadata = constructMetadata({
-  title: "Our Work | Web Design Portfolio | Pixora Studios",
-  description: "Explore our portfolio of custom websites for clinics, restaurants, and cafes in Bhubaneswar. Real results for real local businesses.",
+  title: "Portfolio & Case Studies | Pixora Studios",
+  description: "Explore selected digital experiences built by Pixora Studios for businesses with very different problems, goals and audiences.",
   canonical: "/portfolio",
 });
 
