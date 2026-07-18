@@ -75,7 +75,7 @@ export function HeroVisual() {
 
         {/* Gradients definitions */}
         <defs>
-          <linearGradient id="primary-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id="primary-gradient" x1="60" y1="130" x2="200" y2="130" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.4" />
             <stop offset="100%" stopColor="var(--secondary)" />
           </linearGradient>
@@ -258,11 +258,11 @@ export function ExistsPipelineVisual() {
       {/* Horizontal Pipeline (desktop/tablet style) */}
       <div className="hidden sm:flex items-center justify-between relative py-6">
         {/* Progress pipeline connector line */}
-        <div className="absolute top-1/2 left-[10%] right-[10%] h-[2px] bg-border-light dark:bg-border-dark/30 -translate-y-1/2 -z-10" />
+        <div className="absolute top-12 left-[10%] right-[10%] h-[2px] bg-border-light dark:bg-border-dark/30 -translate-y-1/2 -z-10" />
         <motion.div
           animate={{ left: ["10%", "90%"] }}
           transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-          className="absolute top-1/2 w-2 h-2 rounded-full bg-primary-light dark:bg-primary-dark shadow-[0_0_10px_var(--primary)] -translate-y-1/2 -z-10"
+          className="absolute top-12 w-2 h-2 rounded-full bg-primary-light dark:bg-primary-dark shadow-[0_0_10px_var(--primary)] -translate-y-1/2 -z-10"
         />
 
         {steps.map((step, index) => {

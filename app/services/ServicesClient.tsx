@@ -171,7 +171,7 @@ export default function ServicesPage() {
                 className="w-full max-w-[420px] h-auto overflow-visible relative z-10"
               >
                 <defs>
-                  <linearGradient id="svgLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient id="svgLineGrad" x1="60" y1="150" x2="340" y2="150" gradientUnits="userSpaceOnUse">
                     <stop offset="0%" stopColor="var(--primary, #5B52E8)" />
                     <stop offset="100%" stopColor="var(--secondary, #8B5CF6)" />
                   </linearGradient>
