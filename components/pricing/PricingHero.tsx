@@ -7,7 +7,7 @@ import { MagneticButton } from "@/components/shared/MagneticButton";
 
 export function PricingHero() {
   return (
-    <section className="relative pt-32 pb-16 md:pt-48 md:pb-24 overflow-hidden bg-background-light dark:bg-background-dark">
+    <section className="relative pt-28 pb-16 md:pt-36 md:pb-20 overflow-hidden bg-background-light dark:bg-background-dark">
       {/* Background glow effects */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-[20%] left-[50%] -translate-x-1/2 w-[600px] h-[350px] bg-primary-light/5 dark:bg-primary-dark/5 rounded-full blur-[100px]" />
@@ -15,14 +15,14 @@ export function PricingHero() {
       </div>
 
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-8 items-center">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-8 items-center">
           {/* Text Content */}
           <div className="flex flex-col items-start text-left max-w-3xl">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="flex items-center space-x-2.5 mb-6"
+              className="flex items-center space-x-2.5 mb-5"
             >
               <div className="flex space-x-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary-light dark:bg-primary-dark" />
@@ -37,7 +37,7 @@ export function PricingHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-              className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-6 leading-[1.1] tracking-tight text-text-primary-light dark:text-text-primary-dark"
+              className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-5 leading-[1.15] tracking-tight text-text-primary-light dark:text-text-primary-dark"
             >
               The Right Digital Solution <br />
               <span className="text-transparent bg-clip-text bg-gradient-light dark:bg-gradient-primary">
@@ -49,7 +49,7 @@ export function PricingHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="text-lg md:text-xl text-text-muted-light dark:text-text-muted-dark max-w-2xl leading-relaxed mb-4"
+              className="text-base text-text-muted-light dark:text-text-muted-dark max-w-xl leading-relaxed mb-4"
             >
               Some businesses need a website. Some need a dashboard. Some need an entire digital workflow. We scope and build around what your business actually needs.
             </motion.p>
@@ -58,7 +58,7 @@ export function PricingHero() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-              className="text-sm font-mono text-primary-light dark:text-primary-dark tracking-wide mb-8 border-l border-primary-light/30 dark:border-primary-dark/30 pl-4 py-1"
+              className="text-sm font-mono text-primary-light dark:text-primary-dark tracking-wide mb-6 border-l border-primary-light/30 dark:border-primary-dark/30 pl-4 py-1"
             >
               Custom projects. Clear scope. No one-size-fits-all packages.
             </motion.p>
