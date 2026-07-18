@@ -3,9 +3,9 @@ import { constructMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 export const metadata = constructMetadata({
-  title: "Contact Pixora Studios | Build Your Digital Solution",
+  title: "Contact Pixora Studios | Start a Digital Project",
   description:
-    "Have an idea, business problem or digital project? Talk to Pixora Studios about custom websites, software, restaurant systems and digital solutions. Based in Bhubaneswar.",
+    "Have an idea, business problem or digital project? Talk to Pixora Studios about building the right digital solution for your business.",
   canonical: "/contact",
 });
 
