@@ -85,7 +85,7 @@ export default async function ProjectPage({ params }: Props) {
     }
   };
 
-  const isStrategyStyle = project.slug === 'bangalore-express' || project.slug === 'sovereign';
+
 
   return (
     <PageTransition>
@@ -173,33 +173,17 @@ export default async function ProjectPage({ params }: Props) {
             </div>
             <div className="glass p-8 rounded-3xl h-fit">
               <h2 className="text-2xl font-display font-bold mb-6">
-                {isStrategyStyle ? "Project Strategy" : "Project Results"}
+                Project Strategy
               </h2>
-              <ul className="space-y-6">
-                {project.results.map((result, i) => {
-                  if (isStrategyStyle) {
-                    return (
-                      <li key={i} className="flex flex-col">
-                        <span className="text-xl font-display font-bold text-primary-light dark:text-primary-dark mb-2">
-                          {result}
-                        </span>
-                      </li>
-                    );
-                  }
-
-                  const firstWord = result.split(" ")[0];
-                  const remainingText = result.split(" ").slice(1).join(" ");
-                  return (
-                    <li key={i} className="flex flex-col">
-                      <span className="text-3xl font-display font-bold text-primary-light dark:text-primary-dark mb-2">
-                        {firstWord}
-                      </span>
-                      <span className="text-text-muted-light dark:text-text-muted-dark">
-                        {remainingText}
-                      </span>
-                    </li>
-                  );
-                })}
+              <ul className="space-y-4">
+                {project.features.map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="w-2 h-2 rounded-full bg-primary-light dark:bg-primary-dark mt-1.5 shrink-0" />
+                    <span className="text-base font-semibold text-text-primary-light dark:text-text-primary-dark">
+                      {feature}
+                    </span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
