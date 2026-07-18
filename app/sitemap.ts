@@ -11,12 +11,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const industriesSlugs = [
     "restaurants",
-    "clinics",
+    "dental-clinics",
     "gyms",
     "salons",
     "hotels-pgs",
     "schools-coaching",
-    "real-estate"
+    "real-estate",
+    "cafes",
+    "logistics-marketplaces",
+    "local-e-commerce",
+    "event-organizers",
+    "clubs-lounges",
+    "travel-agencies",
+    "pharmacies",
+    "interior-designers",
+    "personal-brands",
+    "general-clinics"
   ];
 
   const industryUrls = industriesSlugs.map((slug) => ({

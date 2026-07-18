@@ -30,6 +30,15 @@ const industriesMap: Record<string, IndustryData> = {
     title: "Clinic Website Design",
     slug: "clinics",
     h1: "Clinic & Healthcare Website Design in Bhubaneswar",
+    icon: "🏥",
+    description: "Build clinical trust online. Let patients read verification reviews, check doctors' credentials, and schedule real-time slots seamlessly.",
+    vertical: "Clinics, Salons & Services",
+    relevantServices: ["Doctor Calendars", " Patient Review Funnels", "Core Speed Tuning", "Google Maps Integration"]
+  },
+  "dental-clinics": {
+    title: "Dental Clinic Website Design",
+    slug: "dental-clinics",
+    h1: "Dental Clinic Website Design & Local SEO in Bhubaneswar",
     icon: "🦷",
     description: "Build clinical trust online. Let patients read verification reviews, check doctors' credentials, and schedule real-time slots seamlessly.",
     vertical: "Clinics, Salons & Services",
@@ -82,17 +91,49 @@ const industriesMap: Record<string, IndustryData> = {
   }
 };
 
-// Generate static params for the 7 key industries
+const all17Slugs = [
+  "restaurants",
+  "dental-clinics",
+  "gyms",
+  "salons",
+  "hotels-pgs",
+  "schools-coaching",
+  "real-estate",
+  "cafes",
+  "logistics-marketplaces",
+  "local-e-commerce",
+  "event-organizers",
+  "clubs-lounges",
+  "travel-agencies",
+  "pharmacies",
+  "interior-designers",
+  "personal-brands",
+  "general-clinics"
+];
+
+// Generate static params for all 17 industries to ensure complete dynamic static pre-rendering
 export function generateStaticParams() {
-  return Object.keys(industriesMap).map((key) => ({
-    slug: key
+  return all17Slugs.map((slug) => ({
+    slug
   }));
 }
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
   const params = await props.params;
   const data = industriesMap[params.slug];
-  if (!data) return {};
+
+  if (!data) {
+    const titleFriendly = params.slug
+      .split("-")
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
+
+    return constructMetadata({
+      title: `${titleFriendly} Website Design in Bhubaneswar | Pixora Studios`,
+      description: `Professional, SEO-optimized ${titleFriendly} design and digital setup in Bhubaneswar, Odisha. Custom local layouts under ₹5,999.`,
+      canonical: `/industries/${params.slug}`,
+    });
+  }
 
   return constructMetadata({
     title: `${data.title} in Bhubaneswar | Pixora Studios`,
@@ -106,7 +147,7 @@ export default async function IndustryPage(props: { params: Promise<{ slug: stri
   const data = industriesMap[params.slug];
 
   if (!data) {
-    // If industry slug isn't part of the 7 custom ones, render dynamic template fallback
+    // If industry slug isn't part of the custom ones, render dynamic template fallback
     const titleFriendly = params.slug
       .split("-")
       .map(w => w.charAt(0).toUpperCase() + w.slice(1))
@@ -142,7 +183,7 @@ function renderPageContent(data: IndustryData) {
       "@type": "PostalAddress",
       "streetAddress": "Patia",
       "addressLocality": "Bhubaneswar",
-      "addressRegion": "Organized",
+      "addressRegion": "Odisha",
       "postalCode": "751024",
       "addressCountry": "IN"
     },
