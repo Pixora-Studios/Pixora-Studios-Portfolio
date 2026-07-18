@@ -9,6 +9,7 @@ import { CustomCursor } from "@/components/shared/CustomCursor";
 import { LenisProvider } from "@/components/shared/LenisProvider";
 import { MotionConfig } from "framer-motion";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ScrollRestoration } from "@/components/shared/ScrollRestoration";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -155,6 +156,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         >
           <MotionConfig reducedMotion="user">
             <LenisProvider>
+              <ScrollRestoration />
               <CustomCursor />
               <Navbar />
               <main>{children}</main>
