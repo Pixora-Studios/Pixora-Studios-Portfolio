@@ -47,14 +47,14 @@ export function SEOSection() {
   }, []);
 
   return (
-    <section className="py-10 md:py-14 bg-surface-light dark:bg-surface-dark overflow-hidden flex items-center">
+    <section className="py-10 md:py-12 bg-surface-light dark:bg-surface-dark overflow-hidden flex items-center">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-6 md:mb-10">
+        <div className="text-center mb-6 md:mb-8">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-2 md:mb-4"
+            className="text-primary-light dark:text-primary-dark font-mono text-sm uppercase tracking-widest block mb-2 md:mb-3"
           >
             SEO & Performance
           </motion.span>
@@ -62,32 +62,32 @@ export function SEOSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl lg:text-5xl font-display font-bold"
+            className="text-3xl md:text-4xl font-display font-bold tracking-tight"
           >
             We Build Websites Google Loves
           </motion.h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-center max-w-4xl mx-auto">
           <div className="relative flex justify-center">
-            <div className="w-full max-w-[280px] md:max-w-[340px] aspect-square rounded-full border-8 border-primary-light/10 dark:border-primary-dark/10 flex items-center justify-center relative">
+            <div className="w-full max-w-[220px] md:max-w-[260px] aspect-square rounded-full border-[6px] border-primary-light/10 dark:border-primary-dark/10 flex items-center justify-center relative">
               <motion.div
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
-                className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-emerald-500"
+                className="text-5xl md:text-6xl font-display font-bold text-emerald-500"
               >
                 {score}
               </motion.div>
-              <div className="absolute bottom-1/4 text-sm md:text-xl font-bold uppercase tracking-widest text-text-muted-light dark:text-text-muted-dark">
+              <div className="absolute bottom-[20%] text-xs md:text-sm font-bold uppercase tracking-widest text-text-muted-light dark:text-text-muted-dark">
                 Performance
               </div>
               {/* Circular progress SVG could go here */}
             </div>
-            <div className="absolute -inset-4 bg-emerald-500/10 rounded-full blur-3xl -z-10" />
+            <div className="absolute -inset-4 bg-emerald-500/10 rounded-full blur-2xl -z-10" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {pillars.map((pillar, index) => {
               const Icon = pillar.icon;
               return (
@@ -98,11 +98,11 @@ export function SEOSection() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary-light/10 dark:bg-primary-dark/10 flex items-center justify-center text-primary-light dark:text-primary-dark mb-4">
-                    <Icon className="w-6 h-6" />
+                  <div className="w-10 h-10 rounded-xl bg-primary-light/10 dark:bg-primary-dark/10 flex items-center justify-center text-primary-light dark:text-primary-dark mb-3">
+                    <Icon className="w-5 h-5" />
                   </div>
-                  <h4 className="text-xl font-display font-bold mb-2">{pillar.title}</h4>
-                  <p className="text-text-muted-light dark:text-text-muted-dark text-sm">
+                  <h4 className="text-lg font-display font-bold mb-1">{pillar.title}</h4>
+                  <p className="text-text-muted-light dark:text-text-muted-dark text-xs">
                     {pillar.description}
                   </p>
                 </motion.div>
