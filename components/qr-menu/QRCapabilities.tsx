@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import {
   QrCode,
@@ -120,6 +121,53 @@ export function QRCapabilities() {
   return (
     <section ref={ref} className="py-16 lg:py-20">
       <div className="container mx-auto px-6">
+        {/* 3-Icon Capability Feature Block */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16 lg:mb-20">
+          {[
+            {
+              id: "no-app",
+              icon: "/images/products/qr-menu/no-app-download.png",
+              title: "No app download",
+              desc: "Guests scan and order straight from their browser"
+            },
+            {
+              id: "instant-updates",
+              icon: "/images/products/qr-menu/instant-menu-updates.png",
+              title: "Instant menu updates",
+              desc: "Change a price or item and it's live immediately"
+            },
+            {
+              id: "pos",
+              icon: "/images/products/qr-menu/pos-integration.png",
+              title: "Works with your setup",
+              desc: "Connects to Petpooja and other POS systems you already use"
+            }
+          ].map((feature, i) => (
+            <motion.div
+              key={feature.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: i * 0.15, duration: 0.5 }}
+              className="flex flex-row md:flex-col items-start md:items-center text-left md:text-center gap-4 md:gap-0 p-5 md:p-6 rounded-2xl border border-border-light dark:border-border-dark bg-surface-light/60 dark:bg-surface-dark/60"
+            >
+              <Image
+                src={feature.icon}
+                alt={feature.title}
+                width={64}
+                height={64}
+                loading="lazy"
+                className="shrink-0 md:mb-4"
+              />
+              <div>
+                <h3 className="font-display font-bold text-sm md:text-base mb-1 md:mb-1.5">{feature.title}</h3>
+                <p className="text-xs md:text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed">
+                  {feature.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
